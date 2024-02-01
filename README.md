@@ -1,4 +1,2 @@
 # ChromebookScheduler
-hello
-
-àsteven
+hello 
