@@ -4,6 +4,7 @@
 td {
 	font-size: large;
 }
+
 body {
 	font-family: Poppins;
 	background-image: url("https://static.vecteezy.com/system/resources/previews/010/820/720/original/white-background-random-minimalist-abstract-illustration-for-logo-card-banner-web-and-printing-vector.jpg");
@@ -48,19 +49,6 @@ h1 {
 	font-weight: 600;
 }
 
-button {
-	font-family: poppins;
-	margin-left: 50px;
-	border: none;
-	border-radius: 9999px;
-	padding: 10px 32px;
-	font-size: 20px;
-	cursor: pointer;
-	margin-top: -20px;
-	background-color: white;
-	color: black;
-}
-
 table {
 	border-collapse: collapse;
 	width: 15%;
@@ -73,19 +61,27 @@ th, td {
 	padding: 8px;
 }
 
-th {
-	background-color: #f2f2f2;
+td {
+	color:black;
+	font-size: medium;
 }
-
 div {
 	margin-bottom: 100px;
 }
 
-a {
+a, th {
 	text-decoration: none;
-	color: #3498db; /* Change to your desired color */
+	color: #3498db; 
 }
 
 .main {
-    background-color: rgb(185, 230, 236); /* Set the background color to your desired highlight color */
+    background-color: rgb(185, 230, 236); 
 }
+
+.table_container {
+    display: flex; 
+	table-layout: fixed;
+	width: 100%;
+
+}
+
