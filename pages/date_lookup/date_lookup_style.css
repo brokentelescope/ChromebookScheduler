@@ -85,3 +85,7 @@ a {
 	text-decoration: none;
 	color: #3498db; /* Change to your desired color */
 }
+
+.main {
+    background-color: rgb(185, 230, 236); /* Set the background color to your desired highlight color */
+}
