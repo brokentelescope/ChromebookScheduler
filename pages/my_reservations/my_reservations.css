@@ -45,20 +45,7 @@ h1 {
 	margin: 50px;
 	font-size: 50px;
 	font-weight: 600;
-}
-
-button {
-	font-family: poppins;
-	margin-left: 50px;
-	border: none;
-	border-radius: 9999px;
-	padding: 10px 32px;
-	font-size: 20px;
-	cursor: pointer;
-	margin-top: -20px;
-	background-color: white;
-	color: black;
-}
+} 
 
 table {
 	border-collapse: collapse;
