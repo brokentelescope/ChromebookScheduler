@@ -45,38 +45,29 @@ h1 {
 	margin: 50px;
 	font-size: 50px;
 	font-weight: 600;
-}
-
-button {
-	font-family: poppins;
-	margin-left: 50px;
-	border: none;
-	border-radius: 9999px;
-	padding: 10px 32px;
-	font-size: 20px;
-	cursor: pointer;
-	margin-top: -20px;
-	background-color: white;
-	color: black;
-}
+} 
 
 table {
 	border-collapse: collapse;
 	width: 15%;
 	margin-left: 50px;
+	height: 10%
 }
 
 table.new-table {
     width: 60%; /* Adjust the width as needed */
-	height: 0%;
+	height: 10%;
     margin-left: 20px; /* Set the desired margin-left for the new table */
 }
 
-
+table.new-table tr {
+	height: 40px; /* Adjust the height as needed */
+}
 th, td {
 	border: 1px solid #dddddd;
 	text-align: left;
 	padding: 8px;
+	color: black
 }
 
 th {
@@ -93,3 +84,29 @@ a {
 }
 
 
+/* Rex's*/ 
+
+.sidebar {
+	width: 200px;
+	background-color: lightgrey;
+	padding: 10px;
+} 
+.pagination {
+    margin-top: 20px;
+    margin-left: 16%;
+    margin-right: auto;
+    display: table;
+}
+ 
+
+.pagination a {
+	border: 1px solid black;
+	padding: 5px;
+	text-decoration: none;
+	color: black;
+}
+
+.pagination a.next, .pagination a.last {
+
+	color: blue;
+}

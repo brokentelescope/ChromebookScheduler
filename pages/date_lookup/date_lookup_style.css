@@ -21,24 +21,14 @@ nav {
 	padding: 50	px;
 	justify-content: center;
 	z-index: 1;
-	backdrop-filter: blur(
-		8px
-	); /* Disable this to have a Macos-like top bar
-	border-radius: 0px 0px 10px 10px;
-	border-top: none;
-	margin-left: 50px;
-	margin-right: 50px; */
+	backdrop-filter: blur(8px); 
 	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 	box-shadow: 1px 10px 10px rgba(0, 20, 50, 0.1);
 }
-
-nav a {
-	transition: color 0.1s ease;
-	text-decoration: none;
-	color: white;
-	margin: 10px;
-}
-
+/* 
+p {
+	color:#3498db;
+} */
 nav a:hover {
 	color: #aaa;
 }
@@ -66,7 +56,7 @@ td {
 	font-size: medium;
 }
 div {
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 }
 
 a, th {
@@ -82,6 +72,8 @@ a, th {
     display: flex; 
 	table-layout: fixed;
 	width: 100%;
-
 }
 
+.empty_row {
+	height: 30px;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
     <link rel = "stylesheet" href="date_lookup_style.css" type="text/css"/>
+    <script src="date_lookup_script.js"></script>
 </head>
 <body>
     <nav>
@@ -13,8 +14,8 @@
 
     <div></div>
     
-    <div class = "table_container">
-        <!-- THIS IS THE MAIN MENU TABLE -->s
+    <div class = "table_container" style="margin-bottom: 20px;">
+        <!-- THIS IS THE MAIN MENU TABLE -->
         <table>
             <tr>
                 <td class='main'><a href="date_lookup_index.html" target="_blank">Date Lookup</a></td>
@@ -28,33 +29,19 @@
         </table>
 
         <!-- THIS IS THE LOOKUP TABLE -->
-        <table>
+        <table style="width:auto">
             <tr>
                 <th colspan="4">Lookup</th>
             </tr>
 
             <tr>
                 <td>
-                    Month: <select id='month_select'>
-                        <option value="jan">January</option>
-                        <option value="feb">February</option>
-                        <option value="mar">March</option>
-                        <option value="apr">April</option>
-                        <option value="may">May</option>
-                        <option value="jun">June</option>
-                        <option value="jul">July</option>
-                        <option value="aug">August</option>
-                        <option value="sep">September</option>
-                        <option value="oct">October</option>
-                        <option value="nov">November</option>
-                        <option value="dec">December</option>
-                    </select>
+                    Date: 
+                    <input type = "date" id = "dateInput" value = "2018-01-01"/>
                 </td>
                 <td>
-                    Day: <input id='day_select' style = "width: 50px">
-                </td>
-                <td>
-                    Period: <select id='period_select'>
+                    Period: 
+                    <select>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -62,15 +49,42 @@
                     </select>
                 </td>
                 <td>
-                    <button>Search</button>
+                    <button onclick="search()">Submit</button>
                 </td>
-            </tr>
-
+            </tr>    
         </table>
     </div>
 
-    <!-- THIS ISNT ALIGNED FIX IT LATER -->
     <div class = "table_container">
+        <table>
+            <tr class = "empty_row"></tr>
+        </table>
+
+        <table style="width: auto;">
+            <tr>
+                <th>ID</th>
+                <th>Location</th>
+                <th># of Bins Available</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Data 1</td>
+                <td>Data 2</td>
+                <td>Data 3</td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Data 5</td>
+                <td>Data 6</td>
+                <td>Data 7</td>
+                <td>Data 8</td>
+            </tr>
+        </table>
+    </div>
+    <!-- THIS ISNT ALIGNED FIX IT LATER -->
+    <div class = "table_container" style = "margin-top: 200px;">
         <table>
             <tr>
                 <td><a href="bug_report.html" target="_blank">Bug Report</a></td>
