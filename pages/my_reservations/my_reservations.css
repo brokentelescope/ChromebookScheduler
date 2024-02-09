@@ -64,15 +64,18 @@ table {
 	border-collapse: collapse;
 	width: 15%;
 	margin-left: 50px;
+	height: 10%
 }
 
 table.new-table {
     width: 60%; /* Adjust the width as needed */
-	height: 0%;
+	height: 10%;
     margin-left: 20px; /* Set the desired margin-left for the new table */
 }
 
-
+table.new-table tr {
+	height: 40px; /* Adjust the height as needed */
+}
 th, td {
 	border: 1px solid #dddddd;
 	text-align: left;
@@ -103,7 +106,7 @@ a {
 } 
 .pagination {
     margin-top: 20px;
-    margin-left: auto;
+    margin-left: 16%;
     margin-right: auto;
     display: table;
 }
