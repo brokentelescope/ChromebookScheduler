@@ -9,23 +9,23 @@
 </head>
 <body>
     <nav>
-        <p>Welcome to the Chromebook Reservation System</p>
+        <a href="../home/home_index.html">Welcome to the Chromebook Reservation System</a>
     </nav>
 
     <div></div>
     
-    <div class = "table_container" style="margin-bottom: 20px;">
-        <!-- THIS IS THE MAIN MENU TABLE -->
+    <div style="display: flex;">
+        <!-- LINK TO OTHER PAGES -->
         <table>
-            <tr><td><a style="background-color: lightblue;" href="../date_lookup\date_lookup_index.html">Date Lookup</a></td></tr>
+            <tr><td style="background-color: lightblue;"><a href="../date_lookup\date_lookup_index.html">Date Lookup</a></td></tr>
             <tr><td><a href="../my_reservations/my_reservations_index.html">My Reservations</a></td></tr>
             <tr><td><a href="../reservation_history/reservation_history_index.html">Reservation History</a></td></tr>
         </table>
 
         <!-- THIS IS THE LOOKUP TABLE -->
-        <table style="width:auto">
+        <table class="new-table">
             <tr>
-                <th colspan="4">Lookup</th>
+                <td style = "color: #3498db;" colspan="4">Lookup</td>
             </tr>
 
             <tr>
@@ -46,20 +46,14 @@
                     <button onclick="search()">Submit</button>
                 </td>
             </tr>    
-        </table>
-    </div>
 
-    <div class = "table_container">
-        <table>
-            <tr class = "empty_row"></tr>
-        </table>
+            <tr></tr>
 
-        <table style="width: auto;">
             <tr>
-                <th>ID</th>
-                <th>Location</th>
-                <th># of Bins Available</th>
-                <th>Action</th>
+                <td style="color: #3498db;">ID</td>
+                <td style="color: #3498db;">Location</td>
+                <td style="color: #3498db;"># of Bins Available</td>
+                <td style="color: #3498db;">Action</td>
             </tr>
             <tr>
                 <td>Data 1</td>
@@ -77,6 +71,7 @@
             </tr>
         </table>
     </div>
+
     <!-- THIS ISNT ALIGNED FIX IT LATER -->
     <div class = "table_container" style = "margin-top: 200px;">
         <table>

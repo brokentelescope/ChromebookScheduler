@@ -3,6 +3,7 @@
 td {
 	font-size: large;
 }
+
 body {
 	font-family: Poppins;
 	background-image: url("https://static.vecteezy.com/system/resources/previews/010/820/720/original/white-background-random-minimalist-abstract-illustration-for-logo-card-banner-web-and-printing-vector.jpg");
@@ -19,13 +20,7 @@ nav {
 	padding: 50	px;
 	justify-content: center;
 	z-index: 1;
-	backdrop-filter: blur(
-		8px
-	); /* Disable this to have a Macos-like top bar
-	border-radius: 0px 0px 10px 10px;
-	border-top: none;
-	margin-left: 50px;
-	margin-right: 50px; */
+	backdrop-filter: blur(8px);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 	box-shadow: 1px 10px 10px rgba(0, 20, 50, 0.1);
 }
@@ -72,6 +67,7 @@ th, td {
 
 th {
 	background-color: #f2f2f2;
+    color: #3498db;
 }
 
 div {
@@ -84,7 +80,6 @@ a {
 }
 
 
-/* Rex's*/ 
 
 .sidebar {
 	width: 200px;
