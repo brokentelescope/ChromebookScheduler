@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
-    <link rel="stylesheet" href="../all_pages_style.css" type="text/css"/>
+    <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
 </head>
 <body>
     <nav>
-        <a href="../home/home_index.html">Welcome to the Chromebook Reservation System</a>
+        <a href="home_index.html">Welcome to the Chromebook Reservation System</a>
     </nav>
 
     <div></div>
-
+    
     <div style="display: flex;">
+        <!-- LINK TO OTHER PAGES -->
         <table>
-            <tr><td class="highlight"><a href="../date_lookup\date_lookup_index.html">Date Lookup</a></td></tr>
-            <tr><td class="highlight"><a href="../my_reservations/my_reservations_index.html">My Reservations</a></td></tr>
-            <tr><td style="background-color: lightblue;"><a href="../reservation_history/">Reservation History</a></td></tr>
+            <tr><td class="highlight"><a href="date_lookup_index.html">Date Lookup</a></td></tr>
+            <tr><td style="background-color: lightblue;"><a href="my_reservations_index.html">My Reservations</a></td></tr>
+            <tr><td class="highlight"><a href="reservation_history_index.html">Reservation History</a></td></tr>
         </table>
-
+        
         <table class="new-table">
             <!-- New table content -->
             <tr>
-                <td colspan="6" style="color: #3498db;">Reservation History</td>
+                <td colspan="7" style="color: #3498db;">Reservations</td>
             </tr>
             <tr> 
                 <td>ID</td>
@@ -32,6 +33,7 @@
                 <td>Number of Bins</td>
                 <td>Initial Time</td>
                 <td>Final Time</td>
+                <td>Action</th>
             </tr>
             <!-- Not sure how to implement spesific data from database to here -->
             <tr>
@@ -41,6 +43,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -49,6 +54,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -57,6 +65,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -65,6 +76,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -73,6 +87,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -81,6 +98,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td>
+                    <button onclick="reserve()">Reserve</button>
+                </td>
             </tr>
         </table> 
     </div>
