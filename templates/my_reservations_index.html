@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav>
-        <a href="home_index.html">Welcome to the Chromebook Reservation System</a>
+        <a href="{{ url_for('home_index') }}">Welcome to the Chromebook Reservation System</a>
     </nav>
 
     <div></div>
@@ -16,9 +16,9 @@
     <div style="display: flex;">
         <!-- LINK TO OTHER PAGES -->
         <table>
-            <tr><td class="highlight"><a href="date_lookup_index.html">Date Lookup</a></td></tr>
-            <tr><td style="background-color: lightblue;"><a href="my_reservations_index.html">My Reservations</a></td></tr>
-            <tr><td class="highlight"><a href="reservation_history_index.html">Reservation History</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
+            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
         </table>
         
         <table class="new-table">
