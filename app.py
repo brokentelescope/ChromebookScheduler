@@ -1,20 +1,9 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import sqlite3
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
 
-# class Todo(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     content = db.column(db.String(200))
-#     completed = db.column(db.Integer)
-#     date_created = db.Column(db.DateTime, default=datetime.estnow)
-
-#     def __repr__(self):
-#         return '<Task %r>' % self.id
-    
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
     if request.method == 'POST':
@@ -25,18 +14,23 @@ def login_index():
         name = request.form['name']
         password = request.form['password']
 
-        print(name, password)
+        query = "SELECT name,password FROM users where name= '"+name+"' and password='"+password+"'"
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        if len(results) == 0:
+            print("Invalid Crediantials")
+        else:
+            print("br")
+            return render_template('home_index.html')
+        # print(name, password)
+
     return render_template('login_index.html')
     
 
-
-
-    # return render_template('home_index.html')
-
-
-# @app.route('/')
-# def home_index():
-#     return render_template('home_index.html')
+@app.route('/')
+def home_index():
+    return render_template('home_index.html')
 
 @app.route('/date_lookup')
 def date_lookup():
