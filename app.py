@@ -22,6 +22,10 @@ def login_index():
         connection = sqlite3.connect('user_data.db')
         cursor = connection.cursor()
         # html form 
+        name = request.form['name']
+        password = request.form['password']
+
+        print(name, password)
     return render_template('login_index.html')
     
 
