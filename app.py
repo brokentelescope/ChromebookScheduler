@@ -19,16 +19,16 @@ def login_index():
         results = cursor.fetchall()
 
         if len(results) == 0:
-            print("Invalid Crediantials")
+            print("Invalid Credentials")
         else:
-            print("br")
+            print("Valid Credentials")
             return render_template('home_index.html')
         # print(name, password)
 
     return render_template('login_index.html')
     
 
-@app.route('/')
+@app.route('/home_index')
 def home_index():
     return render_template('home_index.html')
 
