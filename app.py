@@ -19,7 +19,7 @@ def create_chromebook_file():
     id = data['id']
     print(location, admin, amt, id)
 
-    create_chromebook.create(id, 2024)
+    create_chromebook.create(id, 2024, location, amt)
     return jsonify({'status': 'Success'})
 
 @app.route('/', methods=['GET', 'POST'])
