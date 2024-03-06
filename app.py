@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import sqlite3, os, sys
 
@@ -6,16 +6,22 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'chromebook_util')
 sys.path.append(python_files_dir)
 
-# from create_chromebook import *
-
+import create_chromebook
 
 app = Flask(__name__)
 
 @app.route('/create-chromebook-file', methods=['POST'])
 def create_chromebook_file():
-    print("PRINTED FROM JAVASCRIPT")
-    return "bruh"
-    
+    data = request.json 
+    location = data['location']
+    admin = data['admin']
+    amt = data['amt']
+    id = data['id']
+    print(location, admin, amt, id)
+
+    create_chromebook.create(id, 2024)
+    return jsonify({'message': 'Data'})
+
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
     if request.method == 'POST':
