@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import sqlite3, os, sys
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'chromebook_util')
 sys.path.append(python_files_dir)
-
 import create_chromebook
+import check_chromebook
+import edit_chromebook
 
 app = Flask(__name__)
 
@@ -17,8 +17,9 @@ def create_chromebook_file():
     admin = data['admin']
     amt = data['amt']
     id = data['id']
-    print(location, admin, amt, id)
 
+    if admin != '1234':
+        return jsonify({'status': 'Invalid Admin Password'})
     create_chromebook.create(id, 2024, location, amt)
     return jsonify({'status': 'Success'})
 

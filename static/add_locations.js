@@ -25,7 +25,7 @@ async function submit() {
         }
 
         const data = await response.text();
-        alert('Success');
+        alert(data);
     } 
     catch (error) {
         console.error('Error:', error.message);
