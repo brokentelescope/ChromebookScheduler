@@ -6,6 +6,7 @@ User
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
+    <script src="../static/add_locations.js"></script>
 </head>
 <body>
     <nav>
@@ -58,18 +59,5 @@ User
             </tr>
         </table>        
     </div>
-
-        
-    <script>
-        function submit(event){ 
-            event.preventDefault();
-            var location = document.getElementById("location").value;  
-            var admin = document.getElementById("admin").value;
-            var amt = document.getElementById("amt").value;
-            var id = document.getElementById("binId").value;
-
-            console.log(location, admin, amt, id);
-        }
-    </script>
 </body>
 </html>
