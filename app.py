@@ -20,7 +20,7 @@ def create_chromebook_file():
     print(location, admin, amt, id)
 
     create_chromebook.create(id, 2024)
-    return jsonify({'message': 'Data'})
+    return jsonify({'status': 'Success'})
 
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
