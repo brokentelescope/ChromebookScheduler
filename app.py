@@ -44,6 +44,10 @@ def my_reservations():
 def reservation_history():
     return render_template('reservation_history_index.html')
 
+@app.route('/add_locations')
+def add_locations():
+    return render_template('add_locations.html')
+
 # @app.route('/bug_report')
 # def bug_report():
 #     return render_template('bug_report.html')

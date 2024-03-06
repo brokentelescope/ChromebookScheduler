@@ -1,0 +1,69 @@
+User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromebook Scheduler</title>
+    <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home_index') }}">Welcome to the Chromebook Reservation System</a>
+    </nav>
+
+    <div></div>
+    
+    <div style="display: flex;">
+        <!-- LINK TO OTHER PAGES -->
+        <table>
+            <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
+            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('add_locations') }}">My Reservations</a></td></tr>
+        </table>
+        
+                <!-- Defines a table for displaying search results -->
+        <table>
+            <tr>
+                <!-- Column headers for Array and Search Element -->
+                <th>Location Name:</th>
+                <th>Administrator:</th>
+                <th>Total amount:</th>
+            </tr> 
+   
+            <tr> 
+                <td><input type="text" id="location" name="null" placeholder ="Enter location name"></td> 
+                <td><input type="text" id="admin" name="null" placeholder ="Enter administrator"></td> 
+                <td><input type="text" id="amt" name="null" placeholder ="Enter total amount"></td> 
+            </tr>
+
+            <tr>
+                <td style = "color: #3498db;" colspan="3">
+                    <button onclick="submit(event)">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>  
+
+    <!-- THIS ISNT ALIGNED FIX IT LATER -->
+    <div class = "table_container" style = "margin-top: 200px;">
+        <table>
+            <tr>
+                <td><a href="bug_report.html" target="_blank">Bug Report</a></td>
+            </tr>
+        </table>        
+    </div>
+
+        
+    <script>
+        function submit(event){ 
+            event.preventDefault();
+            var location = document.getElementById("location").value;  
+            var admin = document.getElementById("admin").value;
+            var amt = document.getElementById("amt").value;
+            console.log(location, admin, amt);
+        }
+    </script>
+</body>
+</html>
