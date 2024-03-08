@@ -29,25 +29,27 @@ User
             <tr>
                 <!-- Column headers for Array and Search Element -->
                 <th>Location Name:</th>
-                <th>Administrator:</th>
+                <th>Administrator password:</th>
                 <th>Total amount:</th>
                 <th>Bin ID:</th>
 
             </tr> 
    
             <tr> 
-                <td><input type="text" id="location" name="null" placeholder ="Enter location name"></td> 
-                <td><input type="text" id="admin" name="null" placeholder ="Enter administrator"></td> 
-                <td><input type="text" id="amt" name="null" placeholder ="Enter total amount"></td> 
-                <td><input type="text" id="binId" name="null" placeholder ="Enter bin ID"></td> 
-
+                <td><input type="text" id="location" name="null" placeholder ="Enter location name" oninput="checkInputs()"></td> 
+                <td><input type="text" id="admin" name="null" placeholder ="Enter admin password" oninput="checkInputs()"></td> 
+                <td><input type="text" id="amt" name="null" placeholder ="Enter total amount" oninput="checkInputs()"></td> 
+                <td><input type="text" id="binId" name="null" placeholder ="Enter bin ID" oninput="checkInputs()"></td> 
             </tr>
 
             <tr>
                 <td style = "color: #3498db;" colspan="4">
-                    <button onclick="submit(event)">Submit</button>
+                    <button id="submitBtn" onclick="submit(event)" disabled>Submit</button>
+
                 </td>
             </tr>
+
+
         </table>
     </div>  
 
