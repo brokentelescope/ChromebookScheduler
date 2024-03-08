@@ -1,7 +1,7 @@
 import datetime
 import os
 folder_name = 'chromebook_data'
-periods = 'ABCD'
+periods = '1234'
 # function that creates a textfile with the chromebook id as the file name
 # data in the form of: date,period,reserved_by
 def create(id, year, location, amount):
@@ -22,4 +22,4 @@ def create(id, year, location, amount):
 
 # # sample test
 # year = 2024
-# create('A2', year)
+# create('A2', year, 'math hall', 8)

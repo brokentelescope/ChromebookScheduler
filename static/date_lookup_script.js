@@ -1,6 +1,3 @@
-// your code here
-
-
 // function to search and display bins
 function search() {
     var date = document.getElementById("dateInput").value;
@@ -8,7 +5,49 @@ function search() {
     var period = sel.options[sel.selectedIndex].text
     console.log(date, period);
 
+    var data = { date: date, period: period };
+    
+    fetch('/check_chromebooks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
 
+        var tableBody = document.getElementById('chromebookTableBody');
+        // Clear existing table rows
+        tableBody.innerHTML = '';
+
+        // Iterate over each array element and create table rows
+        data.forEach(function(chromebook) {
+            var row = document.createElement('tr');
+
+            // Create table data cells and populate with chromebook data
+            chromebook.forEach(function(value) {
+                var cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+
+            var reserveButtonCell = document.createElement('td');
+            var reserveButton = document.createElement('button');
+            reserveButton.textContent = 'Reserve';
+            reserveButton.onclick = function() {
+                reserve(chromebook[0]); // Pass the ID of the chromebook
+            };
+            reserveButtonCell.appendChild(reserveButton);
+            row.appendChild(reserveButtonCell);
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
    
 }      
 

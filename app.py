@@ -7,8 +7,16 @@ sys.path.append(python_files_dir)
 import create_chromebook
 import check_chromebook
 import edit_chromebook
+import all_available
 
 app = Flask(__name__)
+
+@app.route('/check_chromebooks', methods=['POST'])
+def check_chromebooks():
+    date = request.json['date']
+    period = request.json['period']
+    available = all_available.available_chromebooks(date, period)
+    return jsonify(available)
 
 @app.route('/create-chromebook-file', methods=['POST'])
 def create_chromebook_file():
