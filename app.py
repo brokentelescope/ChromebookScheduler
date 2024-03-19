@@ -11,10 +11,22 @@ import all_available
 
 app = Flask(__name__)
 
+@app.route('/edit_chromebook', methods=['POST'])
+def edit_chromebooks():
+    data = request.json
+    print(data)
+    date = data['date']
+    period = data['period']
+    id = data['id']
+    name = data['name']
+    edit_chromebook.edit(id, date, period, name)
+    return jsonify('Success')
+
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
-    date = request.json['date']
-    period = request.json['period']
+    data = request.json
+    date = data['date']
+    period = data['period']
     available = all_available.available_chromebooks(date, period)
     return jsonify(available)
 

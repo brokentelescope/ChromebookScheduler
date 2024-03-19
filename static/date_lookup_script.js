@@ -2,10 +2,13 @@
 function search() {
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
-    var period = sel.options[sel.selectedIndex].text
+    var period = sel.options[sel.selectedIndex].text;
     console.log(date, period);
 
-    var data = { date: date, period: period };
+    var data = { 
+        date: date, 
+        period: period,
+    };
     
     fetch('/check_chromebooks', {
         method: 'POST',
@@ -16,57 +19,65 @@ function search() {
     })
     .then(response => response.json())
     .then(data => {
-
         var tableBody = document.getElementById('chromebookTableBody');
         // Clear existing table rows
         tableBody.innerHTML = '';
 
-        // Iterate over each array element and create table rows
-        data.forEach(function(chromebook) {
-            var row = document.createElement('tr');
+        if (data.length === 0) {
+            // If no chromebooks available, display a message
+            alert('No bins available.');
+        } else {
+            // Iterate over each array element and create table rows
+            data.forEach(function(chromebook) {
+                var row = document.createElement('tr');
 
-            // Create table data cells and populate with chromebook data
-            chromebook.forEach(function(value) {
-                var cell = document.createElement('td');
-                cell.textContent = value;
-                row.appendChild(cell);
+                // Create table data cells and populate with chromebook data
+                chromebook.forEach(function(value) {
+                    var cell = document.createElement('td');
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+
+                var reserveButtonCell = document.createElement('td');
+                var reserveButton = document.createElement('button');
+                reserveButton.textContent = 'Reserve';
+                reserveButton.onclick = function() {
+                    reserve(chromebook[0], date, period); // Pass the ID of the chromebook
+                };
+                reserveButtonCell.appendChild(reserveButton);
+                row.appendChild(reserveButtonCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
             });
-
-            var reserveButtonCell = document.createElement('td');
-            var reserveButton = document.createElement('button');
-            reserveButton.textContent = 'Reserve';
-            reserveButton.onclick = function() {
-                reserve(chromebook[0]); // Pass the ID of the chromebook
-            };
-            reserveButtonCell.appendChild(reserveButton);
-            row.appendChild(reserveButtonCell);
-
-            // Append the row to the table body
-            tableBody.appendChild(row);
-        });
+        }
     })
     .catch(error => {
         console.error('Error:', error);
     });
-   
-}      
+}
 
 
-function reserve() {
-    console.log("TEST");
-   
-    var id = prompt("Enter ID:");
-    var location = prompt("Enter Location:");
-    var numOfBins = prompt("Enter Number of Bins Available:");
-   
-    console.log("id: " + id);
-    console.log("location: " + location);
-    console.log("numOfBins: " + numOfBins);
-    // Do something with the inputs (e.g., validate, process)
-    if (id && location && numOfBins) {
-        alert("Reservation successful!");
-    } else {
-        alert("Please fill in all fields.");
+function reserve(id, date, period) {
+    var name = prompt("Enter your name:");
+    console.log(id, date, period, name);
+
+    var data = { 
+        date: date, 
+        period: period,
+        id: id,
+        name: name,
+    };
+
+    if (name) {
+        fetch('/edit_chromebook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');
     }
 
 
