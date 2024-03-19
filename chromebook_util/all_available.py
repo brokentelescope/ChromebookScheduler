@@ -6,6 +6,7 @@ folder_name = 'chromebook_data'
 def available_chromebooks(date, period):
     available = []
     for id in os.listdir(folder_name):
+        print(id)
         if os.path.isfile(os.path.join(folder_name, id)):
             if check(id, date, period):
                 available.append(get_info(id))
