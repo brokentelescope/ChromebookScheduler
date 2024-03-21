@@ -22,6 +22,14 @@ def edit_chromebooks():
     edit_chromebook.edit(id, date, period, name)
     return jsonify('Success')
 
+@app.route('/check', methods=['POST'])
+def check():
+    data = request.json 
+    date = data['date']
+    period = data['period']
+    id = data['id']
+    return jsonify(check_chromebook.check(id, date, period))
+
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
     data = request.json
@@ -38,10 +46,10 @@ def create_chromebook_file():
     amt = data['amt']
     id = data['id']
 
-    if admin != '1234':
-        return jsonify({'status': 'Invalid Admin Password'})
+    if admin != '1':
+        return jsonify('Invalid Admin Password')
     create_chromebook.create(id, 2024, location, amt)
-    return jsonify({'status': 'Success'})
+    return jsonify('Success')
 
 @app.route('/', methods=['GET', 'POST'])
 def login_index():

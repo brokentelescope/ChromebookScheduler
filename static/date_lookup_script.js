@@ -3,7 +3,6 @@ function search() {
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;
-    console.log(date, period);
 
     var data = { 
         date: date, 
@@ -60,8 +59,10 @@ function search() {
 
 function reserve(id, date, period) {
     var name = prompt("Enter your name:");
-    console.log(id, date, period, name);
-
+    if (name == "") {
+        alert('Invalid name.');
+        return;
+    }
     var data = { 
         date: date, 
         period: period,
@@ -70,6 +71,31 @@ function reserve(id, date, period) {
     };
 
     if (name) {
+        // this code is just to check if the chromebook bin has just been reserved or not
+        // this check would only be useful if two users are trying to reserve the same chromebook bin at the exact same time (which is very unlikely)
+        // also prevents users from booking a chromebook bin twice?
+        fetch('/check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({date:date, period:period, id:id})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (!data) {
+                alert('This bin has just been reserved.')
+                return;
+            }
+            return; 
+        })
+
+        // BRUH BRUH BRUH
+        // BRUH BRUH BRUH
+        // BRUH BRUH BRUH
+            // BRUH BRUH BRUH
+        // BRUH BRUH BRUH        // BRUH BRUH BRUH        // BRUH BRUH BRUH        // BRUH BRUH BRUH        // BRUH BRUH BRUH
         fetch('/edit_chromebook', {
             method: 'POST',
             headers: {
