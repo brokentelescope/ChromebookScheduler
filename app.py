@@ -20,6 +20,12 @@ def edit_chromebooks():
     id = data['id']
     name = data['name']
     edit_chromebook.edit(id, date, period, name)
+
+    # code to update reservation history
+    with open('reservation_history.txt', 'a') as file:
+        file.write(", ".join([date, period, id, name]) + '\n')
+        print('helo')
+        
     return jsonify('Success')
 
 @app.route('/check', methods=['POST'])
