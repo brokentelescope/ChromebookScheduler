@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, render_template, jsonify
 from datetime import datetime
-import sqlite3, os, sys
+import sqlite3, os, sys, json
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'chromebook_util')
 sys.path.append(python_files_dir)
@@ -75,11 +75,21 @@ def login_index():
             print("Invalid Credentials")
         else:
             print("Valid Credentials")
+            json_data = {'my_variable': name}  # Create JSON data
+            with open('data.json', 'w') as json_file:
+                json.dump(json_data, json_file)
             return render_template('home_index.html')
         # print(name, password)
 
     return render_template('login_index.html')
     
+@app.route('/get_data')
+def get_data():
+    # Load the data from data.json
+    with open('data.json', 'r') as file:
+        data = json.load(file)  # Use json.load to parse JSON data
+    # Return the JSON data
+    return jsonify(data)  # Use jsonify to return JSON response
 
 @app.route('/home_index')
 def home_index():
