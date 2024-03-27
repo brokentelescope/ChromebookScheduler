@@ -49,9 +49,8 @@ def get_history():
     available = []
     with open('reservation_history.txt', 'r') as file:
         for line in file:
-            line = line.replace(',', '')
-            available.append(line.strip().split())
-    return jsonify(available) 
+            available.append(line.strip().split(','))
+    return jsonify(sorted(available)) 
 
 @app.route('/create-chromebook-file', methods=['POST'])
 def create_chromebook_file():
