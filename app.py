@@ -23,7 +23,7 @@ def edit_chromebooks():
 
     # code to update reservation history
     with open('reservation_history.txt', 'a') as file:
-        file.write(", ".join([date, period, id, name]) + '\n')
+        file.write(",".join([date, period, id, name]) + '\n')
         print('helo')
         
     return jsonify('Success')
@@ -43,6 +43,15 @@ def check_chromebooks():
     period = data['period']
     available = all_available.available_chromebooks(date, period)
     return jsonify(available)
+
+@app.route('/get_history', methods = ['POST'])
+def get_history():
+    available = []
+    with open('reservation_history.txt', 'r') as file:
+        for line in file:
+            line = line.replace(',', '')
+            available.append(line.strip().split())
+    return jsonify(available) 
 
 @app.route('/create-chromebook-file', methods=['POST'])
 def create_chromebook_file():

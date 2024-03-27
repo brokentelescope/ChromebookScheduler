@@ -12,4 +12,5 @@ def available_chromebooks(date, period):
                 available.append(get_info(id))
     return available
 
-print(available_chromebooks('2024-12-31', '2'))
+# # sample test
+# print(available_chromebooks('2024-12-31', '2'))
