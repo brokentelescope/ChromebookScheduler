@@ -28,8 +28,7 @@ def get_reserved():
         with open(new_id, 'r') as file:
             for line in file: 
                 if cnt != 0: 
-                    # print(username)
-                    username = "Owen"
+                    # print(username) 
                     if username in line:
                         
                         ID = all_available.get_info(id)[0]
