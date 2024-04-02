@@ -14,7 +14,6 @@ app = Flask(__name__)
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
     data = request.json
-    print(data)
     date = data['date']
     period = data['period']
     id = data['id']
@@ -24,7 +23,6 @@ def edit_chromebooks():
     # code to update reservation history
     with open('reservation_history.txt', 'a') as file:
         file.write(",".join([date, period, id, name]) + '\n')
-        print('helo')
         
     return jsonify('Success')
 

@@ -46,8 +46,11 @@ function display() {
                 tableBody.appendChild(row);
             });
 
-            // Create a new text file with the accumulated data
-            createTextFile(textContent);
+            // Display a button to download the text file
+            var downloadButton = document.createElement('button');
+            downloadButton.textContent = 'Download Reservation History as CSV file';
+            downloadButton.onclick = function() {createTextFile(textContent);};
+            tableBody.appendChild(downloadButton);
         }
     })
     .catch(error => {
@@ -55,22 +58,23 @@ function display() {
     });
 
 }
+function createTextFile(content) {
+    // Create a blob with the text content
+    var blob = new Blob([content], { type: 'text/plain' });
 
-// function createTextFile(content) {
-//     // Create a blob with the text content
-//     var blob = new Blob([content], { type: 'text/plain' });
+    // Create a link element
+    var a = document.createElement('a');
+    a.download = 'history.csv';
+    a.href = URL.createObjectURL(blob);
 
-//     // Create a link element
-//     var a = document.createElement('a');
-//     a.download = 'reservation_history.txt';
-//     a.href = URL.createObjectURL(blob);
+    // Append the link to the body
+    document.body.appendChild(a);
 
-//     // Append the link to the body
-//     document.body.appendChild(a);
+    // Trigger a click event on the link to prompt download
+    a.click();
 
-//     // Remove the link from the body
-//     document.body.removeChild(a);
-// }
-
+    // Clean up: remove the link after download
+    document.body.removeChild(a);
+}
 
 display();

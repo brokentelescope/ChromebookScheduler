@@ -16,12 +16,13 @@
     <div></div>
 
     <div style="display: flex;">
+        
         <table>
             <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
             <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
-
+            
         </table>
         
         <table class="new-table" id="history">
@@ -33,6 +34,5 @@
             </tr>
             <tbody id="historyTableBody"></tbody>
         </table>
-
 </body>
 </html>
