@@ -11,6 +11,33 @@ import all_available
 
 app = Flask(__name__)
 
+username = ''
+
+@app.route('/get_reserved', methods = ['POST'])
+def get_reserved():
+    global username
+    reservedByUser = []
+    # here we have to go read all the file, and all the line, make a check to see if name is ok, and append it
+
+    folder_name = 'chromebook_data'
+    # for id in os.listdir(folder_name): #A2, A32, etc 
+    id = "B3"
+    cnt = 0
+    if os.path.isfile(os.path.join(folder_name, id)):
+        new_id = os.path.join(folder_name, id)
+        with open(new_id, 'r') as file:
+            for line in file: 
+                if cnt != 0: 
+                    # print(username)
+                    username = "Owen"
+                    if username in line:
+                        
+                        ID = all_available.get_info(id)[0]
+                        loc = all_available.get_info(id)[1]   
+                        reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
+                cnt+=1
+    return jsonify(reservedByUser) 
+
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
     data = request.json
@@ -65,6 +92,7 @@ def create_chromebook_file():
 
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
+    global username
     if request.method == 'POST':
         # sqlite
         connection = sqlite3.connect('user_data.db')
@@ -81,9 +109,10 @@ def login_index():
             print("Invalid Credentials")
         else:
             print("Valid Credentials")
-            json_data = {'my_variable': name}  # Create JSON data
-            with open('data.json', 'w') as json_file:
-                json.dump(json_data, json_file)
+            username = name
+            # json_data = {'my_variable': name}  # Create JSON data
+            # with open('data.json', 'w') as json_file:
+            #     json.dump(json_data, json_file)
             return render_template('home_index.html')
         # print(name, password)
 

@@ -28,86 +28,34 @@
         <table class="new-table">
             <!-- New table content -->
             <tr>
-                <td colspan="7" style="color: #3498db;">Reservations</td>
+                <td colspan="6" style="color: #3498db;">Reservations</td>
             </tr>
-            <tr> 
+            <!-- <tr> 
                 <button onclick="button()">Click me</button>
 
                 <td>ID</td>
-                <td>Location From</td>
-                <td>Reserver Location</td>
-                <td>Number of Bins</td>
-                <td>Initial Time</td>
-                <td>Final Time</td>
+                <td>Location From</td>  
+                <td>Date reserved</td> 
+                <td>Period</td> 
+                <td>Name</th>
                 <td>Action</th>
             </tr>
-            <!-- Not sure how to implement spesific data from database to here -->
+             <tbody id="reservationTableBody"></tbody> -->
+
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
+                <td style="color: #3498db;">ID</td>
+                <td style="color: #3498db;">Location</td>
+                <td style="color: #3498db;">Date reserved</td>
+                <td style="color: #3498db;">Period</td>
+                <td style="color: #3498db;">Username</td>
+                <td style="color: #3498db;">Action</td>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button onclick="reserve()">Reserve</button>
-                </td>
-            </tr>
+            <tbody id="reservationTableBody">
+            </tbody>
+
+
+
+            
         </table> 
     </div>
     <!-- Pagination Controls -->
@@ -126,6 +74,8 @@
             <a href="#" class="last">Last Page</a>
         </div>     
     </div>
+
+
 
 </body>
 </html>
