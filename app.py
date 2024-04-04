@@ -29,8 +29,9 @@ def get_reserved():
         with open(new_id, 'r') as file:
             for line in file: 
                 if cnt != 0: 
+                    # print(username) 
                     if username in line:
-                        
+        
                         ID = all_available.get_info(id)[0]
                         loc = all_available.get_info(id)[1]   
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
