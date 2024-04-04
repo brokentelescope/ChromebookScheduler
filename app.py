@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import *
 from datetime import datetime
 import sqlite3, os, sys, json
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -10,6 +10,7 @@ import edit_chromebook
 import all_available
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
 
 username = ''
 
@@ -28,8 +29,6 @@ def get_reserved():
         with open(new_id, 'r') as file:
             for line in file: 
                 if cnt != 0: 
-                    # print(username)
-                    username = "Owen"
                     if username in line:
                         
                         ID = all_available.get_info(id)[0]
@@ -94,27 +93,40 @@ def create_chromebook_file():
 def login_index():
     global username
     if request.method == 'POST':
-        # sqlite
+        data = request.form
         connection = sqlite3.connect('user_data.db')
         cursor = connection.cursor()
-        # html form 
-        name = request.form['name']
-        password = request.form['password']
+        # SIGN UP 
+        if len(data) == 3:
+            name = request.form['name']
+            password = request.form['password']
 
-        query = "SELECT name,password FROM users where name= '"+name+"' and password='"+password+"'"
-        cursor.execute(query)
-        results = cursor.fetchall()
+            query = "SELECT name FROM users where name='"+name+"'"
+            cursor.execute(query)
+            results = cursor.fetchall()
+            # username already exists
+            if len(results):
+                return render_template('login_index.html')
+            else:
+                cursor.execute(f"INSERT INTO users VALUES ('{name}', '{password}')")
+                connection.commit()
+                # print('success')
+                return render_template('home_index.html')
 
-        if len(results) == 0:
-            print("Invalid Credentials")
         else:
-            print("Valid Credentials")
-            username = name
-            # json_data = {'my_variable': name}  # Create JSON data
-            # with open('data.json', 'w') as json_file:
-            #     json.dump(json_data, json_file)
-            return render_template('home_index.html')
-        # print(name, password)
+            name = request.form['name']
+            password = request.form['password']
+
+            query = "SELECT name,password FROM users where name= '"+name+"' and password='"+password+"'"
+            cursor.execute(query)
+            results = cursor.fetchall()
+
+            if len(results) == 0:
+                flash("Invalid Credentials")
+            else:
+                print("Valid Credentials")
+                username = name
+                return render_template('home_index.html')
 
     return render_template('login_index.html')
     
