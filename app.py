@@ -10,7 +10,7 @@ import edit_chromebook
 import all_available
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+app.secret_key = 'key'
 
 username = ''
 
@@ -93,6 +93,8 @@ def create_chromebook_file():
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
     global username
+    # clear any previous flash messages
+    flash('')
     if request.method == 'POST':
         data = request.form
         connection = sqlite3.connect('user_data.db')
@@ -107,12 +109,14 @@ def login_index():
             results = cursor.fetchall()
             # username already exists
             if len(results):
+                print('bruh')
+                flash("Username already exists. Please choose a different one.")
                 return render_template('login_index.html')
             else:
                 cursor.execute(f"INSERT INTO users VALUES ('{name}', '{password}')")
                 connection.commit()
-                # print('success')
-                return render_template('home_index.html')
+                flash("Sign up successful. You can now login.")
+                return render_template('login_index.html')
 
         else:
             name = request.form['name']
@@ -123,7 +127,8 @@ def login_index():
             results = cursor.fetchall()
 
             if len(results) == 0:
-                flash("Invalid Credentials")
+                print('bruh')
+                flash("Invalid Credentials. Please try again.")
             else:
                 print("Valid Credentials")
                 username = name
@@ -162,7 +167,6 @@ def add_locations():
 # @app.route('/bug_report')
 # def bug_report():
 #     return render_template('bug_report.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
