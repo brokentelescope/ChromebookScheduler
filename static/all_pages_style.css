@@ -86,26 +86,18 @@ a {
 	background-color: lightgrey;
 	padding: 10px;
 } 
-.pagination {
-    margin-top: 20px;
-    margin-left: 16%;
-    margin-right: auto;
-    display: table;
-}
- 
-
-.pagination a {
-	border: 1px solid black;
-	padding: 5px;
-	text-decoration: none;
-	color: black;
-}
-
-.pagination a.next, .pagination a.last {
-
-	color: blue;
-}
 
 .highlight:hover {
 	background-color: lightblue;
+}
+
+.button {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    color: #3498db;
+    font-family: Poppins;
+    font-size: large;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }

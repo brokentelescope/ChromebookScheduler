@@ -35,18 +35,6 @@ def get_reserved():
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
     return jsonify(reservedByUser)
 
-    # if os.path.isfile(os.path.join(folder_name, id)):
-    #     new_id = os.path.join(folder_name, id)
-    #     with open(new_id, 'r') as file:
-    #         for line in file: 
-    #             if cnt != 0: 
-    #                 # print(username) 
-    #                 if username in line:
-    #                     ID = all_available.get_info(id)[0]
-    #                     loc = all_available.get_info(id)[1]   
-    #                     reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
-    #             cnt+=1
-    # return jsonify(reservedByUser) 
 
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
