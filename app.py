@@ -22,29 +22,40 @@ def get_reserved():
 
     folder_name = 'chromebook_data'
     # for id in os.listdir(folder_name): #A2, A32, etc 
-    id = "B3"
     cnt = 0
-    if os.path.isfile(os.path.join(folder_name, id)):
-        new_id = os.path.join(folder_name, id)
-        with open(new_id, 'r') as file:
-            for line in file: 
-                if cnt != 0: 
-                    # print(username) 
+    reservedByUser = []
+    for id in os.listdir(folder_name):
+        if os.path.isfile(os.path.join(folder_name, id)):
+            print(os.path.join(folder_name, id))
+            with open(os.path.join(folder_name, id), 'r') as file:
+                for line in file:
                     if username in line:
-        
                         ID = all_available.get_info(id)[0]
                         loc = all_available.get_info(id)[1]   
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
-                cnt+=1
-    return jsonify(reservedByUser) 
+    return jsonify(reservedByUser)
+
+    # if os.path.isfile(os.path.join(folder_name, id)):
+    #     new_id = os.path.join(folder_name, id)
+    #     with open(new_id, 'r') as file:
+    #         for line in file: 
+    #             if cnt != 0: 
+    #                 # print(username) 
+    #                 if username in line:
+    #                     ID = all_available.get_info(id)[0]
+    #                     loc = all_available.get_info(id)[1]   
+    #                     reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
+    #             cnt+=1
+    # return jsonify(reservedByUser) 
 
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
+    global username
     data = request.json
     date = data['date']
     period = data['period']
     id = data['id']
-    name = data['name']
+    name = username
     edit_chromebook.edit(id, date, period, name)
 
     # code to update reservation history
@@ -109,7 +120,6 @@ def login_index():
             results = cursor.fetchall()
             # username already exists
             if len(results):
-                print('bruh')
                 flash("Username already exists. Please choose a different one.")
                 return render_template('login_index.html')
             else:
@@ -127,11 +137,11 @@ def login_index():
             results = cursor.fetchall()
 
             if len(results) == 0:
-                print('bruh')
                 flash("Invalid Credentials. Please try again.")
             else:
                 print("Valid Credentials")
                 username = name
+                print(username)
                 return render_template('home_index.html')
 
     return render_template('login_index.html')

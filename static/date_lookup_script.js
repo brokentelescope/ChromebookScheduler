@@ -58,59 +58,55 @@ function search() {
 
 
 function reserve(id, date, period) {
-    var name = prompt("Enter your name:");
-    if (name == "") {
-        alert('Invalid name.');
-        return;
-    }
+    // var name = prompt("Enter your name:");
+    // if (name == "") {
+    //     alert('Invalid name.');
+    //     return;
+    // }
     var data = { 
         date: date, 
         period: period,
         id: id,
-        name: name,
     };
 
-    var good = false;
-
-    if (name) {
-        // this first fetch is just to check if the chromebook bin has just been reserved or not
-        // this check would only be useful if two users are trying to reserve the same chromebook bin at the exact same time (which is very unlikely)
-        // also prevents users from booking a chromebook bin twice?
-        fetch('/check', {method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({date:date, period:period, id:id})
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); 
-        })
-        .then(responseData => {
-            if (responseData == true) {
-                fetch('/edit_chromebook', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)})
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(responseData => {
-                    if (responseData == 'Success') {
-                        alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
-                    }
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-            }
-            else {
-                alert('The bin has just been reserved.');
-            }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    }
+    // this first fetch is just to check if the chromebook bin has just been reserved or not
+    // this check would only be useful if two users are trying to reserve the same chromebook bin at the exact same time (which is very unlikely)
+    // also prevents users from booking a chromebook bin twice?
+    fetch('/check', {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({date:date, period:period, id:id})
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+    })
+    .then(responseData => {
+        if (responseData == true) {
+            fetch('/edit_chromebook', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)})
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                if (responseData == 'Success') {
+                    alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+        else {
+            alert('The bin has just been reserved.');
+        }
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+    
 }
 
 

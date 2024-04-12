@@ -12,8 +12,9 @@ function display() {
         tableBody.innerHTML = '';
         if (data.length === 0) {
             // If no chromebooks available, display a message
-            alert('No Reserves.');
-        } else {
+            alert('No Reservations.');
+        } 
+        else {
             // Iterate over each array element and create table rows
             data.forEach(function(chromebook) {
                 var row = document.createElement('tr');
