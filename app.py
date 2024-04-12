@@ -8,6 +8,7 @@ import create_chromebook
 import check_chromebook
 import edit_chromebook
 import all_available
+import cancel_chromebook
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -36,6 +37,17 @@ def get_reserved():
     return jsonify(reservedByUser)
 
 
+@app.route('/cancel_chromebook', methods=['POST'])
+def cancel_chromebooks(): 
+    global username
+    data = request.json
+    date = data['date']
+    period = data['period']
+    id = data['id']  
+    print(date, period, id)
+    cancel_chromebook.cancel(id, date, period)
+ 
+    return jsonify('Success')
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
     global username
