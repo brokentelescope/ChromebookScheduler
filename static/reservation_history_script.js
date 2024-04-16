@@ -19,6 +19,12 @@ function display() {
             alert('No history.');
         } 
         else {
+            // Display a button to download the text file
+            var downloadButton = document.createElement('button');
+            downloadButton.textContent = 'Download Reservation History as CSV file';
+            downloadButton.onclick = function() {createTextFile(textContent);};
+            tableBody.appendChild(downloadButton);
+            
             // Iterate over each array element and create table rows
             data.forEach(function(chromebook, rowIndex) {
                 var row = document.createElement('tr');
@@ -46,11 +52,7 @@ function display() {
                 tableBody.appendChild(row);
             });
 
-            // Display a button to download the text file
-            var downloadButton = document.createElement('button');
-            downloadButton.textContent = 'Download Reservation History as CSV file';
-            downloadButton.onclick = function() {createTextFile(textContent);};
-            tableBody.appendChild(downloadButton);
+
         }
     })
     .catch(error => {
