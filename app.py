@@ -174,6 +174,11 @@ def reservation_history():
 def add_locations():
     return render_template('add_locations.html')
 
+@app.route('/team')
+def team():
+    return render_template('team.html')
+
+
 # @app.route('/bug_report')
 # def bug_report():
 #     return render_template('bug_report.html')

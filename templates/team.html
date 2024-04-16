@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .team-member {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .team-member:last-child {
+            border-bottom: none;
+        }
+        .team-member h2 {
+            margin-top: 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Meet Our Team</h1>
+
+    <div class="team-member">
+        <h2>Owen Chen</h2>
+        <p>Owen is an IB Diploma student in Ottawa, Canada. He is passionate about solving real-world problems and improving efficiency.</p>
+    </div>
+
+    <div class="team-member">
+        <h2>Tianqin Meng</h2>
+        <p>Tianqin is also an IB Diploma student in Ottawa, Canada. He enjoys exploring innovative solutions to common challenges.</p>
+    </div>
+
+    <div class="team-member">
+        <h2>Rex Li</h2>
+        <p>Rex is an IB Diploma student based in Ottawa, Canada. He is dedicated to making a positive impact on his school community.</p>
+    </div>
+
+    <h2>Our Project</h2>
+    <p>Our project tackles Chromebook management issues at our school, aiming to solve the problem of misplaced Chromebook bins that disrupt student efficiency.</p>
+
+    <!-- Buttons -->
+    <div class="buttons">
+        <a href="{{ url_for('date_lookup') }}" class="button">Date Lookup</a>
+        <a href="{{ url_for('my_reservations') }}" class="button">My Reservations</a>
+        <a href="{{ url_for('reservation_history') }}" class="button">Reservation History</a>
+        <a href="{{ url_for('add_locations') }}" class="button">Add Bin</a>
+        <button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button>
+        <a href="{{ url_for('login_index') }}" class="button">Sign out</a>
+    </div>
+</div>
+
+</body>
+</html>
