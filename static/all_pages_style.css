@@ -59,10 +59,11 @@ table.new-table tr {
 	height: 40px; /* Adjust the height as needed */
 }
 th, td {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: 8px;
-	color: black
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    color: black;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 th {

@@ -21,10 +21,13 @@
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
             <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
-            <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
+            <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr> 
+            <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
+
+
         </table>
         
-                <!-- Defines a table for displaying search results -->
+        <!-- Defines a table for displaying search results -->
         <table>
             <tr>
                 <!-- Column headers for Array and Search Element -->
@@ -53,6 +56,8 @@
         </table>
     </div>  
 
+    <div></div>
+     
     <!-- THIS ISNT ALIGNED FIX IT LATER -->
 
 </body>
