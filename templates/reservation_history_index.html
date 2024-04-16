@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
-    <script src="../static/reservation_history_script.js"></script>
+    <script src="../static/reservation_history_script.js"></script> 
 </head>
 <body>
 
@@ -23,11 +23,9 @@
             <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
             <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
+            <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('team') }}">Team</a></td></tr>
-            
-
-            
         </table>
         
         <table class="new-table" id="history">
@@ -39,5 +37,6 @@
             </tr>
             <tbody id="historyTableBody"></tbody>
         </table>
+    </div>
 </body>
 </html>
