@@ -49,7 +49,6 @@ function display() {
     });
 }
 
-display()
 
 function cancel(date, period, id) { 
     var data = { 
