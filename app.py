@@ -1,6 +1,6 @@
 from flask import *
 from datetime import datetime
-import sqlite3, os, sys, json
+import os, sys, json
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'chromebook_util')
 sys.path.append(python_files_dir)
@@ -152,15 +152,12 @@ def login_index():
 
             result = database_util.get_single_data(name)
 
-            if len(results) == 0:
-                flash("Invalid Credentials. Please try again.")
-            else:
-                print("Valid Credentials")
+            if result:
                 username = name
-                # print(user
-                # name)
                 return render_template('home_index.html')
-
+            else:
+                flash("Invalid Credentials. Please try again.")
+                
     return render_template('login_index.html')
     
 @app.route('/get_data')
