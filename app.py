@@ -186,10 +186,9 @@ def login_index():
                 flash("Invalid Credentials. Please try again.")
             else:
                 print("Valid Credentials")
-                username = name
-                # print(user
-                # name)
-                return render_template('home_index.html')
+                username = name 
+                # Redirect to home_index.html after successful login
+                return redirect(url_for('home_index'))
 
     return render_template('login_index.html')
     
