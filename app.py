@@ -149,15 +149,12 @@ def login_index():
         else:
             name = data['name']
             password = data['password']
-
-            result = database_util.get_single_data(name)
-
-            if result:
+            if database_util.get_single_data(name) and database_util.get_single_data(name)[1] == password:
                 username = name
                 return render_template('home_index.html')
             else:
                 flash("Invalid Credentials. Please try again.")
-                
+
     return render_template('login_index.html')
     
 @app.route('/get_data')
