@@ -9,6 +9,7 @@ import check_chromebook
 import edit_chromebook
 import all_available
 import cancel_chromebook
+import database_util
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -26,49 +27,21 @@ username = ''
 @app.route('/verify_account', methods=['POST'])
 def verify_account():  
     data = request.json
-    userName = data['userName']
-    updated_lines = []
-
-    with open('user_data.txt', 'r') as file:
-        for line in file: 
-            line = line.strip()
-            if userName in line:
-                # Split the line and change the last value to 1
-                parts = line.split(',')
-                parts[-1] = '1'
-                line = ','.join(parts)
-            updated_lines.append(line)
-
-    # Write back the updated lines to the file
-    with open('user_data.txt', 'w') as file:
-        for line in updated_lines:
-            file.write(line + '\n')
-
-    return jsonify('Success')
+    username = data['userName']
+    if database_util.get_single_data(username):
+        database_util.verify(username)
+        return jsonify('The account has been verified.')
+    return jsonify('An error has occured while verifying.')
 
 @app.route('/remove_account', methods=['POST'])
 def remove_account(): 
-    global username
     data = request.json
-    userName = data['userName']
-    with open('user_data.txt', 'r') as file:
-        lines_to_keep = [line.strip() for line in file if userName not in line]
-
-    with open('user_data.txt', 'w') as file:
-        for line in lines_to_keep:
-            file.write(line + '\n')
-
+    database_util.remove(data['userName'])
     return jsonify('Success')
-
 
 @app.route('/get_account', methods = ['POST'])
 def get_account(): 
-    reservedByUser = []  
-
-    with open('user_data.txt', 'r') as file:
-        for line in file: 
-            reservedByUser.append([line.split(',')[0],line.split(',')[2]] )
-    return jsonify(reservedByUser)
+    return jsonify(database_util.get_all_data())
 
 @app.route('/get_reserved', methods = ['POST'])
 def get_reserved():
@@ -122,18 +95,12 @@ def edit_chromebooks():
 @app.route('/check', methods=['POST'])
 def check():
     data = request.json 
-    date = data['date']
-    period = data['period']
-    id = data['id']
-    return jsonify(check_chromebook.check(id, date, period))
+    return jsonify(check_chromebook.check(data['id'], data['date'], data['period']))
 
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
     data = request.json
-    date = data['date']
-    period = data['period']
-    available = all_available.available_chromebooks(date, period)
-    return jsonify(available)
+    return jsonify(all_available.available_chromebooks(data['date'], data['period']))
 
 @app.route('/get_history', methods = ['POST'])
 def get_history():
@@ -163,42 +130,31 @@ def login_index():
     flash('')
     if request.method == 'POST':
         data = request.form
-        connection = sqlite3.connect('user_data.db')
-        cursor = connection.cursor()
         # SIGN UP 
         if len(data) == 3:
-            name = request.form['name']
-            password = request.form['password']
-
-            query = "SELECT name FROM users where name='"+name+"'"
-            cursor.execute(query)
-            results = cursor.fetchall()
+            name = data['name']
+            password = data['password']
+            query = database_util.get_single_data(name)
             # username already exists
-            if len(results):
+            if query:
                 flash("Username already exists. Please choose a different one.")
                 return render_template('login_index.html')
             else:
-                cursor.execute(f"INSERT INTO users VALUES ('{name}', '{password}')")
-                connection.commit()
+                database_util.insert_user(name, password)
                 flash("Sign up successful. You can now login.")
                 return render_template('login_index.html')
 
         else:
-            name = request.form['name']
-            password = request.form['password']
+            name = data['name']
+            password = data['password']
 
-            query = "SELECT name,password FROM users where name= '"+name+"' and password='"+password+"'"
-            cursor.execute(query)
-            results = cursor.fetchall()
+            result = database_util.get_single_data(name)
 
-            if len(results) == 0:
-                flash("Invalid Credentials. Please try again.")
-            else:
-                print("Valid Credentials")
-                username = name
-                # print(user
-                # name)
+            if result and result[1] == password:
+                username = name 
                 return render_template('home_index.html')
+            else:
+                flash("Invalid Credentials. Please try again.")
 
     return render_template('login_index.html')
     
