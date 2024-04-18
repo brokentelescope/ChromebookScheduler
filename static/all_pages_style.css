@@ -18,7 +18,10 @@
 td {
 	font-size: large;
 }
-
+.grayed-out {
+	opacity: 0.5; /* Adjust the opacity level to visually gray out the button */
+	pointer-events: none; /* Prevent clicking on the button */
+}
 body {
 	font-family: Poppins;
 	background-image: url("https://static.vecteezy.com/system/resources/previews/010/820/720/original/white-background-random-minimalist-abstract-illustration-for-logo-card-banner-web-and-printing-vector.jpg");

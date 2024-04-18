@@ -26,6 +26,11 @@
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('team') }}">Team</a></td></tr>
+            {% if is_admin %} 
+                <tr><td class="highlight"><a href="{{ url_for('admin_panel') }}">Admin Panel</a></td></tr>
+            {% else %}
+                <tr><td class="highlight"><button class="button grayed-out" disabled>Admin Panel</button></td></tr>
+            {% endif %}
         </table>
         
         <table class="new-table" id="history">

@@ -4,13 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
-    <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
-    <style>
-        .grayed-out {
-            opacity: 0.5; /* Adjust the opacity level to visually gray out the button */
-            pointer-events: none; /* Prevent clicking on the button */
-        }
-    </style>
+    <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>  
 </head>
 <body>
     <nav>
@@ -27,12 +21,11 @@
         <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
         <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
         <tr><td class="highlight"><a href="{{ url_for('team') }}">Team</a></td></tr>
-        <tr><td class="highlight"><a href="{{ url_for('admin_panel') }}">Admin Panel</a></td></tr>
-
-        <!-- {% if is_admin %} 
+        {% if is_admin %}
+            <tr><td class="highlight"><a href="{{ url_for('admin_panel') }}">Admin Panel</a></td></tr>
         {% else %}
             <tr><td class="highlight"><button class="button grayed-out" disabled>Admin Panel</button></td></tr>
-        {% endif %} -->
+        {% endif %}
     
     </table>
 </body>
