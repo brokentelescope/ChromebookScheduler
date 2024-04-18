@@ -15,6 +15,17 @@ app = Flask(__name__)
 app.secret_key = 'key'
 
 username = ''  
+
+@app.route('/check_bin', methods=['POST'])
+def check_bin():
+    bin_id = request.form['binId']
+    is_duplicate = 0
+    folder_name = 'chromebook_data' 
+    for id in os.listdir(folder_name):
+        if id == bin_id: is_duplicate = 1
+    
+    return jsonify({'is_duplicate': is_duplicate})
+
 @app.route('/verify_account', methods=['POST'])
 def verify_account():  
     data = request.json
