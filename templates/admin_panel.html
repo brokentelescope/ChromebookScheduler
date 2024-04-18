@@ -1,4 +1,3 @@
-<!-- base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
-    <script src="../static/add_locations.js"></script>
+    <script src="../static/admin_panel.js"></script>
 </head>
 <body>
     <nav>
@@ -21,48 +20,46 @@
             <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
-            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
             <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr> 
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('team') }}">Team</a></td></tr>
-
-
+            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('admin_panel') }}">Admin Panel</a></td></tr>
 
         </table>
-        
-        <!-- Defines a table for displaying search results -->
-        <table>
-            <tr>
-                <!-- Column headers for Array and Search Element -->
-                <th>Location Name:</th>
-                <th>Admin password:</th>
-                <th># of Chromebooks:</th>
-                <th>Bin ID:</th>
 
+
+        <table class="new-table">
+            <!-- New table content -->
+            <tr>
+                <td colspan="4" style="color: #3498db;">Account Management</td>
             </tr> 
-   
             <tr> 
-                <td><input type="text" id="location" name="null" placeholder ="Enter location name" oninput="checkInputs()"></td> 
-                <td><input type="text" id="admin" name="null" placeholder ="Enter admin password" oninput="checkInputs()"></td> 
-                <td><input type="text" id="amt" name="null" placeholder ="Enter total amount" oninput="checkInputs()"></td> 
-                <td><input type="text" id="binId" name="null" placeholder ="Enter bin ID" oninput="checkInputs()"></td> 
+                <td style="color: #3498db;">Usernames</td>
+                <td style="color: #3498db;">Verified? (1: Yes; 0: No)</td>
+                <td style="color: #3498db;">Ban</td>
+                <td style="color: #3498db;">Verify</td> 
             </tr>
+            <tbody id="reservationTableBody">
+            </tbody>
+        </table> 
 
+        <table class="new-table">
+            <!-- New table content
             <tr>
-                <td style = "color: #3498db;" colspan="4">
-                    <button id="submitBtn" onclick="submit(event)" disabled>Submit</button>
-
-                </td>
+                <td colspan="3" style="color: #3498db;">Bin Management</td>
+            </tr> 
+            <tr>
+                <td style="color: #3498db;">ID</td>
+                <td style="color: #3498db;">Location</td>
+                <td style="color: #3498db;">Date reserved</td> 
             </tr>
+            <tbody id="reservationTableBody">
+            </tbody>
+        </table>  -->
 
-
-        </table>
-    </div>  
-
-    <div></div>
-     
-    <!-- THIS ISNT ALIGNED FIX IT LATER -->
-
+ 
+    </div>
 </body>
 </html>

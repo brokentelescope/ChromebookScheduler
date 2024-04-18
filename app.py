@@ -13,7 +13,62 @@ import cancel_chromebook
 app = Flask(__name__)
 app.secret_key = 'key'
 
-username = ''
+username = '' 
+# @app.route('/')
+# def home():
+#     username = 'ADMIN'  # For testing purposes, replace with your actual method to get username
+#     is_admin = (username == 'ADMIN')
+    
+#     # Your additional code here
+    
+#     return render_template('home_index.html', is_admin=is_admin)
+
+@app.route('/verify_account', methods=['POST'])
+def verify_account():  
+    data = request.json
+    userName = data['userName']
+    updated_lines = []
+
+    with open('user_data.txt', 'r') as file:
+        for line in file: 
+            line = line.strip()
+            if userName in line:
+                # Split the line and change the last value to 1
+                parts = line.split(',')
+                parts[-1] = '1'
+                line = ','.join(parts)
+            updated_lines.append(line)
+
+    # Write back the updated lines to the file
+    with open('user_data.txt', 'w') as file:
+        for line in updated_lines:
+            file.write(line + '\n')
+
+    return jsonify('Success')
+
+@app.route('/remove_account', methods=['POST'])
+def remove_account(): 
+    global username
+    data = request.json
+    userName = data['userName']
+    with open('user_data.txt', 'r') as file:
+        lines_to_keep = [line.strip() for line in file if userName not in line]
+
+    with open('user_data.txt', 'w') as file:
+        for line in lines_to_keep:
+            file.write(line + '\n')
+
+    return jsonify('Success')
+
+
+@app.route('/get_account', methods = ['POST'])
+def get_account(): 
+    reservedByUser = []  
+
+    with open('user_data.txt', 'r') as file:
+        for line in file: 
+            reservedByUser.append([line.split(',')[0],line.split(',')[2]] )
+    return jsonify(reservedByUser)
 
 @app.route('/get_reserved', methods = ['POST'])
 def get_reserved():
@@ -27,7 +82,7 @@ def get_reserved():
     reservedByUser = []
     for id in os.listdir(folder_name):
         if os.path.isfile(os.path.join(folder_name, id)):
-            print(os.path.join(folder_name, id))
+            # print(os.path.join(folder_name, id))
             with open(os.path.join(folder_name, id), 'r') as file:
                 for line in file:
                     if username in line:
@@ -36,7 +91,6 @@ def get_reserved():
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
     return jsonify(reservedByUser)
 
-
 @app.route('/cancel_chromebook', methods=['POST'])
 def cancel_chromebooks(): 
     global username
@@ -44,10 +98,11 @@ def cancel_chromebooks():
     date = data['date']
     period = data['period']
     id = data['id']  
-    print(date, period, id)
+    # print(date, period, id)
     cancel_chromebook.cancel(id, date, period)
- 
     return jsonify('Success')
+
+
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
     global username
@@ -141,7 +196,8 @@ def login_index():
             else:
                 print("Valid Credentials")
                 username = name
-                print(username)
+                # print(user
+                # name)
                 return render_template('home_index.html')
 
     return render_template('login_index.html')
@@ -178,6 +234,9 @@ def add_locations():
 def team():
     return render_template('team.html')
 
+@app.route('/admin_panel')
+def admin_panel():
+    return render_template('admin_panel.html')
 
 # @app.route('/bug_report')
 # def bug_report():
