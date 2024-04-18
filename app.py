@@ -13,16 +13,7 @@ import cancel_chromebook
 app = Flask(__name__)
 app.secret_key = 'key'
 
-username = '' 
-# @app.route('/')
-# def home():
-#     username = 'ADMIN'  # For testing purposes, replace with your actual method to get username
-#     is_admin = (username == 'ADMIN')
-    
-#     # Your additional code here
-    
-#     return render_template('home_index.html', is_admin=is_admin)
-
+username = ''  
 @app.route('/verify_account', methods=['POST'])
 def verify_account():  
     data = request.json
@@ -210,33 +201,46 @@ def get_data():
     # Return the JSON data
     return jsonify(data)  # Use jsonify to return JSON response
 
+def checkAdmin():
+    global username 
+    is_admin = (username == 'ADMIN') 
+    return is_admin
+
 @app.route('/home_index')
 def home_index():
-    return render_template('home_index.html')
+    # Call the checkAdmin function to determine if the user is an admin
+    is_admin = checkAdmin() 
+    return render_template('home_index.html', is_admin=is_admin)
 
 @app.route('/date_lookup')
 def date_lookup():
-    return render_template('date_lookup_index.html')
+    is_admin = checkAdmin() 
+    return render_template('date_lookup_index.html', is_admin=is_admin) 
 
 @app.route('/my_reservations')
 def my_reservations():
-    return render_template('my_reservations_index.html')
+    is_admin = checkAdmin() 
+    return render_template('my_reservations_index.html', is_admin=is_admin)  
 
 @app.route('/reservation_history')
 def reservation_history():
-    return render_template('reservation_history_index.html')
+    is_admin = checkAdmin() 
+    return render_template('reservation_history_index.html', is_admin=is_admin)   
 
 @app.route('/add_locations')
 def add_locations():
-    return render_template('add_locations.html')
+    is_admin = checkAdmin() 
+    return render_template('add_locations.html', is_admin=is_admin)   
 
 @app.route('/team')
 def team():
-    return render_template('team.html')
+    is_admin = checkAdmin() 
+    return render_template('team.html', is_admin=is_admin)
 
 @app.route('/admin_panel')
 def admin_panel():
-    return render_template('admin_panel.html')
+    is_admin = checkAdmin() 
+    return render_template('admin_panel.html', is_admin=is_admin)    
 
 # @app.route('/bug_report')
 # def bug_report():
