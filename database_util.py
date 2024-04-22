@@ -2,10 +2,11 @@
 Database utility functions
 ICS4U-03
 Owen, Rex, Steven 
+We decided to include all database util functions in the same file rather
+than have them in separate files since the functions are pretty short.
 """
 
 import sqlite3
-
 connection = sqlite3.connect('user_data.db', check_same_thread=False)
 cursor = connection.cursor()
 

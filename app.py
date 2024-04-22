@@ -138,7 +138,7 @@ def login_index():
             password = data['password']
             query = database_util.get_single_data(name)
             # username already exists
-            if query:
+            if query or name == 'none':
                 flash("Username already exists. Please choose a different one.")
                 return render_template('login_index.html')
             else:
