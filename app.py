@@ -8,7 +8,7 @@ import create_chromebook
 import check_chromebook
 import edit_chromebook
 import all_available
-import cancel_chromebook
+import get_info
 import database_util
 
 app = Flask(__name__)
@@ -61,8 +61,8 @@ def get_reserved():
             with open(os.path.join(folder_name, id), 'r') as file:
                 for line in file:
                     if username in line:
-                        ID = all_available.get_info(id)[0]
-                        loc = all_available.get_info(id)[1]   
+                        ID = get_info.get_info(id)[0]
+                        loc = get_info.get_info(id)[1]   
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
     return jsonify(reservedByUser)
 
@@ -73,8 +73,7 @@ def cancel_chromebooks():
     date = data['date']
     period = data['period']
     id = data['id']  
-    # print(date, period, id)
-    cancel_chromebook.cancel(id, date, period)
+    edit_chromebook.edit(id, date, period, 'none')
     return jsonify('Success')
 
 

@@ -92,6 +92,8 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
+                    // redisplay the availiable chromebooks so the user sees that their reserved bin disappeared
+                    search();
                     alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
                 }
             })
@@ -106,7 +108,6 @@ function reserve(id, date, period) {
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-    
 }
 
 

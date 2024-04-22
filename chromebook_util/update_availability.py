@@ -1,13 +1,21 @@
 from datetime import datetime, timedelta
-import calendar
+import os
 
+"""
+Function that deletes the oldest day and adds the the next date into each chromebook data file.
+Args:
+    file_path (string)
+Returns:
+    none
+"""
 def add_next_month_date_and_remove_oldest(file_path):
     # Read all lines from the file
     with open(file_path, 'r') as file:
         lines = file.readlines()
     
-    # Remove the first 4 lines (assuming 4 periods per day) to delete the oldest day
-    del lines[0:4]
+    # Remove lines 2-5 (assuming 4 periods per day) to delete the oldest day 
+    # skip the first line since that one contains the bin data, location, amount
+    del lines[1:5]
 
     # Determine the next day to add by parsing the last line's date
     last_line = lines[-1]  # Get the new last line after deletion
@@ -24,7 +32,8 @@ def add_next_month_date_and_remove_oldest(file_path):
         file.writelines(lines)
 
 # Adjust the file_path to match the location of your file
-add_next_month_date_and_remove_oldest('/ChromebookScheduler/CHROMEBOOKSCHEDULER3/chromebook_data/A2')
-add_next_month_date_and_remove_oldest('/ChromebookScheduler/CHROMEBOOKSCHEDULER3/chromebook_data/A32')
-add_next_month_date_and_remove_oldest('/ChromebookScheduler/CHROMEBOOKSCHEDULER3/chromebook_data/B3')
-add_next_month_date_and_remove_oldest('/ChromebookScheduler/CHROMEBOOKSCHEDULER3/chromebook_data/C4')
+folder_name = 'chromebook_data'
+for id in os.listdir(folder_name):
+    filename = os.path.join(folder_name, id)
+    if os.path.isfile(os.path.join(folder_name, id)):
+        add_next_month_date_and_remove_oldest(filename)
