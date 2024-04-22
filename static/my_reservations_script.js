@@ -75,6 +75,7 @@ function cancel(date, period, id) {
     });
 }
 
+display();
 
 // document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
 //     // Reference Tracker 1
