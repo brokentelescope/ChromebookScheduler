@@ -20,8 +20,17 @@
         <table>
             <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
-            <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
-            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+            {% if is_admin %}
+                <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
+            {% else %}
+                <tr><td class="highlight"><button class="button grayed-out" disabled>Reservation History</button></td></tr>
+            {% endif %} 
+            {% if is_verified %} 
+                <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+            {% else %}
+                <tr><td class="highlight"><button class="button grayed-out" disabled>Add Bin</button></td></tr>
+            {% endif %}            
+            <tr><td class="highlight"><a href="{{ url_for('current_locations') }}">Bins Locations</a></td></tr> 
             <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr> 
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
@@ -47,15 +56,27 @@
             </tr> 
    
             <tr> 
-                <td><input type="text" id="location" name="null" placeholder ="Enter location name" oninput="checkInputs()"></td> 
-                <!-- <td><input type="text" id="admin" name="null" placeholder ="Enter admin password" oninput="checkInputs()"></td>  -->
+                <td><input type="text" id="location" name="null" placeholder ="Enter location name" oninput="checkInputs()"></td>  
                 <td><input type="text" id="amt" name="null" placeholder ="Enter total amount" oninput="checkInputs()"></td> 
                 <td><input type="text" id="binId" name="null" placeholder ="Enter bin ID" oninput="checkInputs()"></td> 
             </tr>
 
             <tr>
                 <td style = "color: #3498db;" colspan="4">
-                    <button id="submitBtn" onclick="submit(event)" disabled>Submit</button>
+                    {% if is_verified %} 
+                        <button id="submitBin" onclick="submit(event)" disabled>Submit</button>
+                    {% else %}
+                        <button id="submitBin" onclick="submit(event)">Submit</button>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                var reserveButton = document.getElementById("submitBin");
+                                reserveButton.disabled = true;
+                                reserveButton.style.opacity = 0.5;
+                            });
+                        </script>
+                    {% endif %}
+                
+                
 
                 </td>
             </tr>

@@ -1,4 +1,4 @@
-function display() { 
+function display() {  
     fetch('/get_reserved', {
         method: 'POST',
         headers: {
@@ -28,7 +28,7 @@ function display() {
 
                 var reserveButtonCell = document.createElement('td');
                 var reserveButton = document.createElement('button');
-                reserveButton.textContent = 'Cancel';
+                reserveButton.textContent = 'Cancel/Returned';
                 reserveButton.onclick = function() {  
                     var date = row.childNodes[2].textContent
                     var period = row.childNodes[3].textContent
@@ -39,6 +39,7 @@ function display() {
                 reserveButtonCell.appendChild(reserveButton);
                 row.appendChild(reserveButtonCell);
 
+        
                 // Append the row to the table body
                 tableBody.appendChild(row);
             });
@@ -48,7 +49,7 @@ function display() {
         console.error('Error:', error);
     });
 }
-
+display();
 
 function cancel(date, period, id) { 
     var data = { 
@@ -74,8 +75,7 @@ function cancel(date, period, id) {
         console.error('Error:', error);
     });
 }
-
-display();
+ 
 
 // document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
 //     // Reference Tracker 1

@@ -33,7 +33,9 @@
             <form method="POST" onsubmit="return validatePasswords()">
                 <input type="text" name="name" placeholder="Username" required>
                 <input type="password" name="password" id="password" placeholder="Password" autocomplete="new-password" required>
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" autocomplete="new-password" required>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" autocomplete="new-password" required> 
+                <input type="text" name="classroom" placeholder="Classroom" required> 
+
                 <button type="submit">Sign Up</button>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}

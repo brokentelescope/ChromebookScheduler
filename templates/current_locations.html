@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
-    <script src="../static/my_reservations_script.js"></script>
+    <script src="../static/current_locations.js"></script>
 
 </head>
 <body>
@@ -19,7 +19,7 @@
         <!-- LINK TO OTHER PAGES -->
         <table>
             <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
-            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>           
             {% if is_admin %}
                 <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
             {% else %}
@@ -30,52 +30,63 @@
             {% else %}
                 <tr><td class="highlight"><button class="button grayed-out" disabled>Add Bin</button></td></tr>
             {% endif %}         
-            <tr><td class="highlight"><a href="{{ url_for('current_locations') }}">Bins Locations</a></td></tr> 
+            <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('current_locations') }}">Bins Locations</a></td></tr>
             <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('team') }}">Team</a></td></tr>
+            
             {% if is_admin %} 
                 <tr><td class="highlight"><a href="{{ url_for('admin_panel') }}">Admin Panel</a></td></tr>
             {% else %}
                 <tr><td class="highlight"><button class="button grayed-out" disabled>Admin Panel</button></td></tr>
             {% endif %}
-
-
         </table>
-        
-        <table class="new-table">
-            <!-- New table content -->
-            <tr>
-                <td colspan="6" style="color: #3498db;">Reservations</td>
-            </tr>
-            <!-- <tr> 
-                <button onclick="button()">Click me</button>
+    </table> 
+    <!-- THIS IS THE LOOKUP TABLE -->
+    <table class="new-table" id="chromebookTable">
+        <tr>
+            <td style = "color: #3498db;" colspan="4">Input date</td>
+        </tr>
 
-                <td>ID</td>
-                <td>Location From</td>  
-                <td>Date reserved</td> 
-                <td>Period</td> 
-                <td>Name</th>
-                <td>Action</th>
-            </tr>
-             <tbody id="reservationTableBody"></tbody> -->
-
-            <tr>
-                <td style="color: #3498db;">ID</td>
-                <td style="color: #3498db;">Location</td>
-                <td style="color: #3498db;">Date reserved</td>
-                <td style="color: #3498db;">Period</td>
-                <td style="color: #3498db;">Username</td>
-                <td style="color: #3498db;">Action</td>
-            </tr>
-            <tbody id="reservationTableBody">
-            </tbody>
-
-
-
+        <tr>
+            <td>
+                Date: 
+                <input type = "date" id = "dateInput">
+            </td>
+            <td>
+                Period: 
+                <select id = "periodInput">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </td>
+            <td colspan="2">
+                <button onclick="search()">Submit</button>
+            </td>
             
-        </table> 
+        </tr>    
+
+        <tr></tr>
+
+        <tr>
+            <td colspan="5" style="color: #3498db;">Chromebook bin locations</td>
+        </tr> 
+        <tr>
+            <td style="color: #3498db;">Bin</td>
+            <td style="color: #3498db;">Source</td>
+            <td style="color: #3498db;">Currently at</td> 
+            <td style="color: #3498db;">By</td> 
+        </tr>
+        <tbody id="t">
+        <!-- <tbody id="tt"> -->
+
+        </tbody>
+    </table>
+
+ 
     </div>
 </body>
 </html>

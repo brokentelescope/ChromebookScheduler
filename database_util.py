@@ -62,12 +62,13 @@ Function that inserts a new user into the database.
 Args:
     username (string)
     password (string)
+    classroom (string)
     isVerified (int)
 Returns:
     none
 """
-def insert_user(username, password, isVerified=0):
-    cursor.execute("INSERT INTO users (username, password, isVerified) VALUES (?, ?, ?)", (username, password, isVerified))
+def insert_user(username, password, classroom, isVerified=0):
+    cursor.execute("INSERT INTO users (username, password, isVerified, classroom) VALUES (?, ?, ?, ?)", (username, password, isVerified, classroom))
     connection.commit()
 
 """
@@ -91,3 +92,20 @@ Returns:
 def remove(username):
     cursor.execute(f"DELETE FROM users WHERE username='{username}'")
     connection.commit()
+
+"""
+Function that gets the classroom of a user from the database.
+Args:
+    classroom (string)
+Returns:
+    none
+"""
+def get_classroom(username):    
+    cursor.execute(f"SELECT classroom FROM users WHERE username='{username}'")
+
+    result = cursor.fetchone()
+    print(result)
+    # print(username, result)
+
+    return result[0] 
+ 

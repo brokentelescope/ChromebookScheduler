@@ -10,16 +10,20 @@ function display() {
         var tableBody = document.getElementById('reservationTableBody');  
         // Clear existing table rows
         tableBody.innerHTML = '';
-        if (data.length === 0) {
+        var x = data.data;
+        var isUserVerified = data.is_verified;
+
+
+        if (x.length === 0) {
             // If no chromebooks available, display a message
             alert('No Reservations.');
         } 
         else {
             // Iterate over each array element and create table rows
-            data.forEach(function(chromebook) {
+            x.forEach(function(x) {
                 var row = document.createElement('tr'); 
                 // Create table data cells and populate with chromebook data
-                chromebook.forEach(function(value) {
+                x.forEach(function(value) {
                     var cell = document.createElement('td');
                     cell.textContent = value; 
                     row.appendChild(cell); 
@@ -29,22 +33,40 @@ function display() {
                 var reserveButtonCell = document.createElement('td');
                 var reserveButton = document.createElement('button');
                 reserveButton.textContent = 'Remove User';
-                reserveButton.onclick = function() {  
-                    var userName = row.childNodes[0].textContent 
-                    cancel(userName); // Pass the ID of the chromebook
-                };
+
+
+                if (isUserVerified) { 
+                    reserveButton.onclick = function() {  
+                        var userName = row.childNodes[0].textContent 
+                        ban(userName); // Pass the ID of the chromebook
+                    };
+                } else {
+                    // If user is not verified, button is disabled and grayed out
+                    reserveButton.disabled = true;
+                    reserveButton.style.opacity = 0.5; // Set opacity to visually indicate button is disabled
+                }
+ 
                 reserveButtonCell.appendChild(reserveButton); 
                 row.appendChild(reserveButtonCell);
                 tableBody.appendChild(row);
 
                 // Insert button into its cell
+
+                
                 var cell = document.createElement('td');
                 var button = document.createElement('button');
                 button.textContent = 'Verify';
 
-                button.onclick = function() {
-                    var userName = row.childNodes[0].textContent 
-                    verify(userName); // Pass the ID of the chromebook
+
+                if (isUserVerified) { 
+                    button.onclick = function() {
+                        var userName = row.childNodes[0].textContent 
+                        verify(userName); // Pass the ID of the chromebook
+                    }
+                } else {
+                    // If user is not verified, button is disabled and grayed out
+                    button.disabled = true;
+                    button.style.opacity = 0.5; // Set opacity to visually indicate button is disabled
                 }
                 cell.appendChild(button);
                 row.appendChild(cell);
@@ -59,7 +81,7 @@ function display() {
 
 display()
 
-function cancel(userName) { 
+function ban(userName) { 
     var data = { 
         userName: userName
     };   
@@ -102,13 +124,7 @@ function verify(userName) {
     })
     .catch(error => {
         console.error('Error:', error);
-    });
-
-
-
-
-
-
+    }); 
 }
 // document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
 //     // Reference Tracker 1

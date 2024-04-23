@@ -7,7 +7,7 @@ function checkInputs() {
     // Check if all inputs are ok
     var isValid = location !== "" && amt !== "" && id !== "" && !isNaN(Number(amt));
      
-    document.getElementById("submitBtn").disabled = !isValid;
+    document.getElementById("submitBin").disabled = !isValid;
 
     if (isValid) {
         fetch('/check_bin', {
@@ -21,7 +21,7 @@ function checkInputs() {
         .then(data => {
             if (data.is_duplicate) {
                 // If bin is duplicate, disable submit button
-                document.getElementById("submitBtn").disabled = true;
+                document.getElementById("submitBin").disabled = true;
                 alert('Duplicate bin found. Please choose a different one.');
             }
         })
@@ -32,13 +32,10 @@ function checkInputs() {
 
 }
 
-async function submit() {
-    var location = document.getElementById("location").value;  
-    var admin = document.getElementById("admin").value;
+async function submit() { 
+    var location = document.getElementById("location").value;   
     var amt = document.getElementById("amt").value;
     var id = document.getElementById("binId").value;
-    
-    console.log(location, admin, amt, id);
     
     try {
         const response = await fetch('/create-chromebook-file', {
@@ -48,8 +45,7 @@ async function submit() {
             },
             body: JSON.stringify({
                 location: location,
-                admin: admin,
-                amt: amt,
+                amt: amt, 
                 id: id
             })
         });

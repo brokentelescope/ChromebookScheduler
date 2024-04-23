@@ -6,6 +6,8 @@
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
     <script src="../static/date_lookup_script.js"></script>
+
+    
 </head>
 <body>
     <nav>
@@ -19,8 +21,17 @@
         <table>
             <tr><td style="background-color: lightblue;" class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
-            <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
-            <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+            {% if is_admin %}
+                <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
+            {% else %}
+                <tr><td class="highlight"><button class="button grayed-out" disabled>Reservation History</button></td></tr>
+            {% endif %} 
+            {% if is_verified %} 
+                <tr><td class="highlight"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+            {% else %}
+                <tr><td class="highlight"><button class="button grayed-out" disabled>Add Bin</button></td></tr>
+            {% endif %}         
+            <tr><td class="highlight"><a href="{{ url_for('current_locations') }}">Bins Locations</a></td></tr> 
             <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
@@ -52,7 +63,17 @@
                         <option value="4">4</option>
                     </select>
                 </td>
-                <td colspan="2">
+                <td colspan="1">
+                    <!-- Checkbox for default location -->
+                    <input type="checkbox" id="useDefaultLocation" onclick="toggleLocationInput()" checked />
+                    <label for="useDefaultLocation">Use default location</label>
+                    <br />
+                    <!-- Input field for custom location (hidden by default) -->
+                    <input type="text" id="locationInput" placeholder="Enter custom location" style="display: none;" />
+                </td>
+                
+                
+                <td colspan="1">
                     <button onclick="search()">Submit</button>
                 </td>
                 

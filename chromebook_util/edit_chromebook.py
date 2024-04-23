@@ -8,10 +8,11 @@ Args:
     date (string)
     period (string)
     reserver_name (string)
+    classroom (string)
 Returns:
     none
 """
-def edit(id, date, period, reserver_name):
+def edit(id, date, period, reserver_name, classroom):
     id = os.path.join(folder_name, id)
 
     with open(id, 'r') as file:
@@ -21,9 +22,10 @@ def edit(id, date, period, reserver_name):
         for line in lines:
             line = line.strip()
             if date+','+period in line:
-                file.write(date+','+period+','+reserver_name+'\n')
+                file.write(date+','+period+','+reserver_name+','+classroom+'\n')
             else:
                 file.write(line+'\n')
+
 
 # # sample test
 # edit('A2', '2024-12-31', 'C', 'Gibson')
