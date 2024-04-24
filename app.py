@@ -177,14 +177,6 @@ def edit_chromebooks():
 def check():
     data = request.json 
     return jsonify(check_chromebook.check(data['id'], data['date'], data['period']))
-
-def checkVerify():
-    global username 
-    result = database_util.get_single_data(username)
-    if result:
-        is_verified = bool(result[2])  
-        return is_verified
-    return False  
     
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
@@ -226,6 +218,14 @@ def get_data():
 def checkAdmin():
     global username 
     return username == 'ADMIN'
+
+def checkVerify():
+    global username 
+    result = database_util.get_single_data(username)
+    if result:
+        is_verified = bool(result[2])  
+        return is_verified
+    return False  
 
 """
 The below functions are flask routes that render the html templates in our templates folder.
