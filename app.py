@@ -32,27 +32,19 @@ def verify_account():
     data = request.json
     username = data['userName']
     # Connect to the database
-    connection = sqlite3.connect('user_data.db')
-    cursor = connection.cursor()
-    cursor.execute("SELECT isVerified FROM users WHERE username=?", (username,))
-    result = cursor.fetchone()
-    # print(result)
+    result = database_util.get_single_data(username)
+    print(result)
     if result:
-        is_verified = bool(result[0])
-
+        is_verified = bool(result[2])
         # Toggle verification status
         new_verification = 1 if not is_verified else 0
-        cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (new_verification, username))
-        connection.commit()
-        connection.close()
-
+        database_util.verify(username, new_verification)
         if not is_verified:
             return jsonify('The account has been verified.')
-        else:
-            return jsonify('The account has been unverified.')
+        return jsonify('The account has been unverified.')
     else:
         return jsonify('The account is not found.')  
-    
+
 @app.route('/remove_account', methods=['POST'])
 def remove_account(): 
     data = request.json
@@ -75,8 +67,6 @@ def remove_account():
 
 @app.route('/get_account', methods = ['POST'])
 def get_account(): 
-
-    
     is_verified = checkVerify()
 
     response_data = {

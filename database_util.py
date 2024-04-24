@@ -72,14 +72,15 @@ def insert_user(username, password, classroom, isVerified=0):
     connection.commit()
 
 """
-Function that verifies a user.
+Function that changes the verification status of a user.
 Args:
     username (string)
+    isVerified (int)
 Returns:
     none
 """
-def verify(username):
-    cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (1, username))
+def verify(username, isVerified):
+    cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (isVerified, username))
     connection.commit()
 
 """

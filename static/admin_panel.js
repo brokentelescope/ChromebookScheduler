@@ -13,7 +13,6 @@ function display() {
         var x = data.data;
         var isUserVerified = data.is_verified;
 
-
         if (x.length === 0) {
             // If no chromebooks available, display a message
             alert('No Reservations.');
@@ -21,19 +20,21 @@ function display() {
         else {
             // Iterate over each array element and create table rows
             x.forEach(function(x) {
+                if (x.includes('ADMIN')) return;
                 var row = document.createElement('tr'); 
                 // Create table data cells and populate with chromebook data
+                let isVerified = false;
                 x.forEach(function(value) {
+                    if (value == 1) value = "Yes";
+                    if (value == 0) value = "No";
                     var cell = document.createElement('td');
                     cell.textContent = value; 
                     row.appendChild(cell); 
                 });
                 // Append the row to the table body
-
                 var reserveButtonCell = document.createElement('td');
                 var reserveButton = document.createElement('button');
                 reserveButton.textContent = 'Remove User';
-
 
                 if (isUserVerified) { 
                     reserveButton.onclick = function() {  
@@ -51,8 +52,6 @@ function display() {
                 tableBody.appendChild(row);
 
                 // Insert button into its cell
-
-                
                 var cell = document.createElement('td');
                 var button = document.createElement('button');
                 button.textContent = 'Verify';

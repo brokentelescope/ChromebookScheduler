@@ -1,18 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,400i,600");
 
 .invisible-row td {
-	border-top: 1px solid white; /* Set top border color to white */
-	border-left: 1px solid white; /* Set left border color to white */
-	border-right: 1px solid white; /* Set right border color to white */
-	border-bottom: 1px solid #dddddd; /* Set bottom border color to gray */
+    border-left: 1px solid transparent; /* Set left border color to white */
+    border-right: 1px solid transparent; /* Set right border color to white */
 }
 
 .invisible-row {
-	visibility: hidden;
-	height: 170px; /* Adjust the height as needed */
-	border-spacing: 0; /* Remove any border spacing */
-	padding: 0; /* Remove any padding */
-	background-color: transparent; /* Set background color to transparent */
+    visibility: hidden;
+    height: 50px; /* Adjust the height as needed */
+    border-spacing: 0; /* Remove any border spacing */
+    padding: 0; /* Remove any padding */
+    background-color: transparent; /* Set background color to transparent */
 }
 
 td {
