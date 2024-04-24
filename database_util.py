@@ -82,7 +82,7 @@ Returns:
 def verify(username, isVerified):
     cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (isVerified, username))
     connection.commit()
-
+# verify('ADMIN', 1)
 """
 Function that removes a user from the database.
 Args:
