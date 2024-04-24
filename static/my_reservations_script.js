@@ -1,3 +1,6 @@
+/**
+ * Function that displays a user's reservations and allows them to cancel them if needed.
+ */
 function display() {  
     fetch('/get_reserved', {
         method: 'POST',
@@ -51,6 +54,9 @@ function display() {
 }
 display();
 
+/**
+ * Function that cancels a reservation.
+ */
 function cancel(date, period, id) { 
     var data = { 
         date: date, 
@@ -75,16 +81,4 @@ function cancel(date, period, id) {
         console.error('Error:', error);
     });
 }
- 
-
-// document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
-//     // Reference Tracker 1
-//     // code to auto set the default values for the date input
-//     var today = new Date().toISOString().slice(0, 10);
-//     var date = document.getElementById("dateInput");
-//     date.value = today;
-//     date.min = today;
-
-
-// });
 

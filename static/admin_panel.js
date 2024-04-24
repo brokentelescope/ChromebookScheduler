@@ -1,3 +1,7 @@
+/**
+ * Function that displays all users (except the admin) and creates buttons that 
+ * allow for the banning, edit of verification status.
+ */
 function display() { 
     fetch('/get_account', {
         method: 'POST',
@@ -80,6 +84,9 @@ function display() {
 
 display()
 
+/**
+ * Function that bans a user.
+ */
 function ban(userName) { 
     var data = { 
         userName: userName
@@ -103,6 +110,9 @@ function ban(userName) {
     });
 }
 
+/**
+ * Function that edits the verification status of a user.
+ */
 function verify(userName) {
     var data = { 
         userName: userName
@@ -125,14 +135,4 @@ function verify(userName) {
         console.error('Error:', error);
     }); 
 }
-// document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
-//     // Reference Tracker 1
-//     // code to auto set the default values for the date input
-//     var today = new Date().toISOString().slice(0, 10);
-//     var date = document.getElementById("dateInput");
-//     date.value = today;
-//     date.min = today;
-
-
-// });
 

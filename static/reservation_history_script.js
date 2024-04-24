@@ -1,3 +1,7 @@
+/**
+ * Function that displays all reservation history.
+ */
+
 function display() {
     fetch('/get_history', {
         method: 'POST',
@@ -60,6 +64,10 @@ function display() {
     });
 
 }
+
+/**
+ * Function that creates a csv.file for the admin to download.
+ */
 function createTextFile(content) {
     // Create a blob with the text content
     var blob = new Blob([content], { type: 'text/plain' });

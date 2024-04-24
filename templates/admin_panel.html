@@ -20,8 +20,6 @@
             <tr><td class="highlight"><a href="{{ url_for('date_lookup') }}">Date Lookup</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('current_locations') }}">Bin Locations</a></td></tr> 
-            <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
-            <tr><td class="highlight"><a href="{{ url_for('team') }}">Our Team</a></td></tr>
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
             {% if is_admin %}
                 <tr><td class="highlight"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>
@@ -39,6 +37,8 @@
                 <tr><td class="highlight"><button class="button grayed-out" disabled>Manage Users</button></td></tr>
             {% endif %}
             <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
+            <tr><td class="highlight"><button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button></td></tr>
+            <tr><td class="highlight"><a href="{{ url_for('team') }}">Our Team</a></td></tr>
             <tr><td class="highlight"><a href="{{ url_for('login_index') }}">Sign out</a></td></tr>
         </table>
 

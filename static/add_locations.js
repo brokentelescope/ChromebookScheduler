@@ -1,6 +1,9 @@
+/**
+ * Checks that the bin ID inputted does not already exist.
+ * Allows the admin to add the bin accordingly. 
+ */
 function checkInputs() {
     var location = document.getElementById("location").value.trim();  
-    // var admin = document.getElementById("admin").value.trim();
     var amt = document.getElementById("amt").value.trim();
     var id = document.getElementById("binId").value.trim();
 
@@ -29,9 +32,11 @@ function checkInputs() {
             console.error('Error:', error);
         });
     }
-
 }
 
+/**
+ * Function that creates a new text-file for the inputted bin.
+ */
 async function submit() { 
     var location = document.getElementById("location").value;   
     var amt = document.getElementById("amt").value;

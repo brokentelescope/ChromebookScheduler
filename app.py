@@ -9,8 +9,8 @@ import create_chromebook
 import check_chromebook
 import edit_chromebook
 import all_available 
-import database_util
 import get_info
+import database_util
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -22,19 +22,20 @@ def check_bin():
     bin_id = request.form['binId']
     is_duplicate = 0
     folder_name = 'chromebook_data' 
+    # Check each file name in the chromebook_data folder
     for id in os.listdir(folder_name):
-        if id == bin_id: is_duplicate = 1
-    
+        if id == bin_id: 
+            is_duplicate = 1
+            break
     return jsonify({'is_duplicate': is_duplicate}) 
     
 @app.route('/verify_account', methods=['POST'])
 def verify_account():
     data = request.json
     username = data['userName']
-    # Connect to the database
     result = database_util.get_single_data(username)
-    print(result)
     if result:
+        # Data is in the form of (username, password, isVerified, classroom), so take result[2]
         is_verified = bool(result[2])
         # Toggle verification status
         new_verification = 1 if not is_verified else 0
@@ -51,24 +52,10 @@ def remove_account():
     database_util.remove(data['userName'])
     return jsonify('Success')
 
-# @app.route('/check_chromebooks', methods=['POST'])
-# def check_chromebooks():
-#     global username
-#     data = request.json
-#     chromebooks_data = all_available.available_chromebooks(data['date'], data['period'])
-#     is_verified = checkVerify()
-
-#     response_data = {
-#         "chromebooks": chromebooks_data,
-#         "is_verified": is_verified
-#     }
-#     return jsonify(response_data)
-
-
+# ?
 @app.route('/get_account', methods = ['POST'])
 def get_account(): 
     is_verified = checkVerify()
-
     response_data = {
         "data": database_util.get_all_data(),
         "is_verified": is_verified
@@ -80,14 +67,11 @@ def get_reserved():
     global username
     reservedByUser = []
     # here we have to go read all the file, and all the line, make a check to see if name is ok, and append it
-
     folder_name = 'chromebook_data'
     # for id in os.listdir(folder_name): #A2, A32, etc 
-    cnt = 0
     reservedByUser = []
     for id in os.listdir(folder_name):
         if os.path.isfile(os.path.join(folder_name, id)):
-            # print(os.path.join(folder_name, id))
             with open(os.path.join(folder_name, id), 'r') as file:
                 for line in file:
                     if username in line:
@@ -101,7 +85,6 @@ def get_current_locations():
     data = request.json
     date = data['date']
     period = data['period']
-    # print(date, period)
     f = 'chromebook_data' 
     a = []
     for id in os.listdir(f):    
@@ -123,9 +106,6 @@ def get_current_locations():
 
     return jsonify(a)
 
-# @app.route('/get_unreserved_locations', methods = ['POST'])
-# def get_current_locations(): 
-
 
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
@@ -139,7 +119,6 @@ def login_index():
             name = data['name']
             password = data['password'] 
             classroom = data['classroom']
-
             query = database_util.get_single_data(name)
             # username already exists
             if query:
@@ -152,13 +131,8 @@ def login_index():
         else:
             name = data['name']
             password = data['password']
-            connection = sqlite3.connect('user_data.db')
-            cursor = connection.cursor()
-            cursor.execute("SELECT password FROM users WHERE username=?", (name,))
-            result = cursor.fetchone() 
-            # print(result, password)
-            if result and result[0] == password:
-                print("Valid Credentials")
+            result = database_util.get_single_data(name)
+            if result and result[1] == password:
                 username = name
                 return redirect(url_for('home_index'))  
             else:
@@ -189,13 +163,10 @@ def edit_chromebooks():
     using_custom_classroom = data['using_custom_classroom']
 
     if (using_custom_classroom == 0): 
-        # print(191)
         classroom = database_util.get_classroom(username)  
     else: 
         classroom = using_custom_classroom 
     
-
-    # print(classroom)
     edit_chromebook.edit(id, date, period, name, classroom) 
     with open('reservation_history.txt', 'a') as file:
         file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
@@ -209,18 +180,11 @@ def check():
 
 def checkVerify():
     global username 
-    # Connect to the database
-    connection = sqlite3.connect('user_data.db')
-    cursor = connection.cursor()
-    cursor.execute("SELECT isVerified FROM users WHERE username=?", (username,)) 
-    result = cursor.fetchone()
+    result = database_util.get_single_data(username)
     if result:
-        is_verified = bool(result[0])  
-        connection.close()
+        is_verified = bool(result[2])  
         return is_verified
-    else:
-        connection.close()
-        return False  
+    return False  
     
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
@@ -249,11 +213,10 @@ def create_chromebook_file():
     location = data['location'] 
     amt = data['amt']
     id = data['id']
-    # print(data, location, amt, id)
-    create_chromebook.create(id, 2024, location, amt)
+    year = datetime.now().year
+    create_chromebook.create(id, year, location, amt)
     return jsonify('Success')
- 
-    
+
 @app.route('/get_data')
 def get_data(): 
     with open('data.json', 'r') as file:
@@ -262,60 +225,48 @@ def get_data():
 
 def checkAdmin():
     global username 
-    is_admin = (username == 'ADMIN') 
-    return is_admin
+    return username == 'ADMIN'
 
+"""
+The below functions are flask routes that render the html templates in our templates folder.
+
+Args:
+    none
+Returns:
+    (render_template)
+"""
 @app.route('/current_locations')
 def current_locations():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify()  
-    return render_template('current_locations.html', is_admin=is_admin, is_verified=is_verified)  
+    return render_template('current_locations.html', is_admin=checkAdmin(), is_verified=checkVerify())  
 
 @app.route('/home_index')
 def home_index(): 
-    is_admin = checkAdmin() 
-    is_verified = checkVerify() 
-    return render_template('home_index.html', is_admin=is_admin, is_verified=is_verified)
+    return render_template('home_index.html', is_admin=checkAdmin(), is_verified=checkVerify())
 
 @app.route('/date_lookup')
 def date_lookup():
-    is_admin = checkAdmin()  
-    is_verified = checkVerify() 
-    return render_template('date_lookup_index.html', is_admin=is_admin, is_verified=is_verified)
+    return render_template('date_lookup_index.html', is_admin=checkAdmin(), is_verified=checkVerify())
 
 @app.route('/my_reservations')
 def my_reservations():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify() 
-    return render_template('my_reservations_index.html', is_admin=is_admin, is_verified=is_verified) 
+    return render_template('my_reservations_index.html', is_admin=checkAdmin(), is_verified=checkVerify()) 
 
 @app.route('/reservation_history')
 def reservation_history():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify()
-    return render_template('reservation_history_index.html', is_admin=is_admin, is_verified=is_verified)   
+    return render_template('reservation_history_index.html', is_admin=checkAdmin(), is_verified=checkVerify())   
 
 @app.route('/add_locations')
-def add_locations():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify()     
-    return render_template('add_locations.html', is_admin=is_admin, is_verified=is_verified)      
+def add_locations():    
+    return render_template('add_locations.html', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/team')
-def team():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify()     
-    return render_template('team.html', is_admin=is_admin, is_verified=is_verified)      
+def team():    
+    return render_template('team.html', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/admin_panel')
-def admin_panel():
-    is_admin = checkAdmin() 
-    is_verified = checkVerify()  
-    return render_template('admin_panel.html', is_admin=is_admin, is_verified=is_verified)     
+def admin_panel(): 
+    return render_template('admin_panel.html', is_admin=checkAdmin(), is_verified=checkVerify())     
 
-# @app.route('/bug_report')
-# def bug_report():
-#     return render_template('bug_report.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
