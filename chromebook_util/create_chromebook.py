@@ -20,7 +20,6 @@ def create(id, year, location, amount):
     delta = datetime.timedelta(days=1)
 
     id = os.path.join(folder_name, id)
-    print(id)
 
     with open(id, 'w') as file:
         file.write(location + ',' + str(amount) + '\n')

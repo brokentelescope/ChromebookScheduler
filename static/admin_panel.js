@@ -13,7 +13,6 @@ function display() {
         var x = data.data;
         var isUserVerified = data.is_verified;
 
-
         if (x.length === 0) {
             // If no chromebooks available, display a message
             alert('No Reservations.');
@@ -21,6 +20,9 @@ function display() {
         else {
             // Iterate over each array element and create table rows
             x.forEach(function(x) {
+                if (x.includes("ADMIN")) {
+                    return;
+                }
                 var row = document.createElement('tr'); 
                 // Create table data cells and populate with chromebook data
                 x.forEach(function(value) {

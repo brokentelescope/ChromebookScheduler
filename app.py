@@ -111,7 +111,7 @@ def get_current_locations():
     data = request.json
     date = data['date']
     period = data['period']
-    print(date, period)
+    # print(date, period)
     f = 'chromebook_data' 
     a = []
     for id in os.listdir(f):    
@@ -166,7 +166,7 @@ def login_index():
             cursor = connection.cursor()
             cursor.execute("SELECT password FROM users WHERE username=?", (name,))
             result = cursor.fetchone() 
-            print(result, password)
+            # print(result, password)
             if result and result[0] == password:
                 print("Valid Credentials")
                 username = name
@@ -199,13 +199,13 @@ def edit_chromebooks():
     using_custom_classroom = data['using_custom_classroom']
 
     if (using_custom_classroom == 0): 
-        print(191)
+        # print(191)
         classroom = database_util.get_classroom(username)  
     else: 
         classroom = using_custom_classroom 
     
 
-    print(classroom)
+    # print(classroom)
     edit_chromebook.edit(id, date, period, name, classroom) 
     with open('reservation_history.txt', 'a') as file:
         file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
@@ -259,7 +259,7 @@ def create_chromebook_file():
     location = data['location'] 
     amt = data['amt']
     id = data['id']
-    print(data, location, amt, id)
+    # print(data, location, amt, id)
     create_chromebook.create(id, 2024, location, amt)
     return jsonify('Success')
  

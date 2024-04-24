@@ -15,4 +15,4 @@ def get_info(id):
         return [id]+ file.readline().strip().split(',')
     
 # sample test
-print(get_info('A2')) 
+# print(get_info('A2')) 
