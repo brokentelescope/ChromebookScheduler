@@ -215,10 +215,23 @@ def get_data():
         data = json.load(file)   
     return jsonify(data)   
 
+"""
+Function that checks if the user is the admin.
+Input:
+    This function uses the global variable: username (string) as input. 
+Returns:
+    (bool)
+"""
 def checkAdmin():
     global username 
     return username == 'ADMIN'
-
+"""
+Function that checks if the user is verifed.
+Input:
+    This function uses the global variable: username (string) as input. 
+Returns:
+    (bool)
+"""
 def checkVerify():
     global username 
     result = database_util.get_single_data(username)

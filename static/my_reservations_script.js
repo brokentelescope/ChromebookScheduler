@@ -63,6 +63,7 @@ function cancel(date, period, id) {
         period: period,
         id: id, 
     };   
+    // calls the cancel_chromebook route from app.py.
     fetch('/cancel_chromebook', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

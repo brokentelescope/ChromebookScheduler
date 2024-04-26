@@ -3,6 +3,7 @@
  */
 
 function display() {
+    // calls the get_history route from app.py
     fetch('/get_history', {
         method: 'POST',
         headers: {

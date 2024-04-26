@@ -1,5 +1,7 @@
 /**
- * Function to search and display bins
+ * Function to search for available bins at a certain date and period.
+ * The function will display the available bins and create buttons to reserve them.
+ * All inputs are taken from HTML inputs in string format.
  */
 function search() {
     var date = document.getElementById("dateInput").value;
@@ -22,6 +24,7 @@ function search() {
         period: period, 
     };
     
+    // call the check_chromebooks route from app.py
     fetch('/check_chromebooks', {
         method: 'POST',
         headers: {
@@ -85,13 +88,16 @@ function search() {
     });
 }
 
-
+/**
+ * Function to reserve a bin.
+ * Input:
+ *      id (string),
+ *      date (string),
+ *      period (string),
+ *      using_custom_classroom (int (0 or 1))
+ *
+ */
 function reserve(id, date, period, using_custom_classroom) {
-    // var name = prompt("Enter your name:");
-    // if (name == "") {
-    //     alert('Invalid name.');
-    //     return;
-    // }
     var data = { 
         date: date, 
         period: period,
@@ -102,6 +108,7 @@ function reserve(id, date, period, using_custom_classroom) {
     // this first fetch is just to check if the chromebook bin has just been reserved or not
     // this check would only be useful if two users are trying to reserve the same chromebook bin at the exact same time (which is very unlikely)
     // also prevents users from booking a chromebook bin twice?
+    // calls the check route from app.py
     fetch('/check', {method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({date:date, period:period, id:id})
     })
@@ -113,6 +120,7 @@ function reserve(id, date, period, using_custom_classroom) {
     })
     .then(responseData => {
         if (responseData == true) {
+            // calls the edit_chromebook route from flask.
             fetch('/edit_chromebook', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)})
             .then(response => {
                 if (!response.ok) {
