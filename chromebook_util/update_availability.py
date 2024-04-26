@@ -24,7 +24,7 @@ def add_next_month_date_and_remove_oldest(file_path):
     next_day = last_date + timedelta(days=1)
 
     # Append the next day's data
-    for period in range(1, 5):  # Assuming 4 periods per day
+    for period in range(1, 5):
         lines.append(f'{next_day.strftime("%Y-%m-%d")},{period},none\n')
 
     # Write the modified lines back to the file

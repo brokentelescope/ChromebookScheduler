@@ -1,4 +1,6 @@
-// function to search and display bins
+/**
+ * Function to search and display bins
+ */
 function search() {
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");

@@ -229,7 +229,10 @@ def checkVerify():
 
 """
 The below functions are flask routes that render the html templates in our templates folder.
-
+The functions have three additional parameters in the render_template function.
+    active_page: which page they are actively viewing. this is used to highlight the active page.
+    is_admin: whether the user is an admin or not. this determines whether they can access the admin-only pages.
+    is_verified: whether the user is verifided or not. this determines whether they can reserve chromebooks or not.
 Args:
     none
 Returns:
@@ -237,36 +240,35 @@ Returns:
 """
 @app.route('/current_locations')
 def current_locations():
-    return render_template('current_locations.html', is_admin=checkAdmin(), is_verified=checkVerify())  
+    return render_template('current_locations.html', active_page='current_locations', is_admin=checkAdmin(), is_verified=checkVerify())  
 
 @app.route('/home_index')
 def home_index(): 
-    return render_template('home_index.html', is_admin=checkAdmin(), is_verified=checkVerify())
+    return render_template('home_index.html', active_page='home_index', is_admin=checkAdmin(), is_verified=checkVerify())
 
 @app.route('/date_lookup')
 def date_lookup():
-    return render_template('date_lookup_index.html', is_admin=checkAdmin(), is_verified=checkVerify())
+    return render_template('date_lookup_index.html', active_page='date_lookup', is_admin=checkAdmin(), is_verified=checkVerify())
 
 @app.route('/my_reservations')
 def my_reservations():
-    return render_template('my_reservations_index.html', is_admin=checkAdmin(), is_verified=checkVerify()) 
+    return render_template('my_reservations_index.html', active_page='my_reservations', is_admin=checkAdmin(), is_verified=checkVerify()) 
 
 @app.route('/reservation_history')
 def reservation_history():
-    return render_template('reservation_history_index.html', is_admin=checkAdmin(), is_verified=checkVerify())   
+    return render_template('reservation_history_index.html', active_page='reservation_history', is_admin=checkAdmin(), is_verified=checkVerify())   
 
 @app.route('/add_locations')
 def add_locations():    
-    return render_template('add_locations.html', is_admin=checkAdmin(), is_verified=checkVerify())      
+    return render_template('add_locations.html', active_page='add_locations', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/team')
 def team():    
-    return render_template('team.html', is_admin=checkAdmin(), is_verified=checkVerify())      
+    return render_template('team.html', active_page='team', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/admin_panel')
 def admin_panel(): 
-    return render_template('admin_panel.html', is_admin=checkAdmin(), is_verified=checkVerify())     
-
+    return render_template('admin_panel.html', active_page='admin_panel', is_admin=checkAdmin(), is_verified=checkVerify())
 
 if __name__ == '__main__':
     app.run(debug=True)

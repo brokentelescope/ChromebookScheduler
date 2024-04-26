@@ -1,5 +1,6 @@
 /**
  * Function to search and display bins given a period and date.
+ * All inputs are taken from HTML inputs in string format.
  */
 function search() {
     var date = document.getElementById("dateInput").value;
@@ -10,6 +11,7 @@ function search() {
         date: date, 
         period: period,
     };
+    // calls the get_current_locations route from app.py
     fetch('/get_current_locations', { 
         method: 'POST',
         headers: {

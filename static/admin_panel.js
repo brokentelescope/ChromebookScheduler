@@ -3,6 +3,7 @@
  * allow for the banning, edit of verification status.
  */
 function display() { 
+    // calls the get-account route from app.py
     fetch('/get_account', {
         method: 'POST',
         headers: {
@@ -27,7 +28,6 @@ function display() {
                 if (x.includes('ADMIN')) return;
                 var row = document.createElement('tr'); 
                 // Create table data cells and populate with chromebook data
-                let isVerified = false;
                 x.forEach(function(value) {
                     if (value == 1) value = "Yes";
                     if (value == 0) value = "No";
@@ -50,7 +50,7 @@ function display() {
                     reserveButton.disabled = true;
                     reserveButton.style.opacity = 0.5; // Set opacity to visually indicate button is disabled
                 }
- 
+                
                 reserveButtonCell.appendChild(reserveButton); 
                 row.appendChild(reserveButtonCell);
                 tableBody.appendChild(row);
@@ -59,7 +59,6 @@ function display() {
                 var cell = document.createElement('td');
                 var button = document.createElement('button');
                 button.textContent = 'Verify';
-
 
                 if (isUserVerified) { 
                     button.onclick = function() {
@@ -91,6 +90,7 @@ function ban(userName) {
     var data = { 
         userName: userName
     };   
+    // calls the remove_account route from app.py
     fetch('/remove_account', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -117,6 +117,7 @@ function verify(userName) {
     var data = { 
         userName: userName
     };   
+    // calls the verify_account route from app.py
     fetch('/verify_account', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

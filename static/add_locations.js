@@ -1,17 +1,21 @@
 /**
- * Checks that the bin ID inputted does not already exist.
- * Allows the admin to add the bin accordingly. 
+ * Function that validates in the inputs taken from HTML inputs and disables/enables the submit button accordingly.
+ * All inputs are taken from HTML inputs in string format.
  */
 function checkInputs() {
     var location = document.getElementById("location").value.trim();  
     var amt = document.getElementById("amt").value.trim();
     var id = document.getElementById("binId").value.trim();
 
-    // Check if all inputs are ok
+    // All inputs must not be blank.
+    // The amount input must be a number.
     var isValid = location !== "" && amt !== "" && id !== "" && !isNaN(Number(amt));
-     
+
+    // Enable/disable the submit button depending on if the inputs are valid. 
     document.getElementById("submitBin").disabled = !isValid;
 
+    // This code checks if the bin ID already exists.
+    // If it does exist, disable the submit button.
     if (isValid) {
         fetch('/check_bin', {
             method: 'POST',
@@ -25,7 +29,7 @@ function checkInputs() {
             if (data.is_duplicate) {
                 // If bin is duplicate, disable submit button
                 document.getElementById("submitBin").disabled = true;
-                alert('Duplicate bin found. Please choose a different one.');
+                alert('This bin ID already exists. Enter a different one.');
             }
         })
         .catch(error => {
@@ -36,12 +40,14 @@ function checkInputs() {
 
 /**
  * Function that creates a new text-file for the inputted bin.
+ * All inputs are taken from HTML inputs in string format.
  */
 async function submit() { 
     var location = document.getElementById("location").value;   
     var amt = document.getElementById("amt").value;
     var id = document.getElementById("binId").value;
     
+    // calls the create-chromebook-file route defined in app.py
     try {
         const response = await fetch('/create-chromebook-file', {
             method: 'POST',
@@ -64,5 +70,6 @@ async function submit() {
     } 
     catch (error) {
         console.error('Error:', error.message);
+        alert('An error occured.');
     }
 }
