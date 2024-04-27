@@ -3,21 +3,34 @@
  * The function will display the available bins and create buttons to reserve them.
  * All inputs are taken from HTML inputs in string format.
  */
-function search() {
+function reserveAll() {
+    var selectedBins = [];
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    // console.log(checkboxes)
+    checkboxes.forEach(function(checkbox) { 
+        selectedBins.push(checkbox.value);
+    });
+
+    if (selectedBins.length === 0) {
+        alert('Please select at least one bin to reserve.');
+        return;
+    }
+
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;
 
-    var useDefaultLocation = document.getElementById("useDefaultLocation");
-    var locationInput = document.getElementById("locationInput");
-    var using_custom_classroom;
+    // Call the reserve function for each selected bin
+    selectedBins.forEach(function(binId) {
+        reserve(binId, date, period);
+    });
+}
 
-    if (useDefaultLocation.checked) { 
-        using_custom_classroom = 0;
-    } else {
-        // If the checkbox is not checked, get the value from the input field
-        using_custom_classroom = locationInput.value;
-    }
+
+function search() {
+    var date = document.getElementById("dateInput").value;
+    var sel = document.getElementById("periodInput");
+    var period = sel.options[sel.selectedIndex].text;
 
     var data = { 
         date: date, 
@@ -39,7 +52,6 @@ function search() {
         tableBody.innerHTML = '';
 
         var chromebooks = data.chromebooks;
-        var isUserVerified = data.is_verified;
         
         if (chromebooks.length === 0) {
             // If no chromebooks available, display a message
@@ -55,28 +67,16 @@ function search() {
                     cell.textContent = value;
                     row.appendChild(cell);
                 });
+                
+                // checkbox
+                var cell = document.createElement('td'); 
+                var checkbox = document.createElement('input');                
+                checkbox.type = 'checkbox'; 
 
-                var reserveButtonCell = document.createElement('td');
-                var reserveButton = document.createElement('button');
-                reserveButton.textContent = 'Reserve'; 
                 
-                // Add a class to the button for styling purposes
-                reserveButton.className = 'reserve-button';
-                
-                // Check if user is verified before enabling the button
-                if (isUserVerified) {
-                    // If user is verified, button is clickable
-                    reserveButton.onclick = function() {
-                        reserve(chromebook[0], date, period, using_custom_classroom); // Pass the ID of the chromebook
-                    };
-                } else {
-                    // If user is not verified, button is disabled and grayed out
-                    reserveButton.disabled = true;
-                    reserveButton.style.opacity = 0.5; // Set opacity to visually indicate button is disabled
-                }
-                
-                reserveButtonCell.appendChild(reserveButton);
-                row.appendChild(reserveButtonCell);
+                checkbox.value = row.childNodes[0].textContent; 
+                cell.appendChild(checkbox);
+                row.appendChild(cell);
                 
                 // Append the row to the table body
                 tableBody.appendChild(row);
@@ -97,12 +97,11 @@ function search() {
  *      using_custom_classroom (int (0 or 1))
  *
  */
-function reserve(id, date, period, using_custom_classroom) {
+function reserve(id, date, period) {
     var data = { 
         date: date, 
         period: period,
-        id: id,
-        using_custom_classroom: using_custom_classroom
+        id: id, 
     };
 
     // this first fetch is just to check if the chromebook bin has just been reserved or not
@@ -110,7 +109,7 @@ function reserve(id, date, period, using_custom_classroom) {
     // also prevents users from booking a chromebook bin twice?
     // calls the check route from app.py
     fetch('/check', {method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({date:date, period:period, id:id})
+        body: JSON.stringify(data)
     })
     .then(response => {
         if (!response.ok) {
@@ -159,17 +158,3 @@ document.addEventListener("DOMContentLoaded", function(event) { // Reference Tra
 
 
 });
-
-function toggleLocationInput() {
-    var locationInput = document.getElementById("locationInput");
-    var useDefaultLocation = document.getElementById("useDefaultLocation");
-
-    if (useDefaultLocation.checked) {
-        locationInput.style.display = "none"; // Hide the input field
-    } else {
-        locationInput.style.display = "inline-block"; // Show the input field
-    }
-}
-
-// Call toggleLocationInput() initially to set the input field visibility based on the initial checkbox status
-toggleLocationInput(); 

@@ -35,7 +35,7 @@ def verify_account():
     username = data['userName']
     result = database_util.get_single_data(username)
     if result:
-        # Data is in the form of (username, password, isVerified, classroom), so take result[2]
+        # Data is in the form of (username, password, isVerified), so take result[2]
         is_verified = bool(result[2])
         # Toggle verification status
         new_verification = 1 if not is_verified else 0
@@ -95,13 +95,12 @@ def get_current_locations():
                         if "none" not in line: 
                             bin = id
                             source = get_info.get_info(id)[1]      
-                            classroom = line.split(',')[3] 
                             by = line.split(',')[2]
-                            a.append([bin, source, classroom, by])
+                            a.append([bin, source, by])
                         else: 
                             bin = id
                             source = get_info.get_info(id)[1]      
-                            a.append([bin, source, source, "N/A"])
+                            a.append([bin, source, "N/A"])
                             
 
     return jsonify(a)
@@ -117,14 +116,13 @@ def login_index():
         # SIGN UP 
         if len(data) == 4:
             name = data['name']
-            password = data['password'] 
-            classroom = data['classroom']
+            password = data['password']  
             query = database_util.get_single_data(name)
             # username already exists
             if query:
                 flash("Username already exists. Please choose a different one.")
             else:
-                database_util.insert_user(name, password, classroom)
+                database_util.insert_user(name, password)
                 flash("Sign up successful. You can now login.")
             return render_template('login_index.html')
 
@@ -148,7 +146,7 @@ def cancel_chromebooks():
     date = data['date']
     period = data['period']
     id = data['id']  
-    edit_chromebook.edit(id, date, period, 'none', 'none')
+    edit_chromebook.edit(id, date, period, 'none')
     return jsonify('Success')
 
 
@@ -159,15 +157,9 @@ def edit_chromebooks():
     date = data['date']
     period = data['period']
     id = data['id']
-    name = username
-    using_custom_classroom = data['using_custom_classroom']
+    name = username 
 
-    if (using_custom_classroom == 0): 
-        classroom = database_util.get_classroom(username)  
-    else: 
-        classroom = using_custom_classroom 
-    
-    edit_chromebook.edit(id, date, period, name, classroom) 
+    edit_chromebook.edit(id, date, period, name) 
     with open('reservation_history.txt', 'a') as file:
         file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
         

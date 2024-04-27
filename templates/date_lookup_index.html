@@ -39,20 +39,17 @@
                         <option value="4">4</option>
                     </select>
                 </td>
-                <td colspan="1">
-                    <!-- Checkbox for default location -->
-                    <input type="checkbox" id="useDefaultLocation" onclick="toggleLocationInput()" checked />
-                    <label for="useDefaultLocation">Use default location</label>
-                    <br />
-                    <!-- Input field for custom location (hidden by default) -->
-                    <input type="text" id="locationInput" placeholder="Enter custom location" style="display: none;" />
-                </td>
+                
+                </td>  
                 
                 
                 <td colspan="1">
                     <button onclick="search()">Submit</button>
                 </td>
                 
+                <td colspan="1">
+                    <button onclick="reserveAll()">Reserve Selected Bins</button>
+                </td>
             </tr>    
 
             <tr></tr>
@@ -61,7 +58,7 @@
                 <td style="color: #3498db;">ID</td>
                 <td style="color: #3498db;">Location</td>
                 <td style="color: #3498db;"># of Bins Available</td>
-                <td style="color: #3498db;">Action</td>
+                <td style="color: #3498db;">Select</td>
             </tr>
             <tbody id="chromebookTableBody">
             </tbody>
