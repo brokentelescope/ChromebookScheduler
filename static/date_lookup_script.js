@@ -1,8 +1,3 @@
-/**
- * Function to search for available bins at a certain date and period.
- * The function will display the available bins and create buttons to reserve them.
- * All inputs are taken from HTML inputs in string format.
- */
 function reserveAll() {
     var selectedBins = [];
     var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -26,6 +21,11 @@ function reserveAll() {
     });
 }
 
+/**
+ * Function to search for available bins at a certain date and period.
+ * The function will display the available bins and create buttons to reserve them.
+ * All inputs are taken from HTML inputs in string format.
+ */
 
 function search() {
     var date = document.getElementById("dateInput").value;
@@ -129,7 +129,7 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
-                    alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
+                    // alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
                     window.location.reload();
                 }
             })

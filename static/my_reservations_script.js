@@ -1,3 +1,23 @@
+function cancelAll() { 
+    var selectedBins = [];
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+    // console.log(checkboxes)
+    checkboxes.forEach(function(checkbox) { 
+        // console.log(checkbox.value[0])
+        selectedBins.push(checkbox.value); 
+    });
+
+    if (selectedBins.length === 0) {
+        alert('Please select at least one bin to cancel.');
+        return;
+    } 
+    // Call the reserve function for each selected bin
+    selectedBins.forEach(function(tmp) {  
+        cancel(tmp.split(',')[0], tmp.split(',')[1], tmp.split(',')[2]);
+    });
+}
+
 /**
  * Function that displays a user's reservations and allows them to cancel them if needed.
  */
@@ -12,41 +32,29 @@ function display() {
     .then(data => {
         var tableBody = document.getElementById('reservationTableBody');  
         // Clear existing table rows
-        tableBody.innerHTML = '';
-        if (data.length === 0) {
-            // If no chromebooks available, display a message
-            alert('No Reservations.');
-        } 
-        else {
-            // Iterate over each array element and create table rows
-            data.forEach(function(chromebook) {
-                var row = document.createElement('tr'); 
-                // Create table data cells and populate with chromebook data
-                chromebook.forEach(function(value) {
-                    var cell = document.createElement('td');
-                    cell.textContent = value; 
-                    row.appendChild(cell); 
-                });
-                // Append the row to the table body
-
-                var reserveButtonCell = document.createElement('td');
-                var reserveButton = document.createElement('button');
-                reserveButton.textContent = 'Cancel/Returned';
-                reserveButton.onclick = function() {  
-                    var date = row.childNodes[2].textContent
-                    var period = row.childNodes[3].textContent
-                    var id = row.childNodes[0].textContent;  
-                    console.log(date, period, id)
-                    cancel(date, period, id); // Pass the ID of the chromebook
-                };
-                reserveButtonCell.appendChild(reserveButton);
-                row.appendChild(reserveButtonCell);
-
-        
-                // Append the row to the table body
-                tableBody.appendChild(row);
+        tableBody.innerHTML = ''; 
+        // Iterate over each array element and create table rows
+        data.forEach(function(chromebook) {
+            var row = document.createElement('tr'); 
+            // Create table data cells and populate with chromebook data
+            chromebook.forEach(function(value) {
+                var cell = document.createElement('td');
+                cell.textContent = value; 
+                row.appendChild(cell);
             });
-        }
+            
+            // checkbox
+            var cell = document.createElement('td'); 
+            var checkbox = document.createElement('input');                
+            checkbox.type = 'checkbox';   
+            tmp =  [row.childNodes[0].textContent, row.childNodes[2].textContent, row.childNodes[3].textContent]  
+            checkbox.value = tmp
+            cell.appendChild(checkbox);
+            row.appendChild(cell);
+            
+            // Append the row to the table body
+            tableBody.appendChild(row);
+        }); 
     })
     .catch(error => {
         console.error('Error:', error);
@@ -57,7 +65,8 @@ display();
 /**
  * Function that cancels a reservation.
  */
-function cancel(date, period, id) { 
+function cancel(id, date, period) {  
+    console.log(id, date, period)
     var data = { 
         date: date, 
         period: period,
