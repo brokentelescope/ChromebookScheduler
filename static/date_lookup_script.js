@@ -72,6 +72,7 @@ function search() {
                 var cell = document.createElement('td'); 
                 var checkbox = document.createElement('input');                
                 checkbox.type = 'checkbox'; 
+                checkbox.classList.add('largerCheckbox');
 
                 
                 checkbox.value = row.childNodes[0].textContent; 
@@ -129,8 +130,7 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
-                    // alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
-                    window.location.reload();
+                    alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
                 }
             })
             .catch(error => {
@@ -144,7 +144,7 @@ function reserve(id, date, period) {
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-    
+    search();
 }
 
 

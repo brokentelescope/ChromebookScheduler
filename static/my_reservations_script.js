@@ -47,6 +47,7 @@ function display() {
             var cell = document.createElement('td'); 
             var checkbox = document.createElement('input');                
             checkbox.type = 'checkbox';   
+            checkbox.classList.add('largerCheckbox');
             tmp =  [row.childNodes[0].textContent, row.childNodes[2].textContent, row.childNodes[3].textContent]  
             checkbox.value = tmp
             cell.appendChild(checkbox);
