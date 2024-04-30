@@ -7,9 +7,6 @@ than have them in separate files since the functions are pretty short.
 """
 
 import sqlite3
-connection = sqlite3.connect('user_data.db', check_same_thread=False)
-cursor = connection.cursor()
-
 """
 Function that creates the database with keys: username, password, isVerified
 Args:
@@ -18,6 +15,10 @@ Returns:
     none
 """
 def create_table():
+    # These two lines need to be copied into each function separately.
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             username TEXT PRIMARY KEY,
@@ -38,6 +39,8 @@ Returns:
     Tuple in format of (username, password, verified)
 """
 def get_single_data(username):
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users WHERE username='{username}'")
     return cursor.fetchone()
 
@@ -50,6 +53,8 @@ Returns:
     Tuples in a format of (username, verified)
 """
 def get_all_data():
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute("SELECT * FROM users")
     data = cursor.fetchall()
     for i in range(len(data)):
@@ -68,6 +73,8 @@ Returns:
     none
 """
 def insert_user(username, password, classroom, isVerified=0):
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute("INSERT INTO users (username, password, isVerified, classroom) VALUES (?, ?, ?, ?)", (username, password, isVerified, classroom))
     connection.commit()
 
@@ -80,6 +87,8 @@ Returns:
     none
 """
 def verify(username, isVerified):
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (isVerified, username))
     connection.commit()
 # verify('ADMIN', 1)
@@ -91,6 +100,8 @@ Returns:
     none
 """
 def remove(username):
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute(f"DELETE FROM users WHERE username='{username}'")
     connection.commit()
 
@@ -102,6 +113,8 @@ Returns:
     none
 """
 def get_classroom(username):    
+    connection = sqlite3.connect('user_data.db')
+    cursor = connection.cursor()
     cursor.execute(f"SELECT classroom FROM users WHERE username='{username}'")
 
     result = cursor.fetchone()

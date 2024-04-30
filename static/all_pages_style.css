@@ -62,7 +62,11 @@ table {
 	border-collapse: collapse;
 	width: 15%;
 	margin-left: 50px;
-	height: 10%
+	height: 10%;
+}
+
+.fixedTable {
+	table-layout: fixed;
 }
 
 table.new-table {
