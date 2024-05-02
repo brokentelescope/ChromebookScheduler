@@ -245,7 +245,7 @@ Returns:
 """
 @app.route('/current_locations')
 def current_locations():
-    return render_template('current_locations.html', active_page='current_locations', is_admin=checkAdmin(), is_verified=checkVerify())  
+    return render_template('current_locations_index.html', active_page='current_locations', is_admin=checkAdmin(), is_verified=checkVerify())  
 
 @app.route('/home_index')
 def home_index(): 
@@ -265,15 +265,15 @@ def reservation_history():
 
 @app.route('/add_locations')
 def add_locations():    
-    return render_template('add_locations.html', active_page='add_locations', is_admin=checkAdmin(), is_verified=checkVerify())      
+    return render_template('add_locations_index.html', active_page='add_locations', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/team')
 def team():    
-    return render_template('team.html', active_page='team', is_admin=checkAdmin(), is_verified=checkVerify())      
+    return render_template('team_index.html', active_page='team', is_admin=checkAdmin(), is_verified=checkVerify())      
 
 @app.route('/admin_panel')
 def admin_panel(): 
-    return render_template('admin_panel.html', active_page='admin_panel', is_admin=checkAdmin(), is_verified=checkVerify())
+    return render_template('admin_panel_index.html', active_page='admin_panel', is_admin=checkAdmin(), is_verified=checkVerify())
 
 if __name__ == '__main__':
     app.run(debug=True)

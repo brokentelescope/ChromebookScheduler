@@ -7,14 +7,15 @@ than have them in separate files since the functions are pretty short.
 """
 
 import sqlite3
-"""
-Function that creates the database with keys: username, password, isVerified
-Args:
-    none
-Returns:
-    none
-"""
+
 def create_table():
+    """
+    Function that creates the database with keys: username, password, isVerified
+    Args:
+        none
+    Returns:
+        none
+    """
     # These two lines need to be copied into each function separately.
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
@@ -30,29 +31,29 @@ def create_table():
 
 # create_table()
 
-"""
-Function that returns the data associated with a username, to check if sign-in credentials are valid.
-Args:
-    username: (string)
-Returns:
-    (tuple) 
-    Tuple in format of (username, password, verified)
-"""
 def get_single_data(username):
+    """
+    Function that returns the data associated with a username, to check if sign-in credentials are valid.
+    Args:
+        username: (string)
+    Returns:
+        (tuple) 
+        Tuple in format of (username, password, verified)
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users WHERE username='{username}'")
     return cursor.fetchone()
 
-"""
-Function that returns all a list of all usernames and passwords to display in Admin Panel.
-Args:
-    none
-Returns:
-    (list of tuples)
-    Tuples in a format of (username, verified)
-"""
 def get_all_data():
+    """
+    Function that returns all a list of all usernames and passwords to display in Admin Panel.
+    Args:
+        none
+    Returns:
+        (list of tuples)
+        Tuples in a format of (username, verified)
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users")
@@ -62,57 +63,58 @@ def get_all_data():
         data[i] = (data[i][0], data[i][2])
     return data
 
-"""
-Function that inserts a new user into the database.
-Args:
-    username (string)
-    password (string)
-    classroom (string)
-    isVerified (int)
-Returns:
-    none
-"""
 def insert_user(username, password, classroom, isVerified=0):
+    """
+    Function that inserts a new user into the database.
+    Args:
+        username (string)
+        password (string)
+        classroom (string)
+        isVerified (int)
+    Returns:
+        none
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute("INSERT INTO users (username, password, isVerified, classroom) VALUES (?, ?, ?, ?)", (username, password, isVerified, classroom))
     connection.commit()
 
-"""
-Function that changes the verification status of a user.
-Args:
-    username (string)
-    isVerified (int)
-Returns:
-    none
-"""
 def verify(username, isVerified):
+    """
+    Function that changes the verification status of a user.
+    Args:
+        username (string)
+        isVerified (int)
+    Returns:
+        none
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (isVerified, username))
     connection.commit()
 # verify('ADMIN', 1)
-"""
-Function that removes a user from the database.
-Args:
-    username (string)
-Returns:
-    none
-"""
+
 def remove(username):
+    """
+    Function that removes a user from the database.
+    Args:
+        username (string)
+    Returns:
+        none
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM users WHERE username='{username}'")
     connection.commit()
 
-"""
-Function that gets the classroom of a user from the database.
-Args:
-    classroom (string)
-Returns:
-    none
-"""
 def get_classroom(username):    
+    """
+    Function that gets the classroom of a user from the database.
+    Args:
+        classroom (string)
+    Returns:
+        none
+    """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
     cursor.execute(f"SELECT classroom FROM users WHERE username='{username}'")

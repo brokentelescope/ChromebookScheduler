@@ -20,16 +20,13 @@
         <!-- LINK TO OTHER PAGES -->
         {% include 'navigation.html' %}
         <!-- THIS IS THE LOOKUP TABLE -->
-        <table class="new-table" id="chromebookTable">
+        <table class="new-table fixedTable" id="chromebookTable">
             <tr>
                 <td style = "color: #3498db;" colspan="4">Lookup</td>
             </tr>
 
             <tr>
-                <td>
-                    Date: 
-                    <input type = "date" id = "dateInput">
-                </td>
+                <td>Date: <input type = "date" id = "dateInput"></td>
                 <td>
                     Period: 
                     <select id = "periodInput">
@@ -39,22 +36,12 @@
                         <option value="4">4</option>
                     </select>
                 </td>
-                
-                </td>  
-                
-                
-                <td colspan="1">
-                    <button onclick="search()">Submit</button>
-                </td>
-                
-                <td colspan="1">
-                    <button onclick="reserveAll()">Reserve Selected Bins</button>
-                </td>
+                <td><button id="search" onclick="search()">Submit</button></td>
+                <td><button onclick="reserveAll()">Reserve Selected Bins</button></td>
             </tr>    
 
-            <tr></tr>
-
-            <tr>
+            <tr id = "headerRow" style="display: none;">
+            <!-- <tr style="display: none;"> -->
                 <td style="color: #3498db;">ID</td>
                 <td style="color: #3498db;">Location</td>
                 <td style="color: #3498db;"># of Bins Available</td>

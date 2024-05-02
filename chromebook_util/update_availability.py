@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta
 import os
 
-"""
-Function that deletes the oldest day and adds the the next date into each chromebook data file.
-Args:
-    file_path (string)
-Returns:
-    none
-"""
 def add_next_month_date_and_remove_oldest(file_path):
+    """
+    Function that deletes the oldest day and adds the the next date into each chromebook data file.
+    Args:
+        file_path (string)
+    Returns:
+        none
+    """
     # Read all lines from the file
     with open(file_path, 'r') as file:
         lines = file.readlines()

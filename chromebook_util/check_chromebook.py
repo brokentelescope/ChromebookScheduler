@@ -1,15 +1,16 @@
 import os
 folder_name = 'chromebook_data'
-"""
-Function checks if a chromebook is available at a given period
-Args:
-    id (string)
-    date (string)
-    period (string)
-Returns:
-    (boolean)
-"""
+
 def check(id, date, period):
+    """
+    Function checks if a chromebook is available at a given period
+    Args:
+        id (string)
+        date (string)
+        period (string)
+    Returns:
+        (boolean)
+    """
     new_id = os.path.join(folder_name, id)
     with open(new_id, 'r') as file:
         for line in file:

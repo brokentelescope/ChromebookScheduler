@@ -1,17 +1,18 @@
 import os
 folder_name = 'chromebook_data'
-"""
-Function will take a chromebook id, date, period and reserver_name as input and change the assosciated data value.
-If we want to cancel a reservation, set reserver_name to 'none'
-Args:
-    id (string)
-    date (string)
-    period (string)
-    reserver_name (string) 
-Returns:
-    none
-"""
+
 def edit(id, date, period, reserver_name):
+    """
+    Function will take a chromebook id, date, period and reserver_name as input and change the assosciated data value.
+    If we want to cancel a reservation, set reserver_name to 'none'
+    Args:
+        id (string)
+        date (string)
+        period (string)
+        reserver_name (string) 
+    Returns:
+        none
+    """
     id = os.path.join(folder_name, id)
 
     with open(id, 'r') as file:

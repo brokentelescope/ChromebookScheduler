@@ -1,26 +1,3 @@
-function reserveAll() {
-    var selectedBins = [];
-    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    // console.log(checkboxes)
-    checkboxes.forEach(function(checkbox) { 
-        selectedBins.push(checkbox.value);
-    });
-
-    if (selectedBins.length === 0) {
-        alert('Please select at least one bin to reserve.');
-        return;
-    }
-
-    var date = document.getElementById("dateInput").value;
-    var sel = document.getElementById("periodInput");
-    var period = sel.options[sel.selectedIndex].text;
-
-    // Call the reserve function for each selected bin
-    selectedBins.forEach(function(binId) {
-        reserve(binId, date, period);
-    });
-}
-
 /**
  * Function to search for available bins at a certain date and period.
  * The function will display the available bins and create buttons to reserve them.
@@ -31,6 +8,7 @@ function search() {
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;
+    console.log(date, period);
 
     var data = { 
         date: date, 
@@ -57,6 +35,7 @@ function search() {
             // If no chromebooks available, display a message
             alert('No bins available.');
         } else {
+            document.getElementById("headerRow").style.display = "table-row";
             // Iterate over each array element and create table rows
             chromebooks.forEach(function(chromebook) {
                 var row = document.createElement('tr');
@@ -73,8 +52,6 @@ function search() {
                 var checkbox = document.createElement('input');                
                 checkbox.type = 'checkbox'; 
                 checkbox.classList.add('largerCheckbox');
-
-                
                 checkbox.value = row.childNodes[0].textContent; 
                 cell.appendChild(checkbox);
                 row.appendChild(cell);
@@ -95,8 +72,6 @@ function search() {
  *      id (string),
  *      date (string),
  *      period (string),
- *      using_custom_classroom (int (0 or 1))
- *
  */
 function reserve(id, date, period) {
     var data = { 
@@ -130,7 +105,8 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
-                    alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
+                    // alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
+                    // search();
                 }
             })
             .catch(error => {
@@ -144,9 +120,53 @@ function reserve(id, date, period) {
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-    search();
 }
 
+/**
+ * Function that pauses the program.
+ * Input:
+ *      ms (int)
+ *      time in milliseconds
+ * Returns:
+ *      (Promise)
+ */
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Function to reserve all selected bins.
+ * Input:
+ *      All input is taken from the checked checkbox values.
+ *      Input is in the form of a list of bins.
+ */
+async function reserveAll() {
+    var selectedBins = [];
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    // console.log(checkboxes)
+    checkboxes.forEach(function(checkbox) { 
+        selectedBins.push(checkbox.value);
+    });
+
+    if (selectedBins.length === 0) {
+        alert('Please select at least one bin to reserve.');
+        return;
+    }
+
+    var date = document.getElementById("dateInput").value;
+    var sel = document.getElementById("periodInput");
+    var period = sel.options[sel.selectedIndex].text;
+
+    // Call the reserve function for each selected bin
+    selectedBins.forEach(function(binId) {
+        // Push each promise returned by reserve() into the array
+        reserve(binId, date, period);
+    });
+    // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving.
+    alert('Your reservation was a success.');
+    await sleep(1000);
+    search();
+}
 
 document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
     // Reference Tracker 1
@@ -155,6 +175,4 @@ document.addEventListener("DOMContentLoaded", function(event) { // Reference Tra
     var date = document.getElementById("dateInput");
     date.value = today;
     date.min = today;
-
-
 });

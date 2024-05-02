@@ -2,19 +2,19 @@ import datetime
 import os
 folder_name = 'chromebook_data'
 periods = '1234'
-"""
-Function that creates a textfile with the chromebook id as the file name.
-Args:
-    id (string)
-    year (string)
-    location (string)
-    amount (string)
-Returns:
-    none
-    the data is stored in text-files in the format date,period,reserved_by
-"""
-def create(id, year, location, amount):
 
+def create(id, year, location, amount):
+    """
+    Function that creates a textfile with the chromebook id as the file name.
+    Args:
+        id (string)
+        year (string)
+        location (string)
+        amount (string)
+    Returns:
+        none
+        the data is stored in text-files in the format date,period,reserved_by
+    """
     start_date = datetime.date(year, 1, 1)
     end_date = datetime.date(year, 12, 31)
     delta = datetime.timedelta(days=1)
