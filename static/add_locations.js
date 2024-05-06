@@ -1,8 +1,8 @@
-/**
- * Function that validates in the inputs taken from HTML inputs and disables/enables the submit button accordingly.
- * All inputs are taken from HTML inputs in string format.
- */
 function checkInputs() {
+    /**
+     * Function that validates in the inputs taken from HTML inputs and disables/enables the submit button accordingly.
+     * All inputs are taken from HTML inputs in string format.
+     */
     var location = document.getElementById("location").value.trim();  
     var amt = document.getElementById("amt").value.trim();
     var id = document.getElementById("binId").value.trim();
@@ -38,11 +38,11 @@ function checkInputs() {
     }
 }
 
-/**
- * Function that creates a new text-file for the inputted bin.
- * All inputs are taken from HTML inputs in string format.
- */
 async function submit() { 
+    /**
+     * Function that creates a new text-file for the inputted bin.
+     * All inputs are taken from HTML inputs in string format.
+     */
     var location = document.getElementById("location").value;   
     var amt = document.getElementById("amt").value;
     var id = document.getElementById("binId").value;

@@ -1,8 +1,8 @@
-/**
- * Function to search and display bins given a period and date.
- * All inputs are taken from HTML inputs in string format.
- */
 function search() {
+    /**
+     * Function to search and display bins given a period and date.
+     * All inputs are taken from HTML inputs in string format.
+     */
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;

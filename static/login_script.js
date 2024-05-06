@@ -1,7 +1,7 @@
-/**
- * Function that toggles switches from log-in to sign-up.
- */
 function toggleForm() {
+    /**
+     * Function that toggles switches from log-in to sign-up.
+     */
     var loginForm = document.getElementById('login-form');
     var signupForm = document.getElementById('signup-form');
     var switchButton = document.getElementById('switchButton');
@@ -18,10 +18,11 @@ function toggleForm() {
     }
 }
 
-/**
- * Function that validates that the entered password and the confirm password are identical in the sign-up form.
- */
 function validatePasswords() {
+    /**
+     * Function that validates that the entered password and the confirm password are identical in the sign-up form.
+     * Input is taken from HTML inputs in string format.
+     */
     var password = document.getElementById("password").value;
     var confirm_password = document.getElementById("confirm_password").value;
 

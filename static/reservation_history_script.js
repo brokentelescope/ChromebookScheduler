@@ -1,8 +1,7 @@
-/**
- * Function that displays all reservation history.
- */
-
 function display() {
+    /**
+     * Function that displays all reservation history.
+     */
     // calls the get_history route from app.py
     fetch('/get_history', {
         method: 'POST',
@@ -66,10 +65,12 @@ function display() {
 
 }
 
-/**
- * Function that creates a csv.file for the admin to download.
- */
 function createTextFile(content) {
+    /**
+     * Function that creates a csv.file for the admin to download.
+     * Args:
+     *      content (string)
+     */
     // Create a blob with the text content
     var blob = new Blob([content], { type: 'text/plain' });
 

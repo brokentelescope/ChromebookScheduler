@@ -1,10 +1,9 @@
-/**
- * Function to search for available bins at a certain date and period.
- * The function will display the available bins and create buttons to reserve them.
- * All inputs are taken from HTML inputs in string format.
- */
-
 function search() {
+    /**
+     * Function to search for available bins at a certain date and period.
+     * The function will display the available bins and create buttons to reserve them.
+     * All inputs are taken from HTML inputs in string format.
+     */
     var date = document.getElementById("dateInput").value;
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;
@@ -66,14 +65,14 @@ function search() {
     });
 }
 
-/**
- * Function to reserve a bin.
- * Input:
- *      id (string),
- *      date (string),
- *      period (string),
- */
 function reserve(id, date, period) {
+    /**
+     * Function to reserve a bin.
+     * Args:
+     *      id (string),
+     *      date (string),
+     *      period (string),
+     */
     var data = { 
         date: date, 
         period: period,
@@ -122,25 +121,24 @@ function reserve(id, date, period) {
     });
 }
 
-/**
- * Function that pauses the program.
- * Input:
- *      ms (int)
- *      time in milliseconds
- * Returns:
- *      (Promise)
- */
 function sleep(ms) {
+    /**
+     * Function that pauses the program.
+     * Args:
+     *      ms (int)
+     *      time in milliseconds
+     * Returns:
+     *      (Promise)
+     */
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/**
- * Function to reserve all selected bins.
- * Input:
- *      All input is taken from the checked checkbox values.
- *      Input is in the form of a list of bins.
- */
 async function reserveAll() {
+    /**
+     * Function to reserve all selected bins.
+     * All input is taken from the checked checkbox values.
+     * Input is in the form of a list of bins.
+     */
     var selectedBins = [];
     var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     // console.log(checkboxes)

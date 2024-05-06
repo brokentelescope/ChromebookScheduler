@@ -1,4 +1,8 @@
 function cancelAll() { 
+    /**
+     * Function that cancels the user's selected reservations.
+     * Input is taken from HTML checkbox input.
+     */
     var selectedBins = [];
     var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
@@ -18,10 +22,10 @@ function cancelAll() {
     });
 }
 
-/**
- * Function that displays a user's reservations and allows them to cancel them if needed.
- */
 function display() {  
+    /**
+     * Function that displays a user's reservations and allows them to cancel them if needed.
+     */
     fetch('/get_reserved', {
         method: 'POST',
         headers: {
@@ -63,11 +67,15 @@ function display() {
 }
 display();
 
-/**
- * Function that cancels a reservation.
- */
 function cancel(id, date, period) {  
-    console.log(id, date, period)
+    /**
+     * Function that cancels a reservation.
+     * Args:
+     *      id (string),
+     *      date (string),
+     *      period (string)
+     */
+    // console.log(id, date, period)
     var data = { 
         date: date, 
         period: period,

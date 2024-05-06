@@ -1,8 +1,8 @@
-/**
- * Function that displays all users (except the admin) and creates buttons that 
- * allow for the banning, edit of verification status.
- */
 function display() { 
+    /**
+     * Function that displays all users (except the admin) and creates buttons that 
+     * allow for the banning, edit of verification status.
+     */
     // calls the get-account route from app.py
     fetch('/get_account', {
         method: 'POST',
@@ -81,12 +81,14 @@ function display() {
     });
 }
 
-display()
+display();
 
-/**
- * Function that bans a user.
- */
 function ban(userName) { 
+    /**
+     * Function that bans a user.
+     * Args:
+     *      userName: (string)
+     */
     var data = { 
         userName: userName
     };   
@@ -110,10 +112,12 @@ function ban(userName) {
     });
 }
 
-/**
- * Function that edits the verification status of a user.
- */
 function verify(userName) {
+    /**
+     * Function that verifies a user.
+     * Args:
+     *      userName: string
+     */
     var data = { 
         userName: userName
     };   
