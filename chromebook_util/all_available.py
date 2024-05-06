@@ -1,3 +1,10 @@
+"""
+Available chromebooks function
+ICS4U-03
+Owen, Rex, Steven
+History: 
+Mar 8, 2024: Progam creation
+"""
 import os
 import check_chromebook
 import get_info

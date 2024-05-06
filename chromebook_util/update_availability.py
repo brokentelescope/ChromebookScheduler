@@ -1,3 +1,10 @@
+"""
+Update availability function
+ICS4U-03
+Owen, Rex, Steven
+History: 
+Apr 18, 2024: Progam creation
+"""
 from datetime import datetime, timedelta
 import os
 

@@ -4,8 +4,9 @@ ICS4U-03
 Owen, Rex, Steven 
 We decided to include all database util functions in the same file rather
 than have them in separate files since the functions are pretty short.
+History:
+Apr 18, 2024: Program creation
 """
-
 import sqlite3
 
 def create_table():

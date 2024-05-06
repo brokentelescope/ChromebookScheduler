@@ -1,7 +1,14 @@
-
+"""
+Flask App File
+ICS4U-04
+Owen, Steven, Rex
+File containing all the Flask routes and functions that make our project work.
+History:
+Feb 21, 2024: Program creation
+"""
 from flask import *
 from datetime import datetime
-import sqlite3, os, sys, json
+import os, sys, json
 current_dir = os.path.dirname(os.path.abspath(__file__))
 python_files_dir = os.path.join(current_dir, 'chromebook_util')
 sys.path.append(python_files_dir)

@@ -1,3 +1,10 @@
+"""
+Check chromebooks function
+ICS4U-03
+Owen, Rex, Steven
+History: 
+Mar 4, 2024: Progam creation
+"""
 import os
 folder_name = 'chromebook_data'
 
