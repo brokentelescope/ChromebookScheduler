@@ -76,18 +76,7 @@
 
     <!-- Buttons -->
     <div class="buttons">
-        <a href="{{ url_for('date_lookup') }}" class="button">Date Lookup</a>
-        <a href="{{ url_for('my_reservations') }}" class="button">My Reservations</a>
-        <a href="{{ url_for('reservation_history') }}" class="button">Reservation History</a>
-        <a href="{{ url_for('add_locations') }}" class="button">Add Bin</a>
-        <a href="{{ url_for('current_locations') }}" class="button">Bins Locations</a> 
-        <button class="button" onclick="alert('Please report any bugs to ochen2@ocdsb.ca.')">Bug Report</button>
-        <a href="{{ url_for('login_index') }}" class="button">Sign out</a>
-        {% if is_admin %}  
-            <a href="{{ url_for('admin_panel') }}" class="button">Admin Panel</a> 
-        {% else %} 
-            <tr><td class="highlight"><button class="button grayed-out" disabled>Admin Panel</button></td></tr>
-        {% endif %}
+        <a href="{{ url_for('home_index') }}" class="button">Go Back</a> 
     </div>
 </div>
 
