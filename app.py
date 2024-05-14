@@ -172,6 +172,11 @@ def edit_chromebooks():
         
     return jsonify('Success')
 
+@app.route('/clear_history', methods=['POST'])
+def clear_history():
+    with open('reservation_history.txt', 'w') as file:
+        pass
+
 @app.route('/check', methods=['POST'])
 def check():
     data = request.json 

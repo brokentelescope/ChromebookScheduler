@@ -121,7 +121,7 @@ def get_classroom(username):
     cursor.execute(f"SELECT classroom FROM users WHERE username='{username}'")
 
     result = cursor.fetchone()
-    print(result)
+    # print(result)
     # print(username, result)
 
     return result[0] 
