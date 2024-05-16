@@ -28,12 +28,21 @@ function display() {
                 if (x.includes('ADMIN')) return;
                 var row = document.createElement('tr'); 
                 // Create table data cells and populate with chromebook data
-                x.forEach(function(value) {
-                    if (value == 1) value = "Yes";
-                    if (value == 0) value = "No";
-                    var cell = document.createElement('td');
-                    cell.textContent = value; 
-                    row.appendChild(cell); 
+                x.forEach(function(value) {  
+                    // Change the colour of unverified user 
+                    if (value == 1 || value == 0){
+                        if (value == 1){ 
+                            row.childNodes[0].classList.add('verified-user');    
+                        }else if (value == 0){
+                            row.childNodes[0].classList.add('unverified-user');    
+                        }
+  
+                    } else { 
+                        var cell = document.createElement('td');  
+                        cell.textContent = value; 
+                        row.appendChild(cell); 
+                    }
+
                 });
                 // Append the row to the table body
                 var reserveButtonCell = document.createElement('td');

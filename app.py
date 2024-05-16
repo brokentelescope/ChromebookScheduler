@@ -18,11 +18,18 @@ import edit_chromebook
 import all_available 
 import get_info
 import database_util
+import update_availability
 
 app = Flask(__name__)
 app.secret_key = 'key'
 
 username = ''  
+
+@app.route('/updateYear', methods=['POST'])
+def updateYear():  
+    update_availability.execute()
+    return 'Update availability script executed successfully'
+
 
 @app.route('/check_bin', methods=['POST'])
 def check_bin():
@@ -120,10 +127,10 @@ def login_index():
     flash('')
     if request.method == 'POST':
         data = request.form 
-        # SIGN UP 
-        if len(data) == 4:
+        # SIGN UP  
+        if len(data) == 3:
             name = data['name']
-            password = data['password']  
+            password = data['password']   
             query = database_util.get_single_data(name)
             # username already exists
             if query:
@@ -133,10 +140,11 @@ def login_index():
                 flash("Sign up successful. You can now login.")
             return render_template('login_index.html')
 
+        # SIGN IN
         else:
             name = data['name']
             password = data['password']
-            result = database_util.get_single_data(name)
+            result = database_util.get_single_data(name) 
             if result and result[1] == password:
                 username = name
                 return redirect(url_for('home_index'))  

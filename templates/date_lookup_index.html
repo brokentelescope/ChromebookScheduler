@@ -6,8 +6,7 @@
     <title>Chromebook Scheduler</title>
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
     <script src="../static/date_lookup_script.js"></script>
-
-    
+    <script src="../static/calender.css"></script>
 </head>
 <body>
     <nav>
@@ -22,7 +21,9 @@
         <!-- THIS IS THE LOOKUP TABLE -->
         <table class="new-table fixedTable" id="chromebookTable">
             <tr>
-                <td style = "color: #3498db;" colspan="4">Lookup</td>
+                <td style = "color: #3498db;" colspan="2">Lookup</td> 
+                <td><button onclick="showCalender()">Show Calender</button></td>
+                <td><button onclick="updateYear()">Update year</button></td>
             </tr>
 
             <tr>
@@ -52,6 +53,8 @@
         </table>
     </div>
     <div></div>
+
+    
      
 </body>
 </html>

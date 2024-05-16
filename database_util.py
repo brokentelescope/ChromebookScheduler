@@ -64,20 +64,19 @@ def get_all_data():
         data[i] = (data[i][0], data[i][2])
     return data
 
-def insert_user(username, password, classroom, isVerified=0):
+def insert_user(username, password, isVerified=0):
     """
     Function that inserts a new user into the database.
     Args:
         username (string)
-        password (string)
-        classroom (string)
+        password (string) 
         isVerified (int)
     Returns:
         none
     """
     connection = sqlite3.connect('user_data.db')
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO users (username, password, isVerified, classroom) VALUES (?, ?, ?, ?)", (username, password, isVerified, classroom))
+    cursor.execute("INSERT INTO users (username, password, isVerified) VALUES (?, ?, ?)", (username, password, isVerified))
     connection.commit()
 
 def verify(username, isVerified):
