@@ -38,9 +38,10 @@ def add_next_month_date_and_remove_oldest(file_path):
     with open(file_path, 'w') as file:
         file.writelines(lines)
 
-# Adjust the file_path to match the location of your file
-folder_name = 'chromebook_data'
-for id in os.listdir(folder_name):
-    filename = os.path.join(folder_name, id)
-    if os.path.isfile(os.path.join(folder_name, id)):
-        add_next_month_date_and_remove_oldest(filename)
+def execute():
+    # Adjust the file_path to match the location of your file
+    folder_name = 'chromebook_data'
+    for id in os.listdir(folder_name):
+        filename = os.path.join(folder_name, id)
+        if os.path.isfile(os.path.join(folder_name, id)):
+            add_next_month_date_and_remove_oldest(filename)

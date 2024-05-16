@@ -6,7 +6,7 @@
         <tr><td class="highlight"><button class="button grayed-out" disabled>Reserve</button></td></tr>
     {% endif %}
     <tr><td class="highlight {% if active_page == 'my_reservations' %}active{% endif %}"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
-    <tr><td class="highlight {% if active_page == 'current_locations' %}active{% endif %}"><a href="{{ url_for('current_locations') }}">Bin Locations</a></td></tr> 
+    <!-- <tr><td class="highlight {% if active_page == 'current_locations' %}active{% endif %}"><a href="{{ url_for('current_locations') }}">Bin Locations</a></td></tr>  -->
     <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->
     {% if is_admin %}
         <tr><td class="highlight {% if active_page == 'reservation_history' %}active{% endif %}"><a href="{{ url_for('reservation_history') }}">Reservation History</a></td></tr>

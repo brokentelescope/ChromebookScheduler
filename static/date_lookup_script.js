@@ -1,3 +1,4 @@
+
 function search() {
     /**
      * Function to search for available bins at a certain date and period.
@@ -166,32 +167,32 @@ async function reserveAll() {
     search();
 }
 
-document.getElementById("clearButton").addEventListener("click", function() {
-    // Make an HTTP POST request to the Flask route
-    fetch('/clear_history', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({}) // No data to send in this case
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log("History cleared successfully");
-        } else {
-            console.error("Failed to clear history");
-        }
-    })
-    .catch(error => {
-        console.error("Error occurred:", error);
-    });
-});
+// document.getElementById("clearButton").addEventListener("click", function() {
+//     // Make an HTTP POST request to the Flask route
+//     fetch('/clear_history', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({}) // No data to send in this case
+//     })
+//     .then(response => {
+//         if (response.ok) {
+//             console.log("History cleared successfully");
+//         } else {
+//             console.error("Failed to clear history");
+//         }
+//     })
+//     .catch(error => {
+//         console.error("Error occurred:", error);
+//     });
+// });
 
-document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
-    // Reference Tracker 1
-    // code to auto set the default values for the date input
-    var today = new Date().toISOString().slice(0, 10);
-    var date = document.getElementById("dateInput");
-    date.value = today;
-    date.min = today;
-});
+// document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
+//     // Reference Tracker 1
+//     // code to auto set the default values for the date input
+//     var today = new Date().toISOString().slice(0, 10);
+//     var date = document.getElementById("dateInput");
+//     date.value = today;
+//     date.min = today;
+// });
