@@ -5,7 +5,7 @@ Begin by signing up for an account. After signing up, the administrator will hav
 
 Sources are here: https://docs.google.com/document/d/1dNRJkr81dviv9QIyqwJc7N62uPiOMk5ivk2E_6lNuHs/edit
 
-To run, simply clone the github, grab the folder into vscode, and run app.py
+To run, simply clone the github, drag the folder into vscode, and run app.py
 
 To download flask for Mac, go here
 
