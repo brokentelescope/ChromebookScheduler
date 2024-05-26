@@ -25,6 +25,52 @@ app.secret_key = 'key'
 
 username = ''  
 
+@app.route('/get_day')
+def get_day():
+    month_names_to_numbers = {
+        'January': 1,
+        'February': 2,
+        'March': 3,
+        'April': 4,
+        'May': 5,
+        'June': 6,
+        'July': 7,
+        'August': 8,
+        'September': 9,
+        'October': 10,
+        'November': 11,
+        'December': 12
+    }
+    
+    month_name = request.args.get('month')
+    day = int(request.args.get('day'))
+    
+    # Convert month name to number
+    month_number = month_names_to_numbers.get(month_name)
+    
+    # Read the contents of the text file
+    with open('INPUTGOOGLESHEET.txt', 'r') as file:
+        lines = file.readlines() 
+        # Iterate through each line to find the matching entry
+        for line in lines:  
+            parts = line.strip().split(',')
+            if len(parts) == 3:
+                entry_month = int(parts[0])
+                entry_day = int(parts[1])
+                value = parts[2]
+                print(entry_month, month_number, entry_day, day)
+                if entry_month == month_number and entry_day == day:
+                    # Matching entry found, return the value
+                    return jsonify({
+                        'schoolDay': value,
+                        'className': 'school-day'  # Adjust class name as needed
+                    }) 
+        return jsonify({
+            'schoolDay': "",
+            'className': 'school-day'  # Adjust class name as needed
+        }) 
+
+
 @app.route('/updateYear', methods=['POST'])
 def updateYear():  
     update_availability.execute()
@@ -78,8 +124,7 @@ def get_account():
     return jsonify(response_data) 
 
 @app.route('/get_reserved', methods=['POST'])
-def get_reserved(): 
-    print(82)
+def get_reserved():  
     global username
     reservedByUser = []
     # Define the path to the chromebook_data folder within the data directory

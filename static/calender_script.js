@@ -56,12 +56,27 @@ function generatecalender(toggledMonth, days, realMonth) {
             }
 
             var cell = row.insertCell(cellIndex);
-            cell.textContent = daysInMonth[i];
-            var schoolDay = (cnt) % 4 + 1; 
-            var subscript = document.createElement('sub');
-            subscript.textContent = 'Day ' + schoolDay;
-            subscript.className = 'school-day';
-            cell.appendChild(subscript);
+            cell.textContent = daysInMonth[i]; 
+             
+            (function(cell) {
+                fetch('/get_day?month=' + toggledMonth + '&day=' + daysInMonth[i])
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => { 
+                    var subscript = document.createElement('sub');
+                    subscript.textContent =  data.schoolDay;
+                    subscript.className = 'school-day';
+                    cell.appendChild(subscript);  
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            })(cell);
+             
 
             // Highlight today in green 
             if (daysInMonth[i] === realDay && toggledMonth === realMonth) { 
