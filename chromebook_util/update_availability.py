@@ -40,7 +40,7 @@ def add_next_month_date_and_remove_oldest(file_path):
 
 def execute():
     # Adjust the file_path to match the location of your file
-    folder_name = 'chromebook_data'
+    folder_name = os.path.join('data', 'chromebook_data') 
     for id in os.listdir(folder_name):
         filename = os.path.join(folder_name, id)
         if os.path.isfile(os.path.join(folder_name, id)):

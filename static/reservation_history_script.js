@@ -18,17 +18,34 @@ function display() {
         // Accumulate data for the text file
         var textContent = '';
 
-        if (data.length === 0) {
-            // If no chromebooks available, display a message
-            alert('No history.');
-        } 
-        else {
-            // Display a button to download the text file
+        if (data.length === 0) { 
+        } else {
+            // Create a table row for the buttons
+            var buttonRow = document.createElement('tr');
+            
+            // Create a cell for the download button with colspan of 2
+            var downloadCell = document.createElement('td');
+            downloadCell.colSpan = 2;
             var downloadButton = document.createElement('button');
             downloadButton.textContent = 'Download Reservation History as CSV file';
-            downloadButton.onclick = function() {createTextFile(textContent);};
-            tableBody.appendChild(downloadButton);
+            downloadButton.onclick = function() { createTextFile(textContent); };
+            downloadCell.appendChild(downloadButton);
             
+            // Create a cell for the clear button with colspan of 2
+            var clearCell = document.createElement('td');
+            clearCell.colSpan = 2;
+            var clearButton = document.createElement('button');
+            clearButton.textContent = 'Clear Reservation History';
+            clearButton.onclick = function() { clear(); };
+            clearCell.appendChild(clearButton);
+
+            // Append cells to the button row
+            buttonRow.appendChild(downloadCell);
+            buttonRow.appendChild(clearCell);
+            
+            // Append the button row to the table body
+            tableBody.appendChild(buttonRow);
+
             // Iterate over each array element and create table rows
             data.forEach(function(chromebook, rowIndex) {
                 var row = document.createElement('tr');
@@ -55,14 +72,11 @@ function display() {
                 // Append the row to the table body
                 tableBody.appendChild(row);
             });
-
-
         }
     })
     .catch(error => {
         console.error('Error:', error);
     });
-
 }
 
 function createTextFile(content) {
@@ -88,5 +102,29 @@ function createTextFile(content) {
     // Clean up: remove the link after download
     document.body.removeChild(a);
 }
+
+function clear() {
+    /**
+     * Function to clear reservation history by calling the server-side endpoint.
+     */
+    fetch('/clear_history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Reservation history cleared.');
+            window.location.reload();
+        } else {
+            alert('Failed to clear reservation history.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 
 display();

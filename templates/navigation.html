@@ -14,9 +14,9 @@
         <tr><td class="highlight"><button class="button grayed-out" disabled>Reservation History</button></td></tr>
     {% endif %} 
     {% if is_admin %} 
-        <tr><td class="highlight {% if active_page == 'add_locations' %}active{% endif %}"><a href="{{ url_for('add_locations') }}">Add Bin</a></td></tr>
+        <tr><td class="highlight {% if active_page == 'add_locations' %}active{% endif %}"><a href="{{ url_for('add_locations') }}">Manage Bin</a></td></tr>
     {% else %}
-        <tr><td class="highlight"><button class="button grayed-out" disabled>Add Bin</button></td></tr>
+        <tr><td class="highlight"><button class="button grayed-out" disabled>Manage Bin</button></td></tr>
     {% endif %}
     {% if is_admin %}
         <tr><td class="highlight {% if active_page == 'admin_panel' %}active{% endif %}"><a href="{{ url_for('admin_panel') }}">Manage Users</a></td></tr>

@@ -113,6 +113,7 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
+                    window.location.reload();
                     // alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
                     // search();
                 }
@@ -170,7 +171,7 @@ async function reserveAll() {
         reserve(binId, date, period);
     });
     // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving.
-    alert('Your reservation was a success.');
+    window.location.reload();
     await sleep(1000);
     search();
 }

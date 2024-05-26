@@ -120,6 +120,13 @@ def remove_account():
     return jsonify('Success')
 
 # ?
+@app.route('/get_bins', methods = ['POST'])
+def get_bins():  
+    response_data = {
+        "data": database_util.get_all_data(), 
+    }
+    return jsonify(response_data) 
+
 @app.route('/get_account', methods = ['POST'])
 def get_account(): 
     is_verified = checkVerify()
@@ -218,7 +225,24 @@ def cancel_chromebooks():
     edit_chromebook.edit(id, date, period, 'none')
     return jsonify('Success')
 
+@app.route('/delete_chromebook', methods=['POST'])
+def delete_chromebook(): 
+    data = request.json 
+    id = data['id'] 
 
+    # Directory where the text files are stored
+    folder_name = os.path.join('data', 'chromebook_data')
+
+    # File path of the text file to be deleted
+    file_path = os.path.join(folder_name, id)
+
+    # Check if the file exists
+    if os.path.exists(file_path):
+        # Delete the file
+        os.remove(file_path)
+        return jsonify('Success')
+    else:
+        return jsonify('File not found'), 404
 @app.route('/edit_chromebook', methods=['POST'])
 def edit_chromebooks():
     global username
@@ -229,25 +253,45 @@ def edit_chromebooks():
     name = username 
 
     edit_chromebook.edit(id, date, period, name) 
-    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
-
-
+    with open(os.path.join('data', 'reservation_history.txt'), 'w') as file: 
         file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
         
     return jsonify('Success')
 
 @app.route('/clear_history', methods=['POST'])
 def clear_history():
-    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
+    try:
+        # Path to the reservation history file
+        file_path = os.path.join('data', 'reservation_history.txt')
 
-
-        pass
+        # Clear the contents of the file
+        open(file_path, 'w').close()
+        
+        return jsonify({'status': 'success'}), 200
+    except Exception as e:
+        print(f"Error clearing reservation history: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/check', methods=['POST'])
 def check():
     data = request.json 
     return jsonify(check_chromebook.check(data['id'], data['date'], data['period']))
     
+@app.route('/get_chromebooks', methods=['POST'])
+def get_chromebooks():  
+    a = []
+    folder_name = os.path.join('data', 'chromebook_data')
+
+    for id in os.listdir(folder_name):
+        if os.path.isfile(os.path.join(folder_name, id)): 
+            a.append(get_info.get_info(id)) 
+             
+    response_data = {
+        "chromebooks": a 
+    }
+    return jsonify(response_data)
+
+
 @app.route('/check_chromebooks', methods=['POST'])
 def check_chromebooks():
     global username
@@ -278,6 +322,7 @@ def create_chromebook_file():
     amt = data['amt']
     id = data['id']
     year = datetime.now().year
+    print(id, year, location, amt)
     create_chromebook.create(id, year, location, amt)
     return jsonify('Success')
 
