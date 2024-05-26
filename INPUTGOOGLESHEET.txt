@@ -1,8 +1,8 @@
 Possible ChatGBT prompt to use: please convert the data into forms like:
 
-9,3,1, 
-9,4,2, 
-9,5,3, 
+9,3,1
+9,4,2
+9,5,3
 ...
 
 first number is month, second number is day, last number is 1/2/3/4/H/PD, 

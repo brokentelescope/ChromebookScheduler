@@ -44,7 +44,7 @@ def get_day():
     
     month_name = request.args.get('month')
     day = int(request.args.get('day'))
-    
+    cnt = 0
     # Convert month name to number
     month_number = month_names_to_numbers.get(month_name)
     
@@ -53,8 +53,9 @@ def get_day():
         lines = file.readlines() 
         # Iterate through each line to find the matching entry
         for line in lines:  
+            cnt += 1
             parts = line.strip().split(',')
-            if len(parts) == 3:
+            if cnt > 10:
                 entry_month = int(parts[0])
                 entry_day = int(parts[1])
                 value = parts[2]
