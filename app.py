@@ -61,16 +61,21 @@ def get_day():
                 value = parts[2]
                 print(entry_month, month_number, entry_day, day)
                 if entry_month == month_number and entry_day == day:
+                    if value == "1" or value == "2" or value == "3" or value == "4":
+                        value = "Day " + value 
+                    if value == "H":
+                        value = "Holiday"
+                    if value == "PD":
+                        value = "PD Day"
                     # Matching entry found, return the value
                     return jsonify({
                         'schoolDay': value,
                         'className': 'school-day'  # Adjust class name as needed
                     }) 
         return jsonify({
-            'schoolDay': "",
+            'schoolDay': "No Data",
             'className': 'school-day'  # Adjust class name as needed
-        }) 
-
+        })  
 
 @app.route('/updateYear', methods=['POST'])
 def updateYear():  

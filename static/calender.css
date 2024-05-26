@@ -1,3 +1,15 @@
+button#prev-month, button#next-month {
+  background-color: transparent;
+  border: none;
+  color: #3498db;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+button#prev-month:hover, button#next-month:hover {
+  color: #2980b9;
+}
+
 #calender-modal{
   display: none;
   position: fixed;
