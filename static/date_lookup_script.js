@@ -1,3 +1,11 @@
+function updateYear(){
+    fetch('/updateYear', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        } 
+    })
+}
 
 function search() {
     /**

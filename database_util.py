@@ -1,13 +1,10 @@
-"""
-Database utility functions
-ICS4U-03
-Owen, Rex, Steven 
-We decided to include all database util functions in the same file rather
-than have them in separate files since the functions are pretty short.
-History:
-Apr 18, 2024: Program creation
-"""
+import os
 import sqlite3
+
+# Determine the path to the data folder
+current_dir = os.path.dirname(os.path.abspath(__file__))
+data_folder = os.path.join(current_dir, 'data')
+db_path = os.path.join(data_folder, 'user_data.db')
 
 def create_table():
     """
@@ -17,8 +14,7 @@ def create_table():
     Returns:
         none
     """
-    # These two lines need to be copied into each function separately.
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
 
     cursor.execute('''
@@ -41,7 +37,7 @@ def get_single_data(username):
         (tuple) 
         Tuple in format of (username, password, verified)
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users WHERE username='{username}'")
     return cursor.fetchone()
@@ -55,7 +51,7 @@ def get_all_data():
         (list of tuples)
         Tuples in a format of (username, verified)
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users")
     data = cursor.fetchall()
@@ -74,7 +70,7 @@ def insert_user(username, password, isVerified=0):
     Returns:
         none
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("INSERT INTO users (username, password, isVerified) VALUES (?, ?, ?)", (username, password, isVerified))
     connection.commit()
@@ -88,7 +84,7 @@ def verify(username, isVerified):
     Returns:
         none
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("UPDATE users SET isVerified=? WHERE username=?", (isVerified, username))
     connection.commit()
@@ -102,7 +98,7 @@ def remove(username):
     Returns:
         none
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM users WHERE username='{username}'")
     connection.commit()
@@ -115,7 +111,7 @@ def get_classroom(username):
     Returns:
         none
     """
-    connection = sqlite3.connect('user_data.db')
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute(f"SELECT classroom FROM users WHERE username='{username}'")
 
@@ -124,4 +120,3 @@ def get_classroom(username):
     # print(username, result)
 
     return result[0] 
- 

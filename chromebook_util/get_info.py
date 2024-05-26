@@ -6,7 +6,7 @@ History:
 Apr 22, 2024: Progam creation
 """
 import os
-folder_name = 'chromebook_data'
+folder_name = os.path.join('data', 'chromebook_data')
 
 def get_info(id):
     """

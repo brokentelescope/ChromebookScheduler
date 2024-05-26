@@ -8,7 +8,7 @@ Mar 8, 2024: Progam creation
 import os
 import check_chromebook
 import get_info
-folder_name = 'chromebook_data'
+folder_name = os.path.join('data', 'chromebook_data')
 
 def available_chromebooks(date, period):
     """

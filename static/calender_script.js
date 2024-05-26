@@ -14,75 +14,85 @@ function hideCalender() {
 // realMonth: static value 
 function generatecalender(toggledMonth, days, realMonth) {
     document.getElementById('month-header').textContent = toggledMonth;
- 
-    var calenderBody = document.getElementById('calender-body'); calenderBody.innerHTML = '';
+
+    var calenderBody = document.getElementById('calender-body'); 
+    calenderBody.innerHTML = '';
 
     // get time today
     var today = new Date();
     var realDay = today.getDate();
-    
-    var startDay = 1;  var daysInMonth = [...Array(days).keys()].map(x => x + 1);
-    var rowIndex = 0; var cellIndex = 0; var row = calenderBody.insertRow(rowIndex);
+    var realMonthIndex = today.getMonth(); // get the month index (0-11)
+    var realYear = today.getFullYear();
+
+    var startDay = 1;  
+    var daysInMonth = [...Array(days).keys()].map(x => x + 1);
+    var rowIndex = 0; 
+    var cellIndex = 0; 
+    var row = calenderBody.insertRow(rowIndex);
+    var toggledMonthIndex = new Date(Date.parse(toggledMonth + " 1, " + realYear)).getMonth();
 
     // generate days
-    var cnt = 1 
+    var cnt = 1;
     for (var i = 0; i < daysInMonth.length; i++) { 
-    var dayOfWeek = new Date(today.getFullYear(), today.getMonth(), daysInMonth[i]).getDay();
+        var dayOfWeek = new Date(realYear, realMonthIndex, daysInMonth[i]).getDay();
 
-    // fillers 
-    if (cellIndex === 0 && dayOfWeek !== 1) { 
-        var fillersNeeded = dayOfWeek === 0 ? 4 : dayOfWeek - 1;
-        for (var j = 0; j < fillersNeeded; j++) {
-        var fillerCell = row.insertCell(cellIndex);
-        fillerCell.textContent = '';  
-        cellIndex++;
-        }
-        cnt--;
-    }
-
-    // only weekdays 
-    
-    if (dayOfWeek !== 6 && dayOfWeek !== 0) {
-        if (cellIndex === 5) {  
-        rowIndex++;  
-        row = calenderBody.insertRow(rowIndex);  
-        cellIndex = 0;  
+        // fillers 
+        if (cellIndex === 0 && dayOfWeek !== 1) { 
+            var fillersNeeded = dayOfWeek === 0 ? 4 : dayOfWeek - 1;
+            for (var j = 0; j < fillersNeeded; j++) {
+                var fillerCell = row.insertCell(cellIndex);
+                fillerCell.textContent = '';  
+                cellIndex++;
+            }
+            cnt--;
         }
 
-        var cell = row.insertCell(cellIndex);
-        cell.textContent = daysInMonth[i];
-        var schoolDay = (cnt) % 4 + 1; 
-        var subscript = document.createElement('sub');
-        subscript.textContent = 'Day ' + schoolDay;
-        subscript.className = 'school-day';
-        cell.appendChild(subscript);
+        // only weekdays 
+        if (dayOfWeek !== 6 && dayOfWeek !== 0) {
+            if (cellIndex === 5) {  
+                rowIndex++;  
+                row = calenderBody.insertRow(rowIndex);  
+                cellIndex = 0;  
+            }
 
-        // today = green
-        if (daysInMonth[i] === realDay && toggledMonth == realMonth) {
-        cell.classList.add('current-day');
+            var cell = row.insertCell(cellIndex);
+            cell.textContent = daysInMonth[i];
+            var schoolDay = (cnt) % 4 + 1; 
+            var subscript = document.createElement('sub');
+            subscript.textContent = 'Day ' + schoolDay;
+            subscript.className = 'school-day';
+            cell.appendChild(subscript);
+
+            // Highlight today in green 
+            if (daysInMonth[i] === realDay && toggledMonth === realMonth) { 
+                cell.classList.add('current-day');
+            }
+
+            // Highlight the next two weeks in blue
+            // Highlight next two weeks in blue
+            var futureDate = new Date(today);
+            futureDate.setDate(futureDate.getDate() + 14); // Get date 14 days ahead
+            // Highlight the next two weeks in blue
+            var currentCellDate = new Date(realYear, toggledMonthIndex, daysInMonth[i]);
+            if (currentCellDate > today && currentCellDate <= futureDate) {
+                cell.classList.add('future-day');
+            }
+            cell.addEventListener('click', function (event) {
+                if (activeCell) {
+                    activeCell.classList.remove('active');
+                }
+                activeCell = event.target;
+                activeCell.classList.add('active');
+                document.getElementById('input-overlay').classList.add('active');
+            });
+
+            cellIndex++;
+            cnt++; 
         }
-
-        // Highlight next two weeks in blue
-        var futureDate = new Date(today);
-        futureDate.setDate(futureDate.getDate() + 14); // Get date 14 days ahead
-        if (daysInMonth[i] > realDay && daysInMonth[i] <= futureDate.getDate() && toggledMonth == realMonth) {
-        cell.classList.add('future-day');
-        }
-
-        cell.addEventListener('click', function (event) {
-        if (activeCell) {
-            activeCell.classList.remove('active');
-        }
-        activeCell = event.target;
-        activeCell.classList.add('active');
-        document.getElementById('input-overlay').classList.add('active');
-        });
-
-        cellIndex++;
-        cnt++; 
-    }
     }
 }
+
+
 
 // wil remove when we get gib sheet 
 function setSchoolDay() { 

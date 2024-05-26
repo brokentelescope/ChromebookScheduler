@@ -35,13 +35,14 @@ def updateYear():
 def check_bin():
     bin_id = request.form['binId']
     is_duplicate = 0
-    folder_name = 'chromebook_data' 
+    folder_name = os.path.join('data', 'chromebook_data')
     # Check each file name in the chromebook_data folder
     for id in os.listdir(folder_name):
         if id == bin_id: 
             is_duplicate = 1
             break
-    return jsonify({'is_duplicate': is_duplicate}) 
+    return jsonify({'is_duplicate': is_duplicate})
+
     
 @app.route('/verify_account', methods=['POST'])
 def verify_account():
@@ -76,36 +77,39 @@ def get_account():
     }
     return jsonify(response_data) 
 
-@app.route('/get_reserved', methods = ['POST'])
+@app.route('/get_reserved', methods=['POST'])
 def get_reserved(): 
+    print(82)
     global username
     reservedByUser = []
-    # here we have to go read all the file, and all the line, make a check to see if name is ok, and append it
-    folder_name = 'chromebook_data'
-    # for id in os.listdir(folder_name): #A2, A32, etc 
-    reservedByUser = []
+    # Define the path to the chromebook_data folder within the data directory
+    folder_name = os.path.join('data', 'chromebook_data')
+    
+    # Iterate over each file in the chromebook_data folder
     for id in os.listdir(folder_name):
         if os.path.isfile(os.path.join(folder_name, id)):
             with open(os.path.join(folder_name, id), 'r') as file:
                 for line in file:
                     if username in line:
                         ID = get_info.get_info(id)[0]
-                        loc = get_info.get_info(id)[1]   
-                        reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1],line.split(',')[2]] )
+                        loc = get_info.get_info(id)[1]
+                        reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1], line.split(',')[2]])
     return jsonify(reservedByUser)
 
-@app.route('/get_current_locations', methods = ['POST'])
+
+@app.route('/get_current_locations', methods=['POST'])
 def get_current_locations():   
     data = request.json
     date = data['date']
     period = data['period']
-    f = 'chromebook_data' 
+    folder_name = os.path.join('data', 'chromebook_data')
     a = []
-    for id in os.listdir(f):    
-        if os.path.isfile(os.path.join(f, id)): 
-            with open(os.path.join(f, id), 'r') as file:
+    
+    for id in os.listdir(folder_name):    
+        if os.path.isfile(os.path.join(folder_name, id)): 
+            with open(os.path.join(folder_name, id), 'r') as file:
                 for line in file:
-                    if date+','+period in line:
+                    if date + ',' + period in line:
                         if "none" not in line: 
                             bin = id
                             source = get_info.get_info(id)[1]      
@@ -114,10 +118,9 @@ def get_current_locations():
                         else: 
                             bin = id
                             source = get_info.get_info(id)[1]      
-                            a.append([bin, source, "N/A"])
-                            
-
+                            a.append([bin, source, "N/A"]) 
     return jsonify(a)
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -175,14 +178,18 @@ def edit_chromebooks():
     name = username 
 
     edit_chromebook.edit(id, date, period, name) 
-    with open('reservation_history.txt', 'a') as file:
+    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
+
+
         file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
         
     return jsonify('Success')
 
 @app.route('/clear_history', methods=['POST'])
 def clear_history():
-    with open('reservation_history.txt', 'w') as file:
+    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
+
+
         pass
 
 @app.route('/check', methods=['POST'])
@@ -206,7 +213,9 @@ def check_chromebooks():
 @app.route('/get_history', methods = ['POST'])
 def get_history():
     available = []
-    with open('reservation_history.txt', 'r') as file:
+    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
+
+
         for line in file:
             available.append(line.strip().split(','))
     return jsonify(sorted(available)) 
@@ -223,7 +232,7 @@ def create_chromebook_file():
 
 @app.route('/get_data')
 def get_data(): 
-    with open('data.json', 'r') as file:
+    with open(os.path.join('data', 'reservation_history.txt'), 'r') as file:
         data = json.load(file)   
     return jsonify(data)   
 
