@@ -113,7 +113,7 @@ function reserve(id, date, period) {
             })
             .then(responseData => {
                 if (responseData == 'Success') {
-                    window.location.reload();
+                    // window.location.reload();
                     // alert('Your reservation of ' + id + ' at ' + date + ', period ' + period + ' was a success!');   
                     // search();
                 }
@@ -165,6 +165,7 @@ async function reserveAll() {
     var sel = document.getElementById("periodInput");
     var period = sel.options[sel.selectedIndex].text;
 
+    console.log(selectedBins)
     // Call the reserve function for each selected bin
     selectedBins.forEach(function(binId) {
         // Push each promise returned by reserve() into the array
@@ -172,8 +173,8 @@ async function reserveAll() {
     });
     // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving.
     window.location.reload();
-    await sleep(1000);
-    search();
+    // await sleep(1000);
+    // search();
 }
 
 // document.getElementById("clearButton").addEventListener("click", function() {
@@ -197,11 +198,11 @@ async function reserveAll() {
 //     });
 // });
 
-// document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
-//     // Reference Tracker 1
-//     // code to auto set the default values for the date input
-//     var today = new Date().toISOString().slice(0, 10);
-//     var date = document.getElementById("dateInput");
-//     date.value = today;
-//     date.min = today;
-// });
+document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
+    // Reference Tracker 1
+    // code to auto set the default values for the date input
+    var today = new Date().toISOString().slice(0, 10);
+    var date = document.getElementById("dateInput");
+    date.value = today;
+    date.min = today;
+});
