@@ -45,6 +45,19 @@ To configure school days and holidays:
 - Book a Chromebook tub for up to one month in advance.
 - Cancel your bookings to free up the slot for others.
 
+## Clearing Data
+
+To clear certain data within ChromebookScheduler, follow these steps:
+
+- **Reservation History:**
+  - To clear the reservation history, simply click the "Clear History" button on the reservation history page.
+  
+- **User Database:**
+  - To clear the user database, navigate to the admin manage user page. From there, you can edit or delete users as needed.
+  
+- **Chromebook Database:**
+  - To clear the Chromebook database, go to the manage bins section. From there, delete the Chromebook bins that are no longer needed.
+
 ## Contributing
 
 We welcome contributions to improve ChromebookScheduler! To contribute:
