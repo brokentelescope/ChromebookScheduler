@@ -253,10 +253,10 @@ def edit_chromebooks():
     name = username 
 
     edit_chromebook.edit(id, date, period, name) 
-    with open(os.path.join('data', 'reservation_history.txt'), 'w') as file: 
-        file.write(",".join([date, period, id, name]) + '\n') # can include to where if needed
+    with open(os.path.join('data', 'reservation_history.txt'), 'a') as file:  # Changed 'w' to 'a'
+        file.write(",".join([date, period, id, name]) + '\n')
         
-    return jsonify('Success')
+    return jsonify('Success') 
 
 @app.route('/clear_history', methods=['POST'])
 def clear_history():
