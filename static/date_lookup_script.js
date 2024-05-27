@@ -172,9 +172,9 @@ async function reserveAll() {
         reserve(binId, date, period);
     });
     // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving.
-    window.location.reload();
-    // await sleep(1000);
-    // search();
+    // window.location.reload();
+    await sleep(250);
+    search();
 }
 
 // document.getElementById("clearButton").addEventListener("click", function() {
