@@ -21,6 +21,7 @@ ChromebookScheduler is designed to facilitate the reservation and management of 
   - Python can be installed by following this [link](https://www.python.org/downloads/). 
   - All Python libraries used except Flask do not require additional installation. Installation instructions for Flask are outlined below.
 - **Flask Installation:**
+  - Flask can be installed by following this [link](https://www.youtube.com/watch?v=B1Qcb5xQ96M).
   - For Mac users, follow this [YouTube tutorial](https://www.youtube.com/watch?v=B1Qcb5xQ96M).
   - Install Flask using pip: `pip install flask`
 
