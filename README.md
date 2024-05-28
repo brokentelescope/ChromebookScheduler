@@ -17,9 +17,12 @@ ChromebookScheduler is designed to facilitate the reservation and management of 
 ## Installation Instructions
 
 ### Prerequisites:
+- **Python Installation:**
+  - Python can be installed by following this link: https://www.python.org/downloads/
 - **Flask Installation:**
   - For Mac users, follow this [YouTube tutorial](https://www.youtube.com/watch?v=B1Qcb5xQ96M).
   - Install Flask using pip: `pip install flask`
+- **Sqlite3 Installation:**
 
 ### Steps to Run the Application:
 1. Clone the GitHub repository: `git clone https://github.com/brokentelescope/ChromebookScheduler`
