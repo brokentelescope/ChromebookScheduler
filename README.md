@@ -75,13 +75,13 @@ The application is built using:
 - HTML
 - CSS
 - JavaScript
-- Flask (Python)
+- Python
 
 ## Contact Information
 
 For any questions or support, please reach out to:
 - Tianqin Meng: tianqin.steven.meng@gmail.com
-- Owen Chen: ochen2@ocdsb.ca
+- Owen Chen: owenchenyp@gmail.com
 
 ## Contributors
 
