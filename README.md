@@ -94,9 +94,9 @@ For any questions or support, please reach out to:
 
 [3] R. Kattimani, “Flask Login page web application | sqlite backend login verification,” YouTube, https://www.youtube.com/watch?v=X7KAEyRVhEk&t=931s (accessed Feb. 29, 2024). 
 
-[4] DayIsGreenDayIsGreen                      25522 gold badges44 silver badges2020 bronze badges, MamunMamun                      68.7k99 gold badges4949 silver badges6161 bronze badges, Sir CatzillaSir Catzilla                      32133 silver badges1919 bronze badges, AutoTester213AutoTester213                      2, and Yashwanth VaralaYashwanth Varala                      1, “Load HTML first before Javascript,” Stack Overflow, https://stackoverflow.com/questions/51300809/load-html-first-before-javascript (accessed May 27, 2024). 
+[4] DayIsGreenDayIsGreen, “Load HTML first before Javascript,” Stack Overflow, https://stackoverflow.com/questions/51300809/load-html-first-before-javascript (accessed May 27, 2024). 
 
-[5] Ian BrownIan Brown                      5 et al., “How to set input type date’s default value to today?,” Stack Overflow, https://stackoverflow.com/questions/6982692/how-to-set-input-type-dates-default-value-to-today (accessed Feb. 9, 2024). 
+[5] Ian BrownIan Brown et al., “How to set input type date’s default value to today?,” Stack Overflow, https://stackoverflow.com/questions/6982692/how-to-set-input-type-dates-default-value-to-today (accessed Feb. 9, 2024). 
 
 [6] F. S. Oseberg, “Async await JavaScript tutorial – how to wait for a function to finish in JS,” freeCodeCamp.org, https://www.freecodecamp.org/news/async-await-javascript-tutorial/ (accessed May 2, 2024). 
 
