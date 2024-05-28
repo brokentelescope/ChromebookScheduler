@@ -77,12 +77,11 @@ The application is built using:
 - JavaScript
 - Python
 
-## Contact Information
+## Contributors Contact Information
+
+This project was developed by Owen Chen, Tianqin Meng, and Rex Li from Merivale High School.
 
 For any questions or support, please reach out to:
 - Tianqin Meng: tianqin.steven.meng@gmail.com
 - Owen Chen: owenchenyp@gmail.com
-
-## Contributors
-
-This project was developed by Owen Chen, Tianqin Meng, and Rex Li from Merivale High School.
+- Rex Li: rli16@ocdsb.ca
