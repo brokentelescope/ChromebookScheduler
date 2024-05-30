@@ -48,6 +48,12 @@ To configure school days and holidays:
 - Book a Chromebook tub for up to one month in advance.
 - Cancel your bookings to free up the slot for others.
 
+## Date Range Maintenance
+
+The date range for Chromebook reservation availability is maintained in the `dateMaintained.txt` file. This file contains the start and end dates in the format: start year, start month, start day, end year, end month, end day.
+
+Users can update this date range using the "Update Month" button in the date lookup section of the application. Upon clicking this button, users can specify the new start and end dates for the reservation period, and the system will update the `dateMaintained.txt` file accordingly.
+
 ## Clearing Data
 
 To clear certain data within ChromebookScheduler, follow these steps:
