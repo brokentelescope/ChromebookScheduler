@@ -50,9 +50,11 @@ To configure school days and holidays:
 
 ## Date Range Maintenance
 
-The date range for Chromebook reservation availability is maintained in the `dateMaintained.txt` file. This file contains the start and end dates in the format: start year, start month, start day, end year, end month, end day.
+The Chromebook reservation availability is controlled by the `dateMaintained.txt` file, containing start and end dates in the format:
+- Start year, month, day
+- End year, month, day
 
-Users can update this date range using the "Update Month" button in the date lookup section of the application. Upon clicking this button, users can specify the new start and end dates for the reservation period, and the system will update the `dateMaintained.txt` file accordingly.
+Users can adjust this range using the "Update Month" button in the date lookup. Upon clicking, they specify new start and end dates, updating both the file and all bin data.
 
 ## Clearing Data
 
