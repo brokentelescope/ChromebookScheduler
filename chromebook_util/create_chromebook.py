@@ -10,7 +10,7 @@ import os
 folder_name = os.path.join('data', 'chromebook_data') 
 periods = '1234'
 
-def create(id, year, location, amount):
+def create(id, location, amount):
     """
     Function that creates a textfile with the chromebook id as the file name.
     Args:
@@ -21,9 +21,20 @@ def create(id, year, location, amount):
     Returns:
         none
         the data is stored in text-files in the format date,period,reserved_by
-    """
-    start_date = datetime.date(year, 1, 1)
-    end_date = datetime.date(year, 12, 31)
+    """ 
+    
+    # Construct the file path
+    file_path = os.path.join(folder_name, id)
+    
+    # Get start and end dates from the file
+    with open("data/dateMaintained.txt", "r") as date_file:
+        start_date_str, end_date_str = date_file.readlines()
+        start_year, start_month, start_day = map(int, start_date_str.strip().split(","))
+        end_year, end_month, end_day = map(int, end_date_str.strip().split(","))
+    
+    # Convert start and end dates to datetime objects
+    start_date = datetime.date(start_year, start_month, start_day)
+    end_date = datetime.date(end_year, end_month, end_day)
     delta = datetime.timedelta(days=1)
     
     id = os.path.join(folder_name, id)

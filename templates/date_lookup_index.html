@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="../static/all_pages_style.css" type="text/css"/>
     <link rel="stylesheet" href="../static/calender.css" type="text/css"/> 
     <script src="../static/date_lookup_script.js"></script> 
+
+    <style>
+        /* Additional styles to ensure the textbox fits the content */
+        #yearRange {
+            background-color: #f0f0f0; 
+            color: #888; 
+            border: none; 
+            margin-left: 10px; 
+            font-size: 0.9em;
+            width: 400px; /* Adjust width as necessary */
+            padding: 2px 5px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -19,16 +33,25 @@
         {% include 'navigation.html' %} 
         <table class="new-table fixedTable" id="chromebookTable">
             <tr>
-                <td style = "color: #3498db;" colspan="2">Lookup</td>  
+                <td style="color: #3498db;" colspan="2">Lookup</td>  
                 <td><button id="search" onclick="showCalender()">Show Calender</button></td> 
-                <td><button onclick="updateYear()">Update year</button></td>
+                <td>
+                    <button onclick="updateYear()">Update Month</button>
+                </td>
+
+            </tr>
+            <tr>
+                <td style="color: #3498db;" colspan="2"></td>   
+                <td style="color: #3498db;" colspan="2">
+                    <input type="text" id="yearRange" readonly />
+                </td>
             </tr>
 
             <tr>
-                <td>Date: <input type = "date" id = "dateInput"></td>
+                <td>Date: <input type="date" id="dateInput"></td>
                 <td>
                     Period: 
-                    <select id = "periodInput">
+                    <select id="periodInput">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -39,7 +62,7 @@
                 <td><button onclick="reserveAll()">Reserve Selected Bins</button></td>
             </tr>    
 
-            <tr id = "headerRow" style="display: none;"> 
+            <tr id="headerRow" style="display: none;"> 
                 <td style="color: #3498db;">ID</td>
                 <td style="color: #3498db;">Location</td>
                 <td style="color: #3498db;"># of Bins Available</td>
@@ -86,6 +109,21 @@
 
  
     <script src="../static/calender_script.js"></script> 
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/get_date_range')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const displayText = `Maintaining ${data.start} to ${data.end} currently`;
+                document.getElementById('yearRange').value = displayText;
+            })
+            .catch(error => console.error('Error fetching date range:', error));
+        });
+    </script>
 </body>
 </html>

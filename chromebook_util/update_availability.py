@@ -16,7 +16,7 @@ def add_next_month_date_and_remove_oldest(file_path):
     Returns:
         none
     """
-    # Read all lines from the file
+# Read all lines from the file
     with open(file_path, 'r') as file:
         lines = file.readlines()
     
@@ -27,7 +27,15 @@ def add_next_month_date_and_remove_oldest(file_path):
     # Determine the next day to add by parsing the last line's date
     last_line = lines[-1]  # Get the new last line after deletion
     last_date_str = last_line.split(',')[0]
-    last_date = datetime.strptime(last_date_str, '%Y-%m-%d')
+    print("Last Date String:", last_date_str)  # Debugging
+    try:
+        last_date = datetime.strptime(last_date_str, '%Y-%m-%d')
+    except ValueError as e:
+        print("Error:", e)  # Print the error message
+        print("Last Line:", last_line)  # Debugging
+        print("Lines:", lines)  # Debugging
+        return  # Exit the function if there's an error
+
     next_day = last_date + timedelta(days=1)
 
     # Append the next day's data

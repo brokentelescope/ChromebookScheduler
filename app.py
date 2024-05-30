@@ -19,12 +19,24 @@ import all_available
 import get_info
 import database_util
 import update_availability
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'key'
 
-username = ''  
+username = ''   
 
+@app.route('/get_date_range', methods=['GET'])
+def get_date_range():
+    file_path = os.path.join('data', 'dateMaintained.txt')
+    try:
+        with open(file_path, 'r') as file:
+            start_date = file.readline().strip()
+            end_date = file.readline().strip()
+        return jsonify(start=start_date, end=end_date)
+    except Exception as e:
+        return jsonify(error=str(e)), 500
+    
 @app.route('/get_day')
 def get_day():
     month_names_to_numbers = {
@@ -59,7 +71,7 @@ def get_day():
                 entry_month = int(parts[0])
                 entry_day = int(parts[1])
                 value = parts[2]
-                print(entry_month, month_number, entry_day, day)
+                # print(entry_month, month_number, entry_day, day)
                 if entry_month == month_number and entry_day == day:
                     if value == "1" or value == "2" or value == "3" or value == "4":
                         value = "Day " + value 
@@ -79,8 +91,44 @@ def get_day():
 
 @app.route('/updateYear', methods=['POST'])
 def updateYear():  
-    update_availability.execute()
-    return 'Update availability script executed successfully'
+    # Update the date range
+    file_path = 'data/dateMaintained.txt'
+    with open(file_path, 'r') as file:
+        start_date = file.readline().strip()
+        end_date = file.readline().strip()
+    
+    # Convert the dates to datetime objects
+    start_date_obj = datetime.datetime.strptime(start_date, "%Y,%m,%d")
+    end_date_obj = datetime.datetime.strptime(end_date, "%Y,%m,%d")
+    
+    # Calculate the first day of the next month for start_date
+    next_month_start = (start_date_obj.month % 12) + 1
+    next_year_start = start_date_obj.year + ((start_date_obj.month - 1) // 12)
+    new_start_date_obj = datetime.datetime(next_year_start, next_month_start, 1)
+    
+    # Calculate the first day of the next month for end_date
+    next_month_end = (end_date_obj.month % 12) + 1
+    next_year_end = end_date_obj.year + ((end_date_obj.month - 1) // 12)
+    new_end_date_obj = datetime.datetime(next_year_end, next_month_end, 1)
+    
+    # Calculate the number of days shifted
+    days_shifted = (new_start_date_obj - start_date_obj).days
+    
+    # Write the new dates back to the file
+    with open(file_path, 'w') as file:
+        file.write(new_start_date_obj.strftime("%Y,%m,%d") + '\n')
+        file.write(new_end_date_obj.strftime("%Y,%m,%d") + '\n')
+    
+    # Execute the availability update script
+    # Assuming update_availability is imported correctly
+    for i in range(days_shifted): 
+        update_availability.execute()
+    
+    # Print the number of days shifted
+    print(days_shifted)
+    
+    return jsonify(message='Update availability script executed successfully')
+
 
 
 @app.route('/check_bin', methods=['POST'])
@@ -178,8 +226,6 @@ def get_current_locations():
                             source = get_info.get_info(id)[1]      
                             a.append([bin, source, "N/A"]) 
     return jsonify(a)
-
-
 
 @app.route('/', methods=['GET', 'POST'])
 def login_index():
@@ -320,10 +366,8 @@ def create_chromebook_file():
     data = request.json 
     location = data['location'] 
     amt = data['amt']
-    id = data['id']
-    year = datetime.now().year
-    print(id, year, location, amt)
-    create_chromebook.create(id, year, location, amt)
+    id = data['id'] 
+    create_chromebook.create(id, location, amt)
     return jsonify('Success')
 
 @app.route('/get_data')

@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/get_date_range')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const startDate = new Date(data.start);
+        const endDate = new Date(data.end);
+        const formattedStartDate = `${startDate.getFullYear()}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate.getDate().toString().padStart(2, '0')}`;
+        const formattedEndDate = `${endDate.getFullYear()}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getDate().toString().padStart(2, '0')}`;
+        document.getElementById('yearRange').value = `${formattedStartDate} - ${formattedEndDate}`;
+    })
+    .catch(error => console.error('Error fetching date range:', error));
+});
+
 function updateYear(){
     fetch('/updateYear', {
         method: 'POST',
@@ -5,6 +23,7 @@ function updateYear(){
             'Content-Type': 'application/json'
         } 
     })
+    window.location.reload();
 }
 
 function search() {
@@ -171,9 +190,8 @@ async function reserveAll() {
         // Push each promise returned by reserve() into the array
         reserve(binId, date, period);
     });
-    // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving.
-    // window.location.reload();
-    await sleep(250);
+    // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving. 
+    await sleep(1000);
     search();
 }
 
