@@ -21,8 +21,6 @@
             padding: 2px 5px;
             box-sizing: border-box;
         }
-
-        /* Styles for the warning modal */
         .modal {
             display: none;
             position: fixed;
@@ -76,9 +74,9 @@
         <table class="new-table fixedTable" id="chromebookTable">
             <tr>
                 <td style="color: #3498db;" colspan="2">Lookup</td>  
-                <td><button id="search" onclick="showCalender()">Show Calendar</button></td> 
+                <td><button id="search" onclick="showCalender()">Show Calender</button></td> 
                 <td>
-                    <button id="update-month-btn" onclick="updateYear()">Update Month</button>
+                    <button onclick="updateYear()">Update Month</button>
                 </td>
 
             </tr>
@@ -118,7 +116,7 @@
  
     <div id="calender-modal">
         <div id="calender-modal-content">
-            <button onclick="hideCalender()">Close calendar</button>
+            <button onclick="hideCalender()">Close calender</button>
             <table id="calender">
                 <thead>
                 <tr>
@@ -149,6 +147,7 @@
         <button onclick="setSchoolDay()">Set Day</button>
     </div>    
 
+ 
     <div id="warning-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideWarningModal()">&times;</span>
@@ -167,8 +166,7 @@
             {% endif %}
         </div>
     </div>
-    <script src="../static/calendar_script.js"></script>
-    
+    <script src="../static/calender_script.js"></script> 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/get_date_range')

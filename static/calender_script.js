@@ -1,6 +1,7 @@
 let activeCell = null;
 
 function showCalender() {    
+    console.log(4)
     document.getElementById('calender-modal').style.display = 'block'; 
     showArrows(); // Show arrows when the calender is shown
 }
