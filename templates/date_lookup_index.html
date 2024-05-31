@@ -21,6 +21,48 @@
             padding: 2px 5px;
             box-sizing: border-box;
         }
+
+        /* Styles for the warning modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .warning-text {
+            color: black;
+        }
+
     </style>
 </head>
 <body>
@@ -34,9 +76,9 @@
         <table class="new-table fixedTable" id="chromebookTable">
             <tr>
                 <td style="color: #3498db;" colspan="2">Lookup</td>  
-                <td><button id="search" onclick="showCalender()">Show Calender</button></td> 
+                <td><button id="search" onclick="showCalender()">Show Calendar</button></td> 
                 <td>
-                    <button onclick="updateYear()">Update Month</button>
+                    <button id="update-month-btn" onclick="updateYear()">Update Month</button>
                 </td>
 
             </tr>
@@ -76,7 +118,7 @@
  
     <div id="calender-modal">
         <div id="calender-modal-content">
-            <button onclick="hideCalender()">Close calender</button>
+            <button onclick="hideCalender()">Close calendar</button>
             <table id="calender">
                 <thead>
                 <tr>
@@ -107,8 +149,26 @@
         <button onclick="setSchoolDay()">Set Day</button>
     </div>    
 
- 
-    <script src="../static/calender_script.js"></script> 
+    <div id="warning-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideWarningModal()">&times;</span>
+            <p class="warning-text">WARNING: Clicking "Update Month" will permanently delete one month of data, shifting the date window up by one month. Ensure the current date is in the middle of the range to avoid accidental issues. Confirmation is required to proceed.</p>
+    
+            {% if is_admin %}
+                <button onclick="updateYearConfirmed()">Update Month</button>
+            {% else %} 
+                <button disabled>Update Month</button>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var updateMonthButton = document.querySelector("#warning-modal button");
+                        updateMonthButton.style.opacity = 0.5;
+                    });
+                </script>
+            {% endif %}
+        </div>
+    </div>
+    <script src="../static/calendar_script.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/get_date_range')

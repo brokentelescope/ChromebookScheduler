@@ -200,6 +200,11 @@ def get_reserved():
                         ID = get_info.get_info(id)[0]
                         loc = get_info.get_info(id)[1]
                         reservedByUser.append([ID, loc, line.split(',')[0], line.split(',')[1], line.split(',')[2]])
+
+    # Sort reservedByUser by date in descending order
+    reservedByUser = sorted(reservedByUser, key=lambda x: x[2], reverse=True)
+
+    print(reservedByUser)
     return jsonify(reservedByUser)
 
 

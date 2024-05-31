@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     fetch('/get_date_range')
     .then(response => {
@@ -16,7 +17,20 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => console.error('Error fetching date range:', error));
 });
 
-function updateYear(){
+function showWarningModal() {
+    document.getElementById("warning-modal").style.display = "block";
+}
+
+function hideWarningModal() {
+    document.getElementById("warning-modal").style.display = "none";
+}
+
+function updateYear() {
+    // Display the warning modal
+    showWarningModal();
+}
+
+function updateYearConfirmed() {
     fetch('/updateYear', {
         method: 'POST',
         headers: {
@@ -24,6 +38,7 @@ function updateYear(){
         } 
     })
     window.location.reload();
+    hideWarningModal();
 }
 
 function search() {

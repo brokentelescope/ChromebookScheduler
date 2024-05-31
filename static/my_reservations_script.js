@@ -1,4 +1,4 @@
-function cancelAll() { 
+async function cancelAll() { 
     /**
      * Function that cancels the user's selected reservations.
      * Input is taken from HTML checkbox input.
@@ -20,6 +20,8 @@ function cancelAll() {
     selectedBins.forEach(function(tmp) {  
         cancel(tmp.split(',')[0], tmp.split(',')[1], tmp.split(',')[2]);
     });
+    await sleep(1000);
+    display();
 }
 
 function display() {  
