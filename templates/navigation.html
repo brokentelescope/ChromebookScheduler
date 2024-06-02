@@ -1,10 +1,6 @@
 <!-- Since this code is reused in all the HTML files, we put it in a separate file that is imported into other HTML files for simplicity. -->
-<table>
-    {% if is_verified %}
-        <tr><td class="highlight {% if active_page == 'date_lookup' %}active{% endif %}"><a href="{{ url_for('date_lookup') }}">Reserve</a></td></tr>
-    {% else %} 
-        <tr><td class="highlight"><button class="button grayed-out" disabled>Reserve</button></td></tr>
-    {% endif %}
+<table> 
+    <tr><td class="highlight {% if active_page == 'date_lookup' %}active{% endif %}"><a href="{{ url_for('date_lookup') }}">View Bins</a></td></tr>
     <tr><td class="highlight {% if active_page == 'my_reservations' %}active{% endif %}"><a href="{{ url_for('my_reservations') }}">My Reservations</a></td></tr>
     <!-- <tr><td class="highlight {% if active_page == 'current_locations' %}active{% endif %}"><a href="{{ url_for('current_locations') }}">Bin Locations</a></td></tr>  -->
     <tr class="invisible-row"><td class="highlight"></td></tr> <!-- Invisible row -->

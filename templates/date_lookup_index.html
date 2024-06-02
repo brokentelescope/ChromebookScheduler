@@ -76,7 +76,19 @@
                 <td style="color: #3498db;" colspan="2">Lookup</td>  
                 <td><button id="search" onclick="showCalender()">Show Calender</button></td> 
                 <td>
-                    <button onclick="updateYear()">Update Month</button>
+                    {% if is_verified %}
+                        <button id="updateMonth" onclick="updateYear()">Update Month</button>
+                    {% else %}
+                        <button id="updateMonth" onclick="updateYear()" disabled>Update Month</button>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                var updateButton = document.getElementById("updateMonth");
+                                updateButton.disabled = true;
+                                updateButton.style.opacity = 0.5;
+                            });
+                        </script>
+                {% endif %}
+                
                 </td>
 
             </tr>
@@ -99,7 +111,19 @@
                     </select>
                 </td>
                 <td><button id="search" onclick="search()">Submit</button></td>
-                <td><button onclick="reserveAll()">Reserve Selected Bins</button></td>
+                {% if is_verified %}
+                <td><button id="reserveBins" onclick="reserveAll()">Reserve Selected Bins</button></td>
+            {% else %}
+                <td><button id="reserveBins" onclick="reserveAll()" disabled>Reserve Selected Bins</button></td>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var reserveButton = document.getElementById("reserveBins");
+                        reserveButton.disabled = true;
+                        reserveButton.style.opacity = 0.5;
+                    });
+                </script>
+            {% endif %}
+            
             </tr>    
 
             <tr id="headerRow" style="display: none;"> 
