@@ -54,7 +54,7 @@ The Chromebook reservation availability is controlled by the `dateMaintained.txt
 - Start year, month, day
 - End year, month, day
 
-Users can adjust this range using the "Update Month" button in the date lookup. Upon clicking, they specify new start and end dates, updating both the file and all bin data.
+Users can adjust this range using the "Update Month" button in the date lookup. (EDIT: THIS BUTTON IS TEMPORARILY DISABLED, BUT INSTEAD THE DATE MAINTAINED WILL BE THE NEXT 10 YEARS, SO IMPOSSIBLE TO RUN OUT). Upon clicking, they specify new start and end dates, updating both the file and all bin data.
 
 ## Clearing Data
 
