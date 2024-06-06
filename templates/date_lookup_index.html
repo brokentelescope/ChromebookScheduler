@@ -73,9 +73,9 @@
         {% include 'navigation.html' %} 
         <table class="new-table fixedTable" id="chromebookTable">
             <tr>
-                <td style="color: #3498db;" colspan="2">Lookup</td>  
-                <td><button id="search" onclick="showCalender()">Show Calender</button></td> 
-                <!-- NOTE: THE CODE COMMENTED OUT WAS THE IMPLEMENTATION OF A BUTTON THAT UPDATES DATE MAINTAINANCE RANGE, WHICH IS NOT NEEDED IN 10 YEARS -->
+                <td style="color: #3498db;" colspan="4">Lookup</td>  
+                
+                <!-- NOTE: THE CODE COMMENTED OUT WAS THE IMPLEMENTATION OF A BUTTON THAT UPDATES DATE MAINTAINANCE RANGE, WHICH IS NOT NEEDED ANYMORE - IT IS AUTOMATED! -->
                 <!-- <td>
                     {% if is_verified %}
                         <button id="updateMonth" onclick="updateYear()">Update Month</button>
@@ -88,17 +88,17 @@
                                 updateButton.style.opacity = 0.5;
                             });
                         </script>
-                {% endif %} -->
+                {% endif %}
                 
-                </td>
+                </td> -->
 
             </tr>
-            <!-- <tr>
-                <td style="color: #3498db;" colspan="2"></td>   
+            <tr>
+                <td colspan = 2><button id="search" onclick="showCalender()">Show Calender</button></td>  
                 <td style="color: #3498db;" colspan="2">
                     <input type="text" id="yearRange" readonly />
                 </td>
-            </tr> -->
+            </tr>
 
             <tr>
                 <td>Date: <input type="date" id="dateInput"></td>
@@ -173,7 +173,7 @@
     </div>    
 
  
-    <!-- <div id="warning-modal" class="modal">
+    <div id="warning-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideWarningModal()">&times;</span>
             <p class="warning-text">WARNING: Clicking "Update Month" will permanently delete one month of data, shifting the date window up by one month. Ensure the current date is in the middle of the range to avoid accidental issues. Confirmation is required to proceed.</p>
@@ -190,23 +190,7 @@
                 </script>
             {% endif %}
         </div>
-    </div> -->
-    <script src="../static/calender_script.js"></script> 
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('/get_date_range')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const displayText = `Maintaining ${data.start} to ${data.end} currently`;
-                document.getElementById('yearRange').value = displayText;
-            })
-            .catch(error => console.error('Error fetching date range:', error));
-        });
-    </script> -->
+    </div>
+    <script src="../static/calender_script.js"></script>  
 </body>
 </html>

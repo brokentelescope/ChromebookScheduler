@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     fetch('/get_date_range')
     .then(response => {
@@ -30,14 +29,14 @@ function updateYear() {
     showWarningModal();
 }
 
-function updateYearConfirmed() {
+async function updateYearConfirmed() {
     fetch('/updateYear', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         } 
     })
-    window.location.reload();
+    window.location.reload(); 
     hideWarningModal();
 }
 
@@ -206,30 +205,10 @@ async function reserveAll() {
         reserve(binId, date, period);
     });
     // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving. 
-    await sleep(1000);
+    await sleep(3000);
     search();
 }
 
-// document.getElementById("clearButton").addEventListener("click", function() {
-//     // Make an HTTP POST request to the Flask route
-//     fetch('/clear_history', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({}) // No data to send in this case
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             console.log("History cleared successfully");
-//         } else {
-//             console.error("Failed to clear history");
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Error occurred:", error);
-//     });
-// });
 
 document.addEventListener("DOMContentLoaded", function(event) { // Reference Tracker 2
     // Reference Tracker 1
@@ -239,3 +218,92 @@ document.addEventListener("DOMContentLoaded", function(event) { // Reference Tra
     date.value = today;
     date.min = today;
 });
+
+
+
+//
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetchDateRangeAndUpdate();
+    checkAndUpdateDateRange();
+    setDefaultDate();
+});
+
+function fetchDateRangeAndUpdate() { 
+    fetch('/get_date_range')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const displayText = `Maintaining ${data.start} to ${data.end} currently`;
+        document.getElementById('yearRange').value = displayText;
+    })
+    .catch(error => console.error('Error fetching date range:', error)); 
+}
+
+// Helper function to introduce a delay
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let isUpdating = false;
+
+async function updateYearConfirmed() {
+    if (isUpdating) {
+        console.log('Update already in progress. Waiting for the delay to pass.');
+        return;
+    }
+
+    isUpdating = true;
+
+    try {
+        await sleep(2000); // Wait for 2 seconds
+        const response = await fetch('/updateYear', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        window.location.reload(); 
+    } catch (error) {
+        console.error('Error updating year:', error);
+    } finally {
+        hideWarningModal();
+        isUpdating = false;
+    }
+}
+
+function checkAndUpdateDateRange() {
+    fetch('/get_date_range')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const currentDate = new Date();
+            let startDate = new Date(data.start);
+            let endDate = new Date(data.end);
+            let midpoint = new Date((startDate.getTime() + endDate.getTime()) / 2); 
+            // If the midpoint was before the current month, update the date range
+            if (midpoint < new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)) {
+
+                updateYearConfirmed();
+            }
+        })
+        .catch(error => console.error('Error checking date range:', error));
+}
+
+function setDefaultDate() {
+    const today = new Date().toISOString().slice(0, 10);
+    const dateInput = document.getElementById("dateInput");
+    dateInput.value = today;
+    dateInput.min = today;
+}

@@ -90,7 +90,7 @@ def get_day():
         })  
 
 @app.route('/updateYear', methods=['POST'])
-def updateYear():  
+def updateYear():   
     # Update the date range
     file_path = 'data/dateMaintained.txt'
     with open(file_path, 'r') as file:
@@ -102,13 +102,23 @@ def updateYear():
     end_date_obj = datetime.datetime.strptime(end_date, "%Y,%m,%d")
     
     # Calculate the first day of the next month for start_date
-    next_month_start = (start_date_obj.month % 12) + 1
-    next_year_start = start_date_obj.year + ((start_date_obj.month - 1) // 12)
+    if start_date_obj.month == 12:
+        next_month_start = 1
+        next_year_start = start_date_obj.year + 1
+    else:
+        next_month_start = start_date_obj.month + 1
+        next_year_start = start_date_obj.year
+    
     new_start_date_obj = datetime.datetime(next_year_start, next_month_start, 1)
     
     # Calculate the first day of the next month for end_date
-    next_month_end = (end_date_obj.month % 12) + 1
-    next_year_end = end_date_obj.year + ((end_date_obj.month - 1) // 12)
+    if end_date_obj.month == 12:
+        next_month_end = 1
+        next_year_end = end_date_obj.year + 1
+    else:
+        next_month_end = end_date_obj.month + 1
+        next_year_end = end_date_obj.year
+    
     new_end_date_obj = datetime.datetime(next_year_end, next_month_end, 1)
     
     # Calculate the number of days shifted
@@ -128,6 +138,7 @@ def updateYear():
     print(days_shifted)
     
     return jsonify(message='Update availability script executed successfully')
+
 
 
 
