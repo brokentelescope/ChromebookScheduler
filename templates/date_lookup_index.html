@@ -17,7 +17,7 @@
             border: none; 
             margin-left: 10px; 
             font-size: 0.9em;
-            width: 400px; /* Adjust width as necessary */
+            width: 340px; /* Adjust width as necessary */
             padding: 2px 5px;
             box-sizing: border-box;
         }
@@ -113,9 +113,9 @@
                 </td>
                 <td><button id="search" onclick="search()">Submit</button></td>
                 {% if is_verified %}
-                <td><button id="reserveBins" onclick="reserveAll()">Reserve Selected Bins</button></td>
-            {% else %}
-                <td><button id="reserveBins" onclick="reserveAll()" disabled>Reserve Selected Bins</button></td>
+                    <td><button id="reserveBins" onclick="reserveAll()">Reserve Selected Bins</button></td>
+                {% else %}
+                    <td><button id="reserveBins" onclick="reserveAll()" disabled>Reserve Selected Bins</button></td>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         var reserveButton = document.getElementById("reserveBins");
@@ -173,7 +173,7 @@
     </div>    
 
  
-    <div id="warning-modal" class="modal">
+    <!-- <div id="warning-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="hideWarningModal()">&times;</span>
             <p class="warning-text">WARNING: Clicking "Update Month" will permanently delete one month of data, shifting the date window up by one month. Ensure the current date is in the middle of the range to avoid accidental issues. Confirmation is required to proceed.</p>
@@ -190,7 +190,7 @@
                 </script>
             {% endif %}
         </div>
-    </div>
+    </div> -->
     <script src="../static/calender_script.js"></script>  
 </body>
 </html>

@@ -4,8 +4,8 @@ Possible ChatGBT prompt to use: please convert the data into forms like:
 9,4,2
 9,5,3
 ...
-
-first number is month, second number is day, last number is 1/2/3/4/H/PD, 
+first number is month, second number is day, last number is 1/2/3/4/H/PD, H for holiday, PD for PD day. I want nothing else. Be smart, if you see september, the month is 9. If you see something like September
+5 - Day 1, that row should be 9,5,1
 
 /INSERT DATA AFTER THIS LINE/
 9,3,1
@@ -198,27 +198,15 @@ first number is month, second number is day, last number is 1/2/3/4/H/PD,
 5,22,2
 5,23,3
 5,26,4
-5,27,1
-5,28,2
-5,29,3
-5,30,4
-6,2,1
-6,3,2
-6,4,3
-6,5,4
-6,6,1
-6,9,2
-6,10,3
-6,11,4
-6,12,E
-6,13,E
-6,16,E
-6,17,E
-6,18,E
-6,19,E
-6,20,E
-6,23,E
-6,24,E
-6,25,E
-6,26,PD
-6,27,PD
+5,27,2
+5,28,3
+5,29,4
+5,30,1
+5,31,2
+6,3,3
+6,4,4
+6,5,1
+6,6,2
+6,7,3
+6,10,4
+6,11,1

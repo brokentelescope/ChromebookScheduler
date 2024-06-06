@@ -76,7 +76,7 @@ button#prev-month:hover, button#next-month:hover {
 }
 
 #calender-modal button {
-  padding: 10px 20px;
+  padding: 8px 8px; /* Adjusted padding */
   background-color: #1E90FF;
   color: #fff;
   border: none;

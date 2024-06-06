@@ -205,7 +205,7 @@ async function reserveAll() {
         reserve(binId, date, period);
     });
     // waiting a bit before searching ensures that when the search function is called, the bins have finished reserving. 
-    await sleep(3000);
+    await sleep(1000);
     search();
 }
 
@@ -238,7 +238,7 @@ function fetchDateRangeAndUpdate() {
         return response.json();
     })
     .then(data => {
-        const displayText = `Maintaining ${data.start} to ${data.end} currently`;
+        const displayText = `Maintaining ${data.start} to ${data.end}`;
         document.getElementById('yearRange').value = displayText;
     })
     .catch(error => console.error('Error fetching date range:', error)); 
