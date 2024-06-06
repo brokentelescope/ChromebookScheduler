@@ -49,7 +49,7 @@ To configure school days and holidays:
 - Cancel your bookings to free up the slot for others.
 
 ## Midpoint-Based Date Range Update
-The Chromebook reservation availability is controlled by the `dateMaintained.txt` file, containing start and end dates in the format:
+The date maintained is determined by the `dateMaintained.txt` file, containing start and end dates in the format:
 - Start year, month, day
 - End year, month, day
 
